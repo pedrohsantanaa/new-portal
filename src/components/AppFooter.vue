@@ -1,0 +1,311 @@
+<template>
+  <footer class="footer">
+
+    <!-- TOP -->
+    <div class="container footer-grid">
+
+      <!-- Marca -->
+      <div class="footer-brand">
+
+        <img
+          src="../assets/image/logo_branco.png"
+          alt="Logo"
+          class="footer-logo"
+        />
+
+        <p>
+          Impulsionando sonhos e fortalecendo
+          empreendedores por meio de soluções
+          financeiras acessíveis.
+        </p>
+
+        <div class="socials">
+          <a href="#">📘</a>
+          <a href="#">📸</a>
+          <a href="#">▶️</a>
+          <a href="#">💼</a>
+        </div>
+
+      </div>
+
+      <!-- Institucional -->
+      <div class="footer-column">
+        <h3>Institucional</h3>
+
+        <ul>
+          <li><a href="#">Quem Somos</a></li>
+          <li><a href="#">Transparência</a></li>
+          <li><a href="#">Notícias</a></li>
+          <li><a href="#">Ouvidoria</a></li>
+        </ul>
+      </div>
+
+      <!-- Serviços -->
+      <div class="footer-column">
+        <h3>Serviços</h3>
+
+        <ul>
+          <li><a href="#">Solicitar Crédito</a></li>
+          <li><a href="#">Simulador</a></li>
+          <li><a href="#">Emitir Boleto</a></li>
+          <li><a href="#">Consultar Protocolo</a></li>
+        </ul>
+      </div>
+
+      <!-- Contato -->
+      <div class="footer-column">
+        <h3>Contato</h3>
+
+        <ul class="contact-list">
+          <li>📍 Palmas - Tocantins</li>
+          <li>📞 (63) 3218-1548</li>
+          <li>✉ contato@empresa.com</li>
+          <li>🕒 Seg a Sex • 08h às 18h</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="footer-bottom">
+      <div class="container bottom-content">
+
+        <p>
+          © 2026 Meu Crédito.
+          Todos os direitos reservados.
+        </p>
+
+        <div class="bottom-links">
+          <a href="#">
+            Política de Privacidade
+          </a>
+
+          <a href="#">
+            Termos de Uso
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </footer>
+</template>
+
+<style scoped>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FOOTER */
+.footer {
+  background:
+    linear-gradient(
+      135deg,
+      #082f63,
+      #0f4c81
+    );
+
+  color: white;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* CONTAINER */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* GRID */
+.footer-grid {
+  padding: 70px 0 50px;
+
+  display: grid;
+  grid-template-columns:
+    1.5fr 1fr 1fr 1fr;
+
+  gap: 40px;
+}
+
+/* BRAND */
+.footer-brand {
+  min-width: 0;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.footer-brand p {
+  color: rgba(255,255,255,.75);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  max-width: 320px;
+}
+
+/* REDES */
+.socials {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.socials a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+
+  background:
+    rgba(255,255,255,.12);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  transition: .3s;
+}
+
+.socials a:hover {
+  background:
+    rgba(255,255,255,.22);
+
+  transform: translateY(-3px);
+}
+
+/* COLUNAS */
+.footer-column {
+  min-width: 0;
+}
+
+.footer-column h3 {
+  margin-bottom: 22px;
+  font-size: 20px;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column li {
+  margin-bottom: 14px;
+}
+
+.footer-column a {
+  text-decoration: none;
+  color: rgba(255,255,255,.75);
+  transition: .3s;
+  word-break: break-word;
+}
+
+.footer-column a:hover {
+  color: white;
+}
+
+.contact-list li {
+  color: rgba(255,255,255,.75);
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+/* BOTTOM */
+.footer-bottom {
+  border-top:
+    1px solid rgba(255,255,255,.12);
+
+  padding: 22px 0;
+}
+
+.bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.bottom-content p {
+  color: rgba(255,255,255,.7);
+  font-size: 14px;
+}
+
+.bottom-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bottom-links a {
+  color: rgba(255,255,255,.7);
+  text-decoration: none;
+  transition: .3s;
+  text-align: center;
+}
+
+.bottom-links a:hover {
+  color: white;
+}
+
+/* TABLET */
+@media(max-width:1024px){
+
+  .footer-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 35px;
+  }
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 55px 0 40px;
+    gap: 40px;
+  }
+
+  .footer-logo {
+    margin: 0 auto 20px;
+  }
+
+  .footer-brand p {
+    margin-inline: auto;
+  }
+
+  .socials {
+    justify-content: center;
+  }
+
+  .footer-column ul {
+    padding: 0;
+  }
+
+  .contact-list {
+    padding: 0;
+  }
+
+  .bottom-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .bottom-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+</style>

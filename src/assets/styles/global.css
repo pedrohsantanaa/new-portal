@@ -1,0 +1,253 @@
+/* ======================
+   RESPONSIVIDADE GLOBAL
+====================== */
+
+/* Evita scroll horizontal */
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Container seguro */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 20px;
+}
+
+/* Textos responsivos */
+h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+}
+
+p {
+  font-size: clamp(.95rem, 2vw, 1.1rem);
+}
+
+/* Botões */
+button,
+a {
+  max-width: 100%;
+}
+
+/* Grid segura */
+.grid,
+.hero-content,
+.finance-grid,
+.footer-grid,
+.news-grid,
+.services-grid {
+  width: 100%;
+}
+
+/* ======================
+   DESKTOP GRANDE
+====================== */
+@media (max-width: 1200px) {
+
+  .container {
+    padding-inline: 24px;
+  }
+
+  .hero-content {
+    gap: 30px !important;
+  }
+}
+
+/* ======================
+   TABLET
+====================== */
+@media (max-width: 992px) {
+
+  section {
+    padding: 70px 0 !important;
+  }
+
+  /* HERO */
+  .hero-content {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+
+  .hero-text {
+    margin: auto;
+  }
+
+  .hero-image {
+    margin-left: 0 !important;
+  }
+
+  .hero-image img {
+    height: 420px !important;
+  }
+
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* CARDS */
+  .credit-grid,
+  .news-grid,
+  .services-grid {
+    grid-template-columns:
+      repeat(2, 1fr) !important;
+  }
+
+  /* FINANCE */
+  .finance-grid {
+    grid-template-columns:
+      1fr !important;
+  }
+
+  .simulator-content {
+    flex-direction: column;
+  }
+
+  /* STORIES */
+  .story-card {
+    min-width:
+      calc(50% - 12px) !important;
+  }
+
+  /* FOOTER */
+  .footer-grid {
+    grid-template-columns:
+      repeat(2, 1fr) !important;
+  }
+}
+
+/* ======================
+   MOBILE
+====================== */
+@media (max-width: 768px) {
+
+  section {
+    padding: 55px 0 !important;
+  }
+
+  .container {
+    padding-inline: 16px;
+  }
+
+  /* HEADER */
+  .nav-content {
+    min-height: 75px !important;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: auto !important;
+  }
+
+  .hero-text h1 {
+    line-height: 1.15;
+  }
+
+  .hero-image img {
+    height: 320px !important;
+    border-radius: 24px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .simulate-btn {
+    width: 100%;
+  }
+
+  /* GRID GERAL */
+  .credit-grid,
+  .news-grid,
+  .services-grid,
+  .stats-grid,
+  .footer-grid {
+    grid-template-columns:
+      1fr !important;
+  }
+
+  /* STORIES */
+  .story-card {
+    min-width: 100% !important;
+  }
+
+  /* NEWS */
+  .news-card img {
+    height: 220px !important;
+  }
+
+  /* FOOTER */
+  .bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .bottom-links {
+    flex-direction: column;
+  }
+
+  /* Remove overflow escondido */
+  * {
+    max-width: 100%;
+  }
+}
+
+/* ======================
+   MOBILE PEQUENO
+====================== */
+@media (max-width: 480px) {
+
+  .container {
+    padding-inline: 14px;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.7rem !important;
+  }
+
+  .hero-image img {
+    height: 260px !important;
+  }
+
+  .credit-card,
+  .news-card,
+  .service-card,
+  .simulator-card,
+  .stats-card,
+  .story-card {
+    border-radius: 20px;
+    padding: 22px !important;
+  }
+
+  .icon-wrapper,
+  .icon-box {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
