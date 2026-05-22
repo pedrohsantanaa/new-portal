@@ -8,17 +8,23 @@ import StoriesSection from './components/StoriesSection.vue'
 import NewsSection from './components/NewsSection.vue'
 import QuickServices from './components/QuickServices.vue'
 import PartnersSection from './components/PartnerSection.vue'
+import Carousel from './components/Carousel.vue'
+import HeroSection from './components/HeroSection.vue'
+import HeroEditorial from './components/HeroEditorial.vue'
 
 </script>
 <template>
   <div>
     <AppHeader />
-    <HeroCarousel />
+    <HeroEditorial/>
+    <!-- <HeroCarousel /> -->
+    <!-- <HeroSection /> -->
+    <!-- <Carousel/> -->
     <CreditSection />
     <!-- <FinanceSection /> -->
     <StoriesSection />
     <NewsSection />
-    <!-- <QuickServices /> -->
+    <QuickServices />
     <PartnersSection />
     <AppFooter />
 

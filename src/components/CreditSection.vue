@@ -69,10 +69,34 @@
       </div>
 
       <!-- CAROUSEL -->
+      <!-- <Swiper
+        @swiper="onSwiper"
+        :modules="modules"
+        :slides-per-view="1"
+        :space-between="22"
+        :grab-cursor="true"
+        :pagination="{
+          clickable: true
+        }"
+        :breakpoints="{
+          640: {
+            slidesPerView: 2
+          },
+
+          992: {
+            slidesPerView: 3
+          },
+
+          1200: {
+            slidesPerView: 4
+          }
+        }"
+        class="credit-swiper"
+      > -->
       <Swiper
         @swiper="onSwiper"
         :modules="modules"
-        :slides-per-view="1.1"
+        :slides-per-view="'auto'"
         :space-between="22"
         :grab-cursor="true"
         :pagination="{
@@ -180,10 +204,10 @@ const categories = [
 const credits = ref([
   {
     id: 1,
-    title: 'MEI',
-    category: 'Empresas',
+    title: 'Microcrédito Online',
+    category: 'MEI',
     description:
-      'Crédito ideal para microempreendedores expandirem seus negócios.',
+      'Crédito ideal para microempreendedores expandirem seus negócios. Até R$20 mil',
 
     icon: '👤',
     color: '#EEF4FF'
@@ -191,10 +215,10 @@ const credits = ref([
 
   {
     id: 2,
-    title: 'Pequena Empresa',
+    title: 'Crédito Online',
     category: 'Empresas',
     description:
-      'Financiamento para expansão e crescimento sustentável.',
+      'Financiamento para expansão e crescimento sustentável. Até R$50 mil',
 
     icon: '🏢',
     color: '#ECFDF3'
@@ -202,12 +226,12 @@ const credits = ref([
 
   {
     id: 3,
-    title: 'Produtor Rural',
-    category: 'Agro',
+    title: 'Mãos que Criam',
+    category: 'Especiais',
     description:
       'Linhas especiais para fortalecer o agronegócio.',
 
-    icon: '🌱',
+    icon: '🚜',
     color: '#F0FDF4'
   },
 
@@ -371,8 +395,9 @@ computed(() => {
 
 /* SWIPER */
 .credit-swiper {
-  overflow: visible;
+  width: 100%;
   padding-bottom: 50px;
+  overflow: hidden;
 }
 
 :deep(.swiper-slide) {

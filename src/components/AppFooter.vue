@@ -101,13 +101,15 @@
 
 /* FOOTER */
 .footer {
-  background:
+  /* background:
     linear-gradient(
       135deg,
       #082f63,
       #0f4c81
     );
+     */
 
+  background-color: #011A4F;
   color: white;
   overflow: hidden;
   width: 100%;

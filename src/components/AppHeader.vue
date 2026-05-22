@@ -114,7 +114,7 @@ import { Phone } from 'lucide-vue-next'
 
 /* TOP BAR */
 .top-bar {
-    background: #0f4c81;
+    background: #011A4F;
     color: white;
     font-size: 14px;
 }
@@ -124,6 +124,7 @@ import { Phone } from 'lucide-vue-next'
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: rgb(173, 161, 161);
 }
 
 .top-links {
@@ -132,7 +133,7 @@ import { Phone } from 'lucide-vue-next'
 }
 
 .top-links a {
-    color: white;
+    color: rgb(173, 161, 161);
     text-decoration: none;
 }
 
@@ -151,7 +152,7 @@ import { Phone } from 'lucide-vue-next'
 }
 
 .logo h2 {
-    color: #0f4c81;
+    color: #011A4F;
     font-size: 30px;
 }
 
