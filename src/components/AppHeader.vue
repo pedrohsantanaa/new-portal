@@ -3,16 +3,53 @@
         <!-- Top Bar -->
         <div class="top-bar">
             <div class="container top-content">
-                <span>
-                    <Phone class="phone-icon" />
-                    Atendimento: (63) 3218-1548
-                </span>
+                <div class="contact-info">
+                    <Phone class="phone-icon-highlight" />
+                    <span class="contact-label">Atendimento:</span>
+                    <span class="phone-number">(63) 3218-1548</span>
+                </div>
 
 
                 <div class="top-links">
-                    <a href="#">Acessibilidade</a>
-                    <a href="#">Alto Contraste</a>
-                    <a href="#">Mapa do Site</a>
+                    <div class="accessibility-wrapper">
+                        <button class="top-btn" @click="isAccessMenuOpen = !isAccessMenuOpen">
+                            Acessibilidade
+                        </button>
+                        
+                        <!-- Painel de Acessibilidade -->
+                        <div v-if="isAccessMenuOpen" class="access-panel">
+                            <div class="panel-section">
+                                <span>Fonte</span>
+                                <div class="btn-group">
+                                    <button @click="settings.decreaseFontSize">A-</button>
+                                    <button @click="settings.increaseFontSize">A+</button>
+                                </div>
+                            </div>
+                            <div class="panel-section">
+                                <span>Tema</span>
+                                <div class="btn-group theme-btns">
+                                    <button 
+                                        :class="{ active: settings.theme === 'default' }"
+                                        @click="settings.setTheme('default')"
+                                        title="Tema Padrão"
+                                    >Azul</button>
+                                    <button 
+                                        :class="{ active: settings.theme === 'alternative' }"
+                                        @click="settings.setTheme('alternative')"
+                                        title="Tema Verde"
+                                    >Verde</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="top-btn" @click="settings.toggleHighContrast">
+                        {{ settings.isHighContrast ? 'Contraste Normal' : 'Alto Contraste' }}
+                    </button>
+                    
+                    <button class="top-btn" @click="isSiteMapOpen = true">
+                        Mapa do Site
+                    </button>
                 </div>
             </div>
         </div>
@@ -23,7 +60,7 @@
 
                 <!-- Logo -->
                 <div class="logo">
-                    <img src="../assets/image/logo.png" alt="">
+                    <img src="../assets/image/logo.png" alt="Logo">
                 </div>
 
                 <!-- Menu Desktop -->
@@ -38,7 +75,7 @@
                         <!-- Botão Mobile -->
                         <li class="mobile-btn">
                             <button class="btn-primary">
-                                Solicitar Crédito
+                                Intranet
                             </button>
                         </li>
                     </ul>
@@ -59,51 +96,27 @@
             </div>
         </div>
     </header>
+
+    <SiteMapModal :isOpen="isSiteMapOpen" @close="isSiteMapOpen = false" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import { Phone } from 'lucide-vue-next'
+import { useSettingsStore } from '../store/useSettingsStore'
+import SiteMapModal from './SiteMapModal.vue'
 
+const settings = useSettingsStore()
 const isMenuOpen = ref(false)
+const isAccessMenuOpen = ref(false)
+const isSiteMapOpen = ref(false)
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
-
-import { Phone } from 'lucide-vue-next'
 </script>
 
 <style scoped>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logo img {
-    height: 65px;
-    width: auto;
-    object-fit: contain;
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-    .logo-image {
-        height: 42px;
-    }
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-}
-
 /* HEADER */
 .header {
     width: 100%;
@@ -114,8 +127,8 @@ import { Phone } from 'lucide-vue-next'
 
 /* TOP BAR */
 .top-bar {
-    background: #011A4F;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
     font-size: 14px;
 }
 
@@ -124,7 +137,29 @@ import { Phone } from 'lucide-vue-next'
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: rgb(173, 161, 161);
+}
+
+.contact-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.phone-icon-highlight {
+    width: 18px;
+    height: 18px;
+    color: var(--color-secondary);
+    stroke-width: 2.5;
+}
+
+.contact-label {
+    opacity: 0.85;
+    font-size: 13px;
+}
+
+.phone-number {
+    font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
 .top-links {
@@ -132,9 +167,79 @@ import { Phone } from 'lucide-vue-next'
     gap: 20px;
 }
 
-.top-links a {
-    color: rgb(173, 161, 161);
-    text-decoration: none;
+.top-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font-size: 14px;
+    transition: var(--transition);
+}
+
+.top-btn:hover {
+    color: var(--color-white);
+}
+
+/* Painel de Acessibilidade */
+.accessibility-wrapper {
+    position: relative;
+}
+
+.access-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--color-bg);
+    border: 1px solid var(--color-bg-alt);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    z-index: 1000;
+    margin-top: 10px;
+    color: var(--color-text);
+}
+
+.panel-section {
+    margin-bottom: 12px;
+}
+
+.panel-section:last-child {
+    margin-bottom: 0;
+}
+
+.panel-section span {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-group button {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid var(--color-bg-alt);
+    background: var(--color-bg-alt);
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.btn-group button:hover {
+    background: var(--color-accent);
+    color: white;
+}
+
+.theme-btns button.active {
+    background: var(--color-primary);
+    color: white;
 }
 
 /* NAVBAR */
@@ -144,6 +249,11 @@ import { Phone } from 'lucide-vue-next'
     box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
 }
 
+/* Quando em alto contraste, tirar a transparência */
+:global(html.high-contrast) .navbar {
+    background: var(--color-bg);
+}
+
 .nav-content {
     min-height: 85px;
     display: flex;
@@ -151,9 +261,10 @@ import { Phone } from 'lucide-vue-next'
     align-items: center;
 }
 
-.logo h2 {
-    color: #011A4F;
-    font-size: 30px;
+.logo img {
+    height: 65px;
+    width: auto;
+    object-fit: contain;
 }
 
 /* MENU */
@@ -166,28 +277,30 @@ import { Phone } from 'lucide-vue-next'
 
 .menu a {
     text-decoration: none;
-    color: #334155;
+    color: var(--color-text);
     font-weight: 500;
-    transition: .3s;
+    transition: var(--transition);
 }
 
 .menu a:hover {
-    color: #0f4c81;
+    color: var(--color-accent);
 }
 
 /* BUTTON */
 .btn-primary {
-    background: linear-gradient(135deg, #ffc107, #f59e0b);
+    background: linear-gradient(135deg, var(--color-secondary), #f59e0b);
     border: none;
     padding: 14px 24px;
     border-radius: 12px;
     font-weight: bold;
     cursor: pointer;
-    transition: .3s;
+    transition: var(--transition);
+    color: var(--color-primary);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* HAMBURGER */
@@ -203,9 +316,9 @@ import { Phone } from 'lucide-vue-next'
 .hamburger span {
     width: 28px;
     height: 3px;
-    background: #0f4c81;
+    background: var(--color-primary);
     border-radius: 10px;
-    transition: .3s;
+    transition: var(--transition);
 }
 
 /* Animation */
@@ -221,39 +334,21 @@ import { Phone } from 'lucide-vue-next'
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
-.mobile-btn {
-    display: none;
-}
-
-.phone-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    font-size: 14px;
-    font-weight: 500;
-}
-
 .phone-icon {
     width: 18px;
     height: 18px;
     stroke-width: 2.3;
     color: white;
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
-.phone-info a {
-    color: white;
-    text-decoration: none;
-    transition: .3s;
-}
-
-.phone-info a:hover {
-    opacity: .85;
+.mobile-btn {
+    display: none;
 }
 
 /* RESPONSIVO */
 @media (max-width: 992px) {
-
     .desktop-btn {
         display: none;
     }
@@ -267,7 +362,7 @@ import { Phone } from 'lucide-vue-next'
         top: 130px;
         left: -100%;
         width: 100%;
-        background: white;
+        background: var(--color-bg);
         transition: .4s ease;
         box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
         padding: 30px;
@@ -291,23 +386,19 @@ import { Phone } from 'lucide-vue-next'
         flex-direction: column;
         padding: 12px 0;
         text-align: center;
-        gap: 8px;
+        gap: 12px;
     }
 }
 
 @media (max-width: 768px) {
-
-    .logo h2 {
-        font-size: 24px;
-    }
-
     .nav-content {
         min-height: 75px;
     }
 
     .top-links {
-        flex-direction: column;
-        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
     }
 }
 </style>

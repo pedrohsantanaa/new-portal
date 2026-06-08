@@ -294,7 +294,7 @@ const filteredCredits =
 <style scoped>
 .credit-section {
   padding: 90px 0;
-  background: #f8fafc;
+  background: var(--color-bg-alt);
 }
 
 /* HEADER */
@@ -310,24 +310,24 @@ const filteredCredits =
   display: inline-flex;
   padding: 10px 18px;
   border-radius: 999px;
-  background: #dbeafe;
-  color: #083ea8;
+  background: var(--color-accent);
+  color: var(--color-white);
   font-weight: 600;
   margin-bottom: 18px;
 }
 
 .section-header h2 {
   font-size: 42px;
-  color: #0f2f63;
+  color: var(--color-primary);
 }
 
 .section-header p {
-  color: #64748b;
+  color: var(--color-text-muted);
   margin-top: 10px;
 }
 
 .view-all {
-  color: #083ea8;
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: bold;
 }
@@ -342,22 +342,23 @@ const filteredCredits =
 
 .tab {
   border: none;
-  background: white;
+  background: var(--color-bg);
   height: 48px;
   padding: 0 22px;
   border-radius: 999px;
   cursor: pointer;
-  transition: .3s;
+  transition: var(--transition);
   font-weight: 600;
+  color: var(--color-text);
 }
 
 .tab:hover {
-  background: #eff6ff;
+  background: var(--color-bg-alt);
 }
 
 .tab.active {
-  background: #083ea8;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-white);
 }
 
 /* TOP */
@@ -379,12 +380,12 @@ const filteredCredits =
   border-radius: 50%;
   border: none;
 
-  background: white;
-  color: #083ea8;
+  background: var(--color-bg);
+  color: var(--color-accent);
 
   font-size: 22px;
   cursor: pointer;
-  transition: .3s;
+  transition: var(--transition);
 
   box-shadow:
     0 10px 30px rgba(0, 0, 0, .08);
@@ -393,8 +394,8 @@ const filteredCredits =
 .arrow-btn:hover {
   transform: translateY(-3px);
 
-  background: #083ea8;
-  color: white;
+  background: var(--color-accent);
+  color: var(--color-white);
 }
 
 /* SWIPER */
@@ -410,7 +411,7 @@ const filteredCredits =
 }
 
 :deep(.swiper-pagination-bullet-active) {
-  background: #083ea8;
+  background: var(--color-accent);
 }
 
 /* CARD */
@@ -419,15 +420,15 @@ const filteredCredits =
   min-height: 360px;
   height: 100%;
 
-  background: white;
+  background: var(--color-bg);
   border-radius: 28px;
   padding: 30px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-bg-alt);
 
   display: flex;
   flex-direction: column;
 
-  transition: .35s;
+  transition: var(--transition);
 }
 
 .credit-card:hover {
@@ -457,20 +458,20 @@ const filteredCredits =
 }
 
 .category {
-  color: #083ea8;
+  color: var(--color-accent);
   font-size: 14px;
   font-weight: 600;
 }
 
 .credit-card h3 {
   font-size: 24px;
-  color: #0f172a;
+  color: var(--color-text);
   margin: 12px 0;
   min-height: 62px;
 }
 
 .credit-card p {
-  color: #64748b;
+  color: var(--color-text-muted);
   line-height: 1.7;
 
   flex: 1;
@@ -480,11 +481,11 @@ const filteredCredits =
 .credit-btn {
   border: none;
   background: transparent;
-  color: #083ea8;
+  color: var(--color-accent);
   font-weight: bold;
   cursor: pointer;
   margin-top: auto;
-  transition: .3s;
+  transition: var(--transition);
 }
 
 .credit-btn:hover {

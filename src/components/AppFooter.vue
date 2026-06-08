@@ -101,16 +101,8 @@
 
 /* FOOTER */
 .footer {
-  /* background:
-    linear-gradient(
-      135deg,
-      #082f63,
-      #0f4c81
-    );
-     */
-
-  background-color: #011A4F;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   overflow: hidden;
   width: 100%;
 }
@@ -173,7 +165,7 @@
   justify-content: center;
 
   text-decoration: none;
-  transition: .3s;
+  transition: var(--transition);
 }
 
 .socials a:hover {
@@ -204,12 +196,12 @@
 .footer-column a {
   text-decoration: none;
   color: rgba(255,255,255,.75);
-  transition: .3s;
+  transition: var(--transition);
   word-break: break-word;
 }
 
 .footer-column a:hover {
-  color: white;
+  color: var(--color-white);
 }
 
 .contact-list li {
@@ -249,12 +241,12 @@
 .bottom-links a {
   color: rgba(255,255,255,.7);
   text-decoration: none;
-  transition: .3s;
+  transition: var(--transition);
   text-align: center;
 }
 
 .bottom-links a:hover {
-  color: white;
+  color: var(--color-white);
 }
 
 /* TABLET */

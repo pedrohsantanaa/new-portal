@@ -1,4 +1,38 @@
 /* ======================
+   VARIÁVEIS DE TEMA
+====================== */
+:root {
+  --color-primary: #011A4F;
+  --color-secondary: #ffc107;
+  --color-accent: #083ea8;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8fafc;
+  --color-text: #334155;
+  --color-text-muted: #64748b;
+  --color-white: #ffffff;
+  
+  --transition: 0.3s ease;
+}
+
+/* Tema Alternativo (Outra cor sugerida: Verde Institucional) */
+[data-theme="alternative"] {
+  --color-primary: #064e3b;
+  --color-accent: #059669;
+}
+
+/* ALTO CONTRASTE */
+html.high-contrast {
+  --color-primary: #000000;
+  --color-secondary: #ffff00;
+  --color-accent: #ffff00;
+  --color-bg: #000000;
+  --color-bg-alt: #1a1a1a;
+  --color-text: #ffffff;
+  --color-text-muted: #cccccc;
+  --color-white: #000000;
+}
+
+/* ======================
    RESPONSIVIDADE GLOBAL
 ====================== */
 
@@ -7,6 +41,9 @@ html,
 body {
   overflow-x: hidden;
   width: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color var(--transition), color var(--transition);
 }
 
 * {
@@ -28,13 +65,15 @@ img {
   padding-inline: 20px;
 }
 
-/* Textos responsivos */
+/* Textos responsivos - Agora baseados em rem para respeitar o fontSize do html */
 h1 {
   font-size: clamp(2rem, 5vw, 4rem);
+  color: var(--color-primary);
 }
 
 h2 {
   font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--color-primary);
 }
 
 h3 {
@@ -43,6 +82,7 @@ h3 {
 
 p {
   font-size: clamp(.95rem, 2vw, 1.1rem);
+  line-height: 1.6;
 }
 
 /* Botões */

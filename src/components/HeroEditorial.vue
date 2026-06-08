@@ -274,7 +274,7 @@ onUnmounted(() => {
 
 .content-wrapper {
     max-width: 720px;
-    color: white;
+    color: var(--color-white);
 
     height: 100%;
 
@@ -299,7 +299,7 @@ onUnmounted(() => {
     backdrop-filter:
         blur(10px);
 
-    color: #facc15;
+    color: var(--color-secondary);
     font-weight: 700;
     margin-bottom: 22px;
 }
@@ -312,6 +312,7 @@ h1 {
 
     line-height: 1.05;
     margin-bottom: 24px;
+    color: var(--color-white);
 }
 
 p {
@@ -343,12 +344,12 @@ p {
     border-radius: 16px;
     text-decoration: none;
     font-weight: 700;
-    transition: .3s;
+    transition: var(--transition);
 }
 
 .primary {
-    background: #facc153b;
-    color: black;
+    background: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 .primary:hover {

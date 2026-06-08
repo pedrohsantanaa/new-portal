@@ -147,7 +147,7 @@ const newsList = ref([
 <style scoped>
 .news-section {
   padding: 90px 0;
-  background: #f8fafc;
+  background: var(--color-bg-alt);
 }
 
 /* HEADER */
@@ -160,16 +160,16 @@ const newsList = ref([
 
 .section-header h2 {
   font-size: 42px;
-  color: #0f2f63;
+  color: var(--color-primary);
 }
 
 .section-header p {
-  color: #64748b;
+  color: var(--color-text-muted);
   margin-top: 10px;
 }
 
 .view-all {
-  color: #083ea8;
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: 700;
 }
@@ -185,11 +185,11 @@ const newsList = ref([
 
 /* CARD */
 .news-card {
-  background: white;
+  background: var(--color-bg);
   border-radius: 24px;
   overflow: hidden;
-  border: 1px solid #e2e8f0;
-  transition: .35s;
+  border: 1px solid var(--color-bg-alt);
+  transition: var(--transition);
   cursor: pointer;
 }
 
@@ -231,14 +231,14 @@ const newsList = ref([
 }
 
 .news-content h3 {
-  color: #0f172a;
+  color: var(--color-text);
   font-size: 22px;
   line-height: 1.4;
   margin-bottom: 14px;
 }
 
 .news-content p {
-  color: #64748b;
+  color: var(--color-text-muted);
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -246,8 +246,9 @@ const newsList = ref([
 .news-footer {
   display: flex;
   justify-content: space-between;
-  color: #94a3b8;
+  color: var(--color-text-muted);
   font-size: 14px;
+  opacity: 0.8;
 }
 
 /* TABLET */
