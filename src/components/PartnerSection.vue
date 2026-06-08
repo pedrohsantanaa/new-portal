@@ -19,15 +19,8 @@
         <div class="partners-track">
 
           <!-- lista duplicada para loop infinito -->
-          <div
-            v-for="partner in duplicatedPartners"
-            :key="partner.id + Math.random()"
-            class="partner-item"
-          >
-            <img
-              :src="partner.logo"
-              :alt="partner.name"
-            />
+          <div v-for="partner in duplicatedPartners" :key="partner.id + Math.random()" class="partner-item">
+            <img :src="partner.logo" :alt="partner.name" />
           </div>
 
         </div>
@@ -45,40 +38,75 @@ const partners = ref([
   {
     id: 1,
     name: 'FACIET',
-    logo: '/partners/faciet.png'
+    logo: '/partners/logo_faciet.png'
   },
 
   {
     id: 2,
     name: 'FUNGETUR',
-    logo: '/partners/fungetur.png'
+    logo: '/partners/fungetur_new.png'
   },
 
   {
     id: 3,
     name: 'SICS',
-    logo: '/partners/sics.png'
+    logo: '/partners/sics-to.png'
   },
 
   {
     id: 4,
     name: 'Brasil',
-    logo: '/partners/brasil.png'
+    logo: '/partners/mtur.png'
   },
 
   {
     id: 5,
     name: 'SEBRAE',
-    logo: '/partners/sebrae.png'
+    logo: '/partners/logo-sebrae.png'
+  },
+  {
+    id: 6,
+    name: 'FAET',
+    logo: '/partners/logo-faet.jpg'
+  },
+  {
+    id: 7,
+    name: 'ABDE',
+    logo: '/partners/logo-abde.png'
+  },
+  {
+    id: 8,
+    name: 'FCDL',
+    logo: '/partners/logo-fcdl.png'
+  },
+  {
+    id: 9,
+    name: 'FECOMERCIO',
+    logo: '/partners/logo-fecomercio.png'
+  },
+  {
+    id: 10,
+    name: 'SICON',
+    logo: '/partners/logo-sicon.jpg'
+  },
+  {
+    id: 11,
+    name: 'SINDUSCON',
+    logo: '/partners/logo-sinduscon.jpg'
+  },
+  {
+    id: 12,
+    name: 'GOVERNO DO TOCANTINS',
+    logo: '/partners/new_logo_governo.png'
   }
 ])
 
 /* duplicamos para loop infinito */
 const duplicatedPartners =
-computed(() => [
-  ...partners.value,
-  ...partners.value
-])
+  computed(() => [
+    ...partners.value,
+    ...partners.value
+  ])
 </script>
 
 <style scoped>
@@ -129,22 +157,18 @@ computed(() => [
   left: 0;
 
   background:
-    linear-gradient(
-      to right,
+    linear-gradient(to right,
       white,
-      transparent
-    );
+      transparent);
 }
 
 .partners-slider::after {
   right: 0;
 
   background:
-    linear-gradient(
-      to left,
+    linear-gradient(to left,
       white,
-      transparent
-    );
+      transparent);
 }
 
 /* TRACK */
@@ -197,7 +221,7 @@ computed(() => [
 }
 
 /* TABLET */
-@media(max-width:992px){
+@media(max-width:992px) {
 
   .section-header h2 {
     font-size: 34px;
@@ -213,7 +237,7 @@ computed(() => [
 }
 
 /* MOBILE */
-@media(max-width:768px){
+@media(max-width:768px) {
 
   .partners-section {
     padding: 60px 0;

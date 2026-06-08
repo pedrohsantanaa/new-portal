@@ -60,13 +60,13 @@
                 <span>
                   {{ story.city }}
                 </span>
-
+<!-- 
                 <div class="funding">
                   Financiamento:
                   <strong>
                     {{ story.value }}
                   </strong>
-                </div>
+                </div> -->
 
               </div>
             </div>
@@ -110,51 +110,38 @@ const currentSlide = ref(0)
 const stories = ref([
   {
     id: 1,
-    name: 'Ana Paula',
-    city: 'Palmas - TO',
-    value: 'R$ 35.000',
+    name: 'Ivãyres Rodrigues Sousa',
+    city: 'São Miguel do Tocantins',
+    value: '',
     text:
-      'O financiamento me ajudou a ampliar minha loja e contratar funcionários.',
+      'Venho por meio dessa nota agradecer primeiramente a Deus e a agência do FOMENTO ao governo do estado TO por essa ação para os micro empreendedores que assim como eu precisam de recursos para o investimento no empreendimento, graças a essa ação consegui o recurso necessário que irá me ajudar a impulsionar ainda mais as vendas eu irei usa-lo em compras de mercadorias . Irei investir esse crédito de forma consciente e sou muito grata pela a credibilidade!',
 
     image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800'
+      'public/stories/ivayres.jpg'
   },
 
   {
     id: 2,
-    name: 'João Batista',
+    name: 'Marialber',
     city: 'Araguaína - TO',
-    value: 'R$ 80.000',
+    value: '0',
     text:
-      'Consegui investir na produção e expandir meu negócio.',
+      'Sou imensamente grata pelo apoio que recebi da Agência de Fomento. Através da linha Crédito Popular, consegui recurso para alavancar o meu pequeno negócio. Aumentei a minha produção com os maquinários adquiridos e consequentemente o a renda familiar.',
 
     image:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800'
+      'public/stories/marialber.jpeg'
   },
-
   {
     id: 3,
-    name: 'Fernanda Costa',
-    city: 'Gurupi - TO',
-    value: 'R$ 25.000',
+    name: 'Leticia França',
+    city: 'Palmas – Tocantins',
+    value: '0',
     text:
-      'O crédito foi essencial para realizar meu sonho.',
-
+      'Padaria e Confeitaria.\n Linha de crédito: Capital de Giro - Recurso próprio.',
     image:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800'
+      'public/stories/leticia.jpg'
   },
 
-  {
-    id: 4,
-    name: 'Carlos Lima',
-    city: 'Porto Nacional',
-    value: 'R$ 60.000',
-    text:
-      'Expandi minha empresa e melhorei meus resultados.',
-
-    image:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800'
-  }
 ])
 
 const cardsPerView = 3
@@ -210,6 +197,7 @@ const goTo = (index) => {
 .section-header p {
   color: #64748b;
   margin-top: 12px;
+
 }
 
 .carousel-wrapper {
@@ -243,7 +231,7 @@ const goTo = (index) => {
 
 .story-card img {
   width: 100%;
-  height: 240px;
+  height: 350px;
   object-fit: cover;
 }
 
@@ -260,6 +248,7 @@ const goTo = (index) => {
   color: #475569;
   line-height: 1.8;
   margin-bottom: 20px;
+  text-align: justify;
 }
 
 .story-content h3 {

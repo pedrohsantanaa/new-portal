@@ -110,7 +110,7 @@ const banners = ref([
             // 'Linhas especiais para produção rural e desenvolvimento agrícola.',
             '',
         image:
-            'b7.png',
+            '/carroussel/b7.png',
 
         overlay: 'dark',
         align: 'center',
@@ -141,7 +141,7 @@ const banners = ref([
             'Conheça nossa agência em Palmas e receba atendimento especializado.',
 
         image:
-            'b3.png',
+            '/carroussel/b3.png',
 
         overlay: 'dark',
         align: 'left',

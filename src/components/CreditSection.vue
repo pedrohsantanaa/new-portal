@@ -20,10 +20,7 @@
           </p>
         </div>
 
-        <a
-          href="/linhas-de-credito"
-          class="view-all desktop-link"
-        >
+        <a href="/linhas-de-credito" class="view-all desktop-link">
           Ver todas →
         </a>
 
@@ -31,16 +28,10 @@
 
       <!-- TABS -->
       <div class="tabs">
-        <button
-          v-for="category in categories"
-          :key="category"
-          class="tab"
-          :class="{
-            active:
-              selectedCategory === category
-          }"
-          @click="selectedCategory = category"
-        >
+        <button v-for="category in categories" :key="category" class="tab" :class="{
+          active:
+            selectedCategory === category
+        }" @click="selectedCategory = category">
           {{ category }}
         </button>
       </div>
@@ -50,17 +41,11 @@
 
         <div class="navigation-buttons">
 
-          <button
-            class="arrow-btn"
-            @click="swiper?.slidePrev()"
-          >
+          <button class="arrow-btn" @click="swiper?.slidePrev()">
             ←
           </button>
 
-          <button
-            class="arrow-btn"
-            @click="swiper?.slideNext()"
-          >
+          <button class="arrow-btn" @click="swiper?.slideNext()">
             →
           </button>
 
@@ -93,16 +78,10 @@
         }"
         class="credit-swiper"
       > -->
-      <Swiper
-        @swiper="onSwiper"
-        :modules="modules"
-        :slides-per-view="'auto'"
-        :space-between="22"
-        :grab-cursor="true"
+      <Swiper @swiper="onSwiper" :modules="modules" :slides-per-view="'auto'" :space-between="22" :grab-cursor="true"
         :pagination="{
           clickable: true
-        }"
-        :breakpoints="{
+        }" :breakpoints="{
           640: {
             slidesPerView: 2
           },
@@ -114,23 +93,15 @@
           1200: {
             slidesPerView: 4
           }
-        }"
-        class="credit-swiper"
-      >
-        <SwiperSlide
-          v-for="credit in filteredCredits"
-          :key="credit.id"
-        >
+        }" class="credit-swiper">
+        <SwiperSlide v-for="credit in filteredCredits" :key="credit.id">
           <div class="credit-card">
 
-            <div
-              class="icon-box"
-              :style="{
-                background:
-                  credit.color
-              }"
-            >
-              {{ credit.icon }}
+            <div class="icon-box" :style="{
+              background:
+                credit.color
+            }">
+              <img :src="credit.icon" :alt="credit.title" class="icon-image" />
             </div>
 
             <span class="category">
@@ -155,10 +126,7 @@
 
       <!-- MOBILE BUTTON -->
       <div class="mobile-button">
-        <a
-          href="/linhas-de-credito"
-          class="view-all"
-        >
+        <a href="/linhas-de-credito" class="view-all">
           Ver todas as linhas →
         </a>
       </div>
@@ -205,11 +173,11 @@ const credits = ref([
   {
     id: 1,
     title: 'Microcrédito Online',
-    category: 'MEI',
+    category: 'Empresas',
     description:
-      'Crédito ideal para microempreendedores expandirem seus negócios. Até R$20 mil',
+      ' Até R$20 mil. Crédito ideal para microempreendedores expandirem seus negócios.',
 
-    icon: '👤',
+    icon: '/icons/microcredito2.png',
     color: '#EEF4FF'
   },
 
@@ -218,9 +186,9 @@ const credits = ref([
     title: 'Crédito Online',
     category: 'Empresas',
     description:
-      'Financiamento para expansão e crescimento sustentável. Até R$50 mil',
+      'Até R$50 mil. Financiamento para expansão e crescimento sustentável.',
 
-    icon: '🏢',
+    icon: '/icons/credito-online.png',
     color: '#ECFDF3'
   },
 
@@ -229,9 +197,9 @@ const credits = ref([
     title: 'Mãos que Criam',
     category: 'Especiais',
     description:
-      'Linhas especiais para fortalecer o agronegócio.',
+      'Até R$15 mil para artesãos e pequenos produtores culturais.',
 
-    icon: '🚜',
+    icon: '/icons/maos.svg',
     color: '#F0FDF4'
   },
 
@@ -242,49 +210,85 @@ const credits = ref([
     description:
       'Crédito para impulsionar pequenos produtores rurais.',
 
-    icon: '🚜',
+    icon: '/icons/agricultura-familiar.svg',
     color: '#FEFCE8'
   },
 
   {
     id: 5,
-    title: 'Turismo',
+    title: 'Fungetur - MEI',
     category: 'Turismo',
     description:
-      'Invista no crescimento do seu negócio turístico.',
+      'Até R$20 mil. Invista no crescimento do seu negócio turístico.',
 
-    icon: '🧳',
+    icon: '/icons/fungetur.svg',
     color: '#FFF7ED'
   },
-
   {
     id: 6,
-    title: 'Mulher Empreendedora',
+    title: 'Fungetur - ME',
+    category: 'Turismo',
+    description:
+      'Até R$50 mil. Invista no crescimento do seu negócio turístico.',
+
+    icon: '/icons/fungetur2.svg',
+    color: '#FFF7ED'
+  },
+  {
+    id: 6,
+    title: 'Fungetur - Média e Grande porte',
+    category: 'Turismo',
+    description:
+      'De R$50 mil a R$300 mil. Invista no crescimento do seu negócio turístico.',
+
+    icon: '/icons/fungetur2.svg',
+    color: '#FFF7ED'
+  },
+  {
+    id: 7,
+    title: 'Crédito BNDES',
     category: 'Especiais',
     description:
-      'Soluções financeiras exclusivas para mulheres.',
-
-    icon: '👩',
+      'De R$50 mil a R$300 mil. Financiamento para projetos de investimento e capital de giro.',
+    icon: '/icons/bndes.svg',
+    color: '#FAF5FF'
+  },
+  {
+    id: 8,
+    title: 'Crédito Pronaf B',
+    category: 'Agro',
+    description:
+      'Mulher: Até R$15 mil Homem: Até R$12 mil',
+    icon: '/icons/pronaf.svg',
+    color: '#FAF5FF'
+  },
+  {
+    id: 9,
+    title: 'Crédito Popular',
+    category: 'Especiais',
+    description:
+      '',
+    icon: '/icons/crédito-online.svg',
     color: '#FAF5FF'
   }
 ])
 
 const filteredCredits =
-computed(() => {
+  computed(() => {
 
-  if (
-    selectedCategory.value ===
-    'Todas'
-  ) {
-    return credits.value
-  }
+    if (
+      selectedCategory.value ===
+      'Todas'
+    ) {
+      return credits.value
+    }
 
-  return credits.value.filter(
-    credit =>
-      credit.category ===
-      selectedCategory.value
-  )
-})
+    return credits.value.filter(
+      credit =>
+        credit.category ===
+        selectedCategory.value
+    )
+  })
 </script>
 
 <style scoped>
@@ -383,7 +387,7 @@ computed(() => {
   transition: .3s;
 
   box-shadow:
-    0 10px 30px rgba(0,0,0,.08);
+    0 10px 30px rgba(0, 0, 0, .08);
 }
 
 .arrow-btn:hover {
@@ -430,7 +434,7 @@ computed(() => {
   transform: translateY(-8px);
 
   box-shadow:
-    0 20px 40px rgba(0,0,0,.08);
+    0 20px 40px rgba(0, 0, 0, .08);
 }
 
 .icon-box {
@@ -442,8 +446,14 @@ computed(() => {
   align-items: center;
   justify-content: center;
 
-  font-size: 34px;
   margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .category {
@@ -486,7 +496,7 @@ computed(() => {
   display: none;
 }
 
-@media(max-width:768px){
+@media(max-width:768px) {
 
   .credit-section {
     padding: 60px 0;
