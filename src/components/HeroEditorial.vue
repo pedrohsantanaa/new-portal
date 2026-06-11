@@ -1,475 +1,244 @@
 <template>
-    <section class="hero-banner">
-
-        <!-- BACKGROUND -->
-        <Transition name="fade" mode="out-in">
-            <div :key="activeBanner.id" class="hero-slide">
-
-                <!-- IMAGE -->
-                <img :src="activeBanner.image" :alt="activeBanner.title" class="hero-image" />
-
-                <!-- OVERLAY -->
-                <div class="overlay" :class="{
-                    light:
-                        activeBanner
-                            .overlay ===
-                        'light'
-                }" />
-
-                <!-- CONTENT -->
-                <div class="container hero-content">
-
-                    <div class="content-wrapper" :class="activeBanner.align ||
-                        'left'
-                        ">
-
-                        <!-- Badge -->
-                        <span v-if="
-                            activeBanner.badge
-                        " class="badge">
-                            {{
-                                activeBanner.badge
-                            }}
-                        </span>
-
-                        <!-- Title -->
-                        <h1 v-if="
-                            activeBanner.title
-                        ">
-                            {{
-                                activeBanner.title
-                            }}
-                        </h1>
-
-                        <!-- Description -->
-                        <p v-if="
-                            activeBanner.description
-                        ">
-                            {{
-                                activeBanner.description
-                            }}
-                        </p>
-
-                        <!-- Buttons -->
-                        <div v-if="
-                            activeBanner.buttons
-                                ?.length
-                        " class="buttons">
-                            <a v-for="button in activeBanner.buttons" :key="button.label" :href="button.link"
-                                class="hero-btn" :class="button.type
-                                    ">
-                                {{ button.label }}
-                            </a>
-                        </div>
-
+    <section class="hero-carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-track" :style="{ transform: `translateX(-${currentSlide * slideWidth}%)` }">
+                <!-- SLIDES -->
+                <div v-for="(card, index) in carouselCards" :key="index" class="carousel-slide" :style="{ backgroundImage: `url(${card.image})` }">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-content">
+                        <h2>{{ card.title }}</h2>
+                        <p v-if="card.description">{{ card.description }}</p>
+                        <a :href="card.link" class="slide-btn" :class="card.btnClass">{{ card.btnLabel }}</a>
                     </div>
-
                 </div>
-
             </div>
-        </Transition>
-
-        <!-- DOTS -->
-        <div class="dots">
-            <button v-for="(_, index) in banners" :key="index" class="dot" :class="{
-                active:
-                    currentIndex ===
-                    index
-            }" @click="
-                changeSlide(index)
-                " />
         </div>
 
+        <!-- Carousel Dots -->
+        <div class="dots-container" v-if="totalPages > 1">
+            <button v-for="page in totalPages" :key="page" class="dot" :class="{ active: currentPage === page - 1 }" @click="goToPage(page - 1)" aria-label="Ver slide"></button>
+        </div>
     </section>
 </template>
 
 <script setup>
-import {
-    computed,
-    onMounted,
-    onUnmounted,
-    ref
-} from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
-const currentIndex = ref(0)
-
-let interval = null
-
-const banners = ref([
+const carouselCards = [
     {
-        id: 1,
-        type: 'location',
-
-        badge:
-            '',
-
-        title:
-            // 'Crédito para fortalecer o Tocantins',
-           '',
-        description:
-            // 'Linhas especiais para produção rural e desenvolvimento agrícola.',
-            '',
-        image:
-            '/carroussel/b7.png',
-
-        overlay: 'dark',
-        align: 'center',
-
-        buttons: [
-            {
-                label:
-                    'Conheça nossas linhas de crédito',
-
-                type: 'primary',
-                link: '#'
-            },
-
-
-        ]
+        title: '',
+        description: '',
+        image: '/carroussel/b10.png',
+        link: '#',
+        btnLabel: 'Simular Crédito',
+        btnClass: 'btn-orange'
     },
     {
-        id: 2,
-        type: 'location',
-
-        badge:
-            'ATENDIMENTO PRESENCIAL',
-
-        title:
-            'Estamos mais perto de você',
-
-        description:
-            'Conheça nossa agência em Palmas e receba atendimento especializado.',
-
-        image:
-            '/carroussel/b3.png',
-
-        overlay: 'dark',
-        align: 'left',
-
-        buttons: [
-            {
-                label:
-                    'Ver localização',
-
-                type: 'primary',
-                link: '#'
-            }
-        ]
+        title: 'Crédito Rural para Produtores',
+        description: 'Linhas exclusivas para fortalecer a produção do campo.',
+        image: '/carroussel/b7.png',
+        link: '#',
+        btnLabel: 'Saiba Mais >',
+        btnClass: 'btn-light'
     },
+    {
+        title: 'Programa Mulheres Empreendedoras',
+        description: 'Apoio e incentivo para o crescimento de negócios femininos.',
+        image: '/carroussel/b8.png',
+        link: '#',
+        btnLabel: 'Saiba Mais >',
+        btnClass: 'btn-light'
+    },
+    
+]
 
-    // {
-    //     id: 2,
-    //     type:
-    //         'commemorative',
+const currentSlide = ref(0)
+const itemsPerPage = ref(3)
 
-    //     badge:
-    //         'DIA DAS MÃES',
+const totalPages = computed(() => {
+    const pages = Math.ceil(carouselCards.length / itemsPerPage.value)
+    return pages > 0 ? pages : 1
+})
 
-    //     title:
-    //         'Homenagem a quem transforma sonhos em realidade',
+const currentPage = computed(() => {
+    return Math.floor(currentSlide.value / itemsPerPage.value)
+})
 
-    //     description:
-    //         'Nosso carinho e reconhecimento a todas as mães empreendedoras.',
+const slideWidth = computed(() => {
+    return 100 / itemsPerPage.value
+})
 
-    //     image:
-    //         'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=1800',
-
-    //     overlay: 'light',
-    //     align: 'center',
-
-    //     buttons: []
-    // },
-
-
-])
-
-const activeBanner =
-    computed(() =>
-        banners.value[
-        currentIndex.value
-        ]
-    )
-
-const changeSlide =
-    (index) => {
-        currentIndex.value =
-            index
+const updateItemsPerPage = () => {
+    if (window.innerWidth <= 768) {
+        itemsPerPage.value = 1
+    } else if (window.innerWidth <= 1024) {
+        itemsPerPage.value = 2
+    } else {
+        itemsPerPage.value = 3
     }
+    // Reset position on resize to avoid alignment issues
+    currentSlide.value = 0
+}
 
-const nextSlide = () => {
-    currentIndex.value =
-        (
-            currentIndex.value + 1
-        ) %
-        banners.value.length
+const goToPage = (pageIndex) => {
+    currentSlide.value = pageIndex * itemsPerPage.value
+}
+
+let autoplayInterval = null
+const startAutoplay = () => {
+    autoplayInterval = setInterval(() => {
+        let nextPage = currentPage.value + 1
+        if (nextPage >= totalPages.value) nextPage = 0
+        goToPage(nextPage)
+    }, 6000)
 }
 
 onMounted(() => {
-    interval =
-        setInterval(
-            nextSlide,
-            6000
-        )
+    updateItemsPerPage()
+    window.addEventListener('resize', updateItemsPerPage)
+    startAutoplay()
 })
 
 onUnmounted(() => {
-    clearInterval(interval)
+    window.removeEventListener('resize', updateItemsPerPage)
+    if (autoplayInterval) clearInterval(autoplayInterval)
 })
 </script>
 
 <style scoped>
-.hero-banner {
+.hero-carousel-section {
     position: relative;
-    overflow: hidden;
-}
-
-/* SLIDE */
-.hero-slide {
-    position: relative;
-    min-height: 680px;
-}
-
-/* IMAGE */
-.hero-image {
-    position: absolute;
-    inset: 0;
-
     width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-    object-position: center top;
+    overflow: hidden;
+    background: #011A4F;
 }
 
-/* OVERLAY */
-.overlay {
+.carousel-container {
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+    flex: 0 0 calc(100% / 3); /* Desktop */
+    min-height: 700px;
+    background-size: cover;
+    background-position: top center;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.slide-overlay {
     position: absolute;
     inset: 0;
-
-    background:
-        linear-gradient(90deg,
-            rgba(3, 23, 52, .88) 15%,
-
-            rgba(3, 23, 52, .58) 50%,
-
-            rgba(3, 23, 52, .18) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.1) 100%);
 }
 
-.overlay.light {
-    background:
-        linear-gradient(rgba(0, 0, 0, .38),
-            rgba(0, 0, 0, .38));
-}
-
-/* CONTENT */
-.hero-content {
+.slide-content {
     position: relative;
     z-index: 2;
-
-    min-height: 680px;
-
-    display: flex;
-    align-items: center;
-}
-
-.content-wrapper {
-    max-width: 720px;
-    color: var(--color-white);
-
-    height: 100%;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.content-wrapper.center {
-    text-align: center;
-    margin: auto;
-}
-
-.badge {
-    display: inline-flex;
-    padding: 12px 20px;
-    border-radius: 999px;
-
-    background:
-        rgba(255, 255, 255, .12);
-
-    backdrop-filter:
-        blur(10px);
-
-    color: var(--color-secondary);
-    font-weight: 700;
-    margin-bottom: 22px;
-}
-
-h1 {
-    font-size:
-        clamp(2.8rem,
-            5vw,
-            5rem);
-
-    line-height: 1.05;
-    margin-bottom: 24px;
-    color: var(--color-white);
-}
-
-p {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color:
-        rgba(255,
-            255,
-            255,
-            .92);
-
-    max-width: 620px;
-}
-
-.center p {
-    margin-inline: auto;
-}
-
-/* BUTTONS */
-.buttons {
-    display: flex;
-    gap: 14px;
-    margin-top: 32px;
-    flex-wrap: wrap;
-}
-
-.hero-btn {
-    padding: 18px 30px;
-    border-radius: 16px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: var(--transition);
-}
-
-.primary {
-    background: var(--color-secondary);
-    color: var(--color-primary);
-}
-
-.primary:hover {
-    transform:
-        translateY(-3px);
-}
-
-.secondary {
-    background:
-        rgba(255,
-            255,
-            255,
-            .12);
-
+    padding: 60px 40px;
     color: white;
-
-    border:
-        1px solid rgba(255,
-            255,
-            255,
-            .2);
 }
 
-/* DOTS */
-.dots {
+.slide-content h2 {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.1;
+    color: white;
+}
+
+.slide-content p {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 400px;
+}
+
+.slide-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    font-weight: 700;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-orange {
+    background: #ff8c00; /* Laranja da imagem */
+    color: white;
+}
+
+.btn-orange:hover {
+    background: #ff7b00;
+    transform: translateY(-2px);
+}
+
+.btn-light {
+    background: #ffffff;
+    color: #011A4F;
+}
+
+.btn-light:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+/* Dots */
+.dots-container {
     position: absolute;
-    bottom: 28px;
-    left: 50%;
-
-    transform:
-        translateX(-50%);
-
+    bottom: 20px;
+    left: 0;
+    width: 100%;
     display: flex;
+    justify-content: center;
     gap: 10px;
-
     z-index: 10;
 }
 
 .dot {
     width: 12px;
     height: 12px;
-
-    border-radius: 999px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
     border: none;
-
     cursor: pointer;
-
-    background:
-        rgba(255,
-            255,
-            255,
-            .35);
-
-    transition: .3s;
+    transition: all 0.3s;
+    padding: 0;
 }
 
 .dot.active {
-    width: 38px;
     background: white;
+    transform: scale(1.2);
 }
 
-/* RESPONSIVO */
-@media(max-width:992px) {
-
-    .hero-slide,
-    .hero-content {
-        min-height: 600px;
-    }
-
-    .content-wrapper {
-        text-align: center;
-        margin: auto;
-    }
-
-    p {
-        margin-inline: auto;
-    }
-
-    .buttons {
-        justify-content: center;
+/* Responsive fixes */
+@media (max-width: 1024px) {
+    .carousel-slide {
+        flex: 0 0 50%; /* 2 items on tablet */
     }
 }
 
-@media(max-width:768px) {
-
-    .hero-slide,
-    .hero-content {
-        min-height: 520px;
+@media (max-width: 768px) {
+    .carousel-slide {
+        flex: 0 0 100%; /* 1 item on mobile */
+        min-height: 480px;
     }
-
-    h1 {
-        font-size: 2.3rem;
+    .slide-content {
+        padding: 40px 20px;
     }
-
-    p {
-        font-size: 1rem;
+    .slide-content h2 {
+        font-size: 2rem;
     }
-
-    .buttons {
-        flex-direction: column;
-    }
-
-    .hero-btn {
-        width: 100%;
-        text-align: center;
-    }
-}
-
-/* TRANSITION */
-.fade-enter-active,
-.fade-leave-active {
-    transition:
-        opacity .45s ease,
-        transform .45s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-    transform:
-        scale(1.02);
 }
 </style>
+
+
+

@@ -1,3 +1,7 @@
+<script setup>
+import { Instagram, Facebook } from 'lucide-vue-next'
+</script>
+
 <template>
   <footer class="footer">
 
@@ -20,10 +24,12 @@
         </p>
 
         <div class="socials">
-          <a href="#">📘</a>
-          <a href="#">📸</a>
-          <a href="#">▶️</a>
-          <a href="#">💼</a>
+          <a href="#" title="Facebook">
+            <Facebook class="social-icon" />
+          </a>
+          <a href="#" title="Instagram">
+            <Instagram class="social-icon" />
+          </a>
         </div>
 
       </div>
@@ -33,7 +39,6 @@
         <h3>Institucional</h3>
 
         <ul>
-          <li><a href="#">Quem Somos</a></li>
           <li><a href="#">Transparência</a></li>
           <li><a href="#">Notícias</a></li>
           <li><a href="#">Ouvidoria</a></li>
@@ -45,7 +50,6 @@
         <h3>Serviços</h3>
 
         <ul>
-          <li><a href="#">Solicitar Crédito</a></li>
           <li><a href="#">Simulador</a></li>
           <li><a href="#">Emitir Boleto</a></li>
           <li><a href="#">Consultar Protocolo</a></li>
@@ -54,13 +58,17 @@
 
       <!-- Contato -->
       <div class="footer-column">
-        <h3>Contato</h3>
+        <h3>Atendimento Presencial</h3>
 
         <ul class="contact-list">
-          <li>📍 Palmas - Tocantins</li>
-          <li>📞 (63) 3218-1548</li>
-          <li>✉ contato@empresa.com</li>
-          <li>🕒 Seg a Sex • 08h às 18h</li>
+          <li>
+            <strong>SEDE PALMAS</strong><br>
+            ACSE 80 – Av. Siqueira Campos, 802 – Plano Diretor Sul
+          </li>
+          <li style="margin-top: 15px;">
+            <strong>PRONTOS</strong><br>
+            • Gurupi • Araguaína • Porto Nacional
+          </li>
         </ul>
       </div>
 
@@ -71,7 +79,7 @@
       <div class="container bottom-content">
 
         <p>
-          © 2026 Meu Crédito.
+          © 2026 Fomento Tocantins.
           Todos os direitos reservados.
         </p>
 
@@ -173,6 +181,12 @@
     rgba(255,255,255,.22);
 
   transform: translateY(-3px);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  color: white;
 }
 
 /* COLUNAS */
