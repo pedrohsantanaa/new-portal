@@ -6,7 +6,7 @@
                 <div class="contact-info">
                     <Phone class="phone-icon-highlight" />
                     <span class="contact-label">Atendimento:</span>
-                    <span class="phone-number">(63) 3228-9800</span>
+                    <span class="phone-number">(63) 3220-9800</span>
                 </div>
 
 

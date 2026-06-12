@@ -46,9 +46,9 @@
         </SwiperSlide>
       </Swiper>
 
-      <!-- MOBILE BUTTON -->
-      <div class="mobile-button">
-        <a href="/linhas-de-credito" class="view-all">Ver todas as linhas →</a>
+      <!-- LINK "VER TODAS" -->
+      <div class="view-all-container">
+        <a href="/linhas-de-credito" class="view-all-link">Ver todas as linhas de crédito ›</a>
       </div>
 
     </div>
@@ -142,7 +142,7 @@ const creditLines = ref([
 <style scoped>
 .credit-section {
   padding: 80px 0;
-  background: var(--color-primary);
+  background: linear-gradient(180deg, #011A4F 0%, #0a2d6a 40%, #1a3f7f 70%, #2a5298 100%);
 }
 
 /* HEADER */
@@ -308,15 +308,32 @@ const creditLines = ref([
   transform: translateY(-2px);
 }
 
-/* MOBILE */
-.mobile-button {
-  display: none;
+/* LINK VER TODAS */
+.view-all-container {
+  text-align: center;
+  margin-top: 40px;
 }
 
-.view-all {
-  color: var(--color-secondary);
-  text-decoration: none;
+.view-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--color-white);
+  padding: 14px 32px;
+  border-radius: var(--radius-sm);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.view-all-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  transform: translateY(-2px);
 }
 
 /* RESPONSIVE */
@@ -341,10 +358,9 @@ const creditLines = ref([
     justify-content: center;
   }
 
-  .mobile-button {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
+  .view-all-link {
+    padding: 12px 24px;
+    font-size: 15px;
   }
 }
 
