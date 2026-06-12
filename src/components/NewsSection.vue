@@ -146,7 +146,7 @@ const newsList = ref([
 
 <style scoped>
 .news-section {
-  padding: 90px 0;
+  padding: 80px 0;
   background: var(--color-bg-alt);
 }
 
@@ -159,7 +159,7 @@ const newsList = ref([
 }
 
 .section-header h2 {
-  font-size: 42px;
+  font-size: clamp(1.8rem, 4vw, 3rem);
   color: var(--color-primary);
 }
 
@@ -177,27 +177,23 @@ const newsList = ref([
 /* GRID */
 .news-grid {
   display: grid;
-  grid-template-columns:
-    repeat(4, 1fr);
-
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
 /* CARD */
 .news-card {
-  background: var(--color-bg);
-  border-radius: 24px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--color-bg-alt);
+  border: 1px solid var(--color-border);
   transition: var(--transition);
   cursor: pointer;
 }
 
 .news-card:hover {
   transform: translateY(-6px);
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.08);
+  box-shadow: var(--shadow-hover);
 }
 
 .image-wrapper {
@@ -215,14 +211,12 @@ const newsList = ref([
   position: absolute;
   top: 16px;
   left: 16px;
-
-  background: #16a34a;
-  color: white;
-
+  background: var(--color-green);
+  color: var(--color-white);
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   font-size: 13px;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 /* CONTENT */
@@ -232,37 +226,36 @@ const newsList = ref([
 
 .news-content h3 {
   color: var(--color-text);
-  font-size: 22px;
-  line-height: 1.4;
-  margin-bottom: 14px;
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
 .news-content p {
   color: var(--color-text-muted);
-  line-height: 1.7;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 14px;
 }
 
 .news-footer {
   display: flex;
   justify-content: space-between;
   color: var(--color-text-muted);
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.8;
 }
 
 /* TABLET */
 @media(max-width:1100px){
-
   .news-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* MOBILE */
 @media(max-width:768px){
-
   .news-section {
     padding: 60px 0;
   }
@@ -271,10 +264,6 @@ const newsList = ref([
     flex-direction: column;
     align-items: start;
     gap: 20px;
-  }
-
-  .section-header h2 {
-    font-size: 30px;
   }
 
   .news-grid {

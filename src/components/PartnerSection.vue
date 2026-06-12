@@ -112,7 +112,7 @@ const duplicatedPartners =
 <style scoped>
 .partners-section {
   padding: 80px 0;
-  background: white;
+  background: var(--color-bg);
   overflow: hidden;
 }
 
@@ -124,16 +124,16 @@ const duplicatedPartners =
 .badge {
   display: inline-flex;
   padding: 10px 18px;
-  border-radius: 999px;
-  background: #dbeafe;
-  color: #083ea8;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+  color: var(--color-accent);
   font-weight: 600;
   margin-bottom: 18px;
 }
 
 .section-header h2 {
-  font-size: 42px;
-  color: #0f2f63;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--color-primary);
 }
 
 /* SLIDER */
@@ -155,20 +155,12 @@ const duplicatedPartners =
 
 .partners-slider::before {
   left: 0;
-
-  background:
-    linear-gradient(to right,
-      white,
-      transparent);
+  background: linear-gradient(to right, var(--color-bg), transparent);
 }
 
 .partners-slider::after {
   right: 0;
-
-  background:
-    linear-gradient(to left,
-      white,
-      transparent);
+  background: linear-gradient(to left, var(--color-bg), transparent);
 }
 
 /* TRACK */
@@ -176,16 +168,12 @@ const duplicatedPartners =
   display: flex;
   align-items: center;
   gap: 80px;
-
   width: max-content;
-
-  animation:
-    scroll 25s linear infinite;
+  animation: scroll 25s linear infinite;
 }
 
 .partner-item {
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,9 +183,8 @@ const duplicatedPartners =
   height: 80px;
   width: auto;
   object-fit: contain;
-
-  opacity: .75;
-  transition: .3s;
+  opacity: 0.75;
+  transition: var(--transition);
   filter: grayscale(100%);
 }
 
@@ -209,24 +196,12 @@ const duplicatedPartners =
 
 /* LOOP */
 @keyframes scroll {
-  from {
-    transform:
-      translateX(0);
-  }
-
-  to {
-    transform:
-      translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* TABLET */
 @media(max-width:992px) {
-
-  .section-header h2 {
-    font-size: 34px;
-  }
-
   .partners-track {
     gap: 50px;
   }
@@ -238,17 +213,12 @@ const duplicatedPartners =
 
 /* MOBILE */
 @media(max-width:768px) {
-
   .partners-section {
     padding: 60px 0;
   }
 
   .section-header {
     text-align: center;
-  }
-
-  .section-header h2 {
-    font-size: 30px;
   }
 
   .partners-track {

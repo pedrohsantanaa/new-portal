@@ -1,46 +1,49 @@
 # AGENTS.md
 
-## Project overview
+## Visão geral do projeto
 
-Vue 3 + Vite single-page portal (no router, no SSR, no tests). All content is in Portuguese (Brazilian). This is a financial services / credit portal for Tocantins, Brazil.
+Portal single-page em Vue 3 + Vite (sem router, sem SSR, sem testes). Todo o conteúdo está em português do Brasil. Portal de serviços financeiros / crédito para Tocantins.
 
-## Commands
+## Comandos
 
-- `npm run dev` — Vite dev server (default port 5173)
-- `npm run build` — production build to `dist/`
-- `npm run preview` — preview production build
+- `npm run dev` — servidor de desenvolvimento Vite (porta padrão 5173)
+- `npm run build` — build de produção em `dist/`
+- `npm run preview` — visualiza o build de produção
 
-No linter, formatter, typecheck, or test framework is configured. No pre-commit hooks or CI workflows exist.
+Nenhum linter, formatter, typecheck ou framework de testes está configurado. Não há pre-commit hooks nem workflows de CI.
 
-## Tech stack
+## Stack técnica
 
-- Vue 3 with `<script setup>` (Composition API)
-- Pinia for state (single store: `src/store/useSettingsStore.js`)
-- Swiper (`swiper/vue`) for carousels — requires importing CSS: `import 'swiper/css'` and `import 'swiper/css/pagination'`
-- Lucide Vue Next for icons (e.g. `import { Phone } from 'lucide-vue-next'`)
-- Vite 8 with `@vitejs/plugin-vue`
+- Vue 3 com `<script setup>` (Composition API)
+- Pinia para estado (store única: `src/store/useSettingsStore.js`)
+- Swiper (`swiper/vue`) para carousels — requer importação de CSS: `import 'swiper/css'` e `import 'swiper/css/pagination'`
+- Lucide Vue Next para ícones (ex: `import { Phone } from 'lucide-vue-next'`)
+- Vite 8 com `@vitejs/plugin-vue`
 
-## Key architecture facts
+## Fatos arquitetônicos importantes
 
-- **No router.** `App.vue` assembles all sections directly as components.
-- **Entry point:** `src/main.js` → creates app, installs Pinia, mounts to `#app`.
-- **Global styles:** `src/assets/styles/global.css` — defines CSS custom properties (design tokens). Imported in `main.js`, not in `style.css`.
-- **`src/style.css` is unused boilerplate** from the Vite template. It is not imported anywhere. Do not edit it expecting visual changes.
-- **Design tokens** live in `global.css` as CSS custom properties: `--color-primary`, `--color-secondary`, `--color-accent`, `--color-bg`, `--color-bg-alt`, `--color-text`, `--color-text-muted`, `--color-white`, `--transition`.
-- **Theme system:** Three modes toggled via `data-theme` attribute and `.high-contrast` class on `<html>`: default (blue), alternative (green), high-contrast. Managed by `useSettingsStore`.
-- **Static assets** served from `public/` (carousel images in `public/carroussel/`, icons in `public/icons/`, partner logos in `public/partners/`).
-- **Content data is hardcoded** inside component `<script setup>` blocks, not fetched from an API.
+- **Sem router.** `App.vue` monta todas as seções diretamente como componentes.
+- **Ponto de entrada:** `src/main.js` → cria o app, instala Pinia, monta em `#app`.
+- **Estilos globais:** `src/assets/styles/global.css` — define custom properties CSS (design tokens). Importado em `main.js`, não em `style.css`.
+- **`src/style.css` é boilerplate não utilizado** do template Vite. Não é importado em lugar algum. Não edite esperando mudanças visuais.
+- **Design tokens** ficam em `global.css` como custom properties CSS: `--color-primary`, `--color-secondary`, `--color-accent`, `--color-bg`, `--color-bg-alt`, `--color-text`, `--color-text-muted`, `--color-white`, `--transition`.
+- **Sistema de temas:** Três modos alternados via atributo `data-theme` e classe `.high-contrast` no `<html>`: padrão (azul), alternativo (verde), alto contraste. Gerenciado por `useSettingsStore`.
+- **Assets estáticos** servidos de `public/` (imagens de carousel em `public/carroussel/`, ícones em `public/icons/`, logos de parceiros em `public/partners/`).
+- **Dados do conteúdo são hardcoded** dentro dos blocos `<script setup>` dos componentes, não buscados de API.
 
-## Component layout in App.vue
+## Layout de componentes em App.vue
 
-Active components: `AppHeader`, `HeroEditorial`, `CreditSection`, `StoriesSection`, `NewsSection`, `QuickServices`, `PartnersSection`, `AppFooter`.
+Componentes ativos: `AppHeader`, `HeroEditorial`, `CreditSection`, `StoriesSection`, `NewsSection`, `QuickServices`, `PartnersSection`, `AppFooter`.
 
-Commented out: `HeroCarousel`, `HeroSection`, `Carousel`, `FinanceSection`. These are alternative hero/section implementations kept in the codebase.
+Comentados: `HeroFeatures`, `Carousel`, `FinanceSection`. São implementações alternativas de hero/seção mantidas no código. `HeroCarousel` e `HeroSection` **não existem** neste repositório — não os crie.
 
-## Coding conventions
+Componente órfão: `SiteMapModal.vue` existe em `components/` mas nunca é importado em lugar algum. Pode ser ignorado ou removido.
 
-- All components use `<script setup>` (no Options API).
-- Scoped `<style scoped>` in all components.
-- Responsive breakpoints: 992px (tablet), 768px (mobile), 480px (small mobile).
-- Container class: `.container` (max-width 1280px, centered, responsive padding).
-- Component data (credit lines, banners, stories, news) is defined as `ref()` arrays in each component's script block.
+## Convenções de código
+
+- Todos os componentes usam `<script setup>` (sem Options API).
+- `<style scoped>` em todos os componentes.
+- Breakpoints responsivos: 992px (tablet), 768px (mobile), 480px (mobile pequeno).
+- Classe container: `.container` (max-width 1280px, centralizado, padding responsivo).
+- Dados dos componentes (linhas de crédito, banners, stories, notícias) são definidos como arrays `ref()` no bloco script de cada componente.
+- **Atenção ao alias de importação:** `PartnerSection.vue` (sem 's') é importado como `PartnersSection` (com 's') em `App.vue`. O nome do arquivo e o nome da variável de importação divergem.

@@ -102,102 +102,80 @@ const services = ref([
 
 <style scoped>
 .services-section {
-  padding: 90px 0;
-  background: white;
+  padding: 80px 0;
+  background: var(--color-bg);
 }
 
 /* HEADER */
 .section-header {
   text-align: center;
-  margin-bottom: 45px;
+  margin-bottom: 40px;
 }
 
 .section-header h2 {
-  font-size: 42px;
-  color: #0f2f63;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--color-primary);
 }
 
 .section-header p {
-  color: #64748b;
+  color: var(--color-text-muted);
   margin-top: 10px;
 }
 
 /* GRID */
 .services-grid {
   display: grid;
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 22px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 /* CARD */
 .service-card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 22px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 35px 20px;
-
   text-decoration: none;
   text-align: center;
-
-  transition: .35s;
+  transition: var(--transition);
 }
 
 .service-card:hover {
-  transform: translateY(-8px);
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.08);
-
-  border-color: #083ea8;
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--color-accent);
 }
 
 .icon-wrapper {
   width: 72px;
   height: 72px;
   margin: 0 auto 20px;
-
-  border-radius: 20px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #eef4ff,
-      #dbeafe
-    );
-
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-bg-alt), var(--color-border));
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 34px;
 }
 
 .service-card h3 {
-  color: #0f172a;
+  color: var(--color-text);
   font-size: 18px;
   line-height: 1.5;
+  font-weight: 700;
 }
 
 /* TABLET */
 @media(max-width:1100px){
-
   .services-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* MOBILE */
 @media(max-width:768px){
-
   .services-section {
     padding: 60px 0;
-  }
-
-  .section-header h2 {
-    font-size: 30px;
   }
 
   .services-grid {

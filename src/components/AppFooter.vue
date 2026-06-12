@@ -100,13 +100,6 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 </template>
 
 <style scoped>
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 /* FOOTER */
 .footer {
   background-color: var(--color-primary);
@@ -115,22 +108,11 @@ import { Instagram, Facebook } from 'lucide-vue-next'
   width: 100%;
 }
 
-/* CONTAINER */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 /* GRID */
 .footer-grid {
   padding: 70px 0 50px;
-
   display: grid;
-  grid-template-columns:
-    1.5fr 1fr 1fr 1fr;
-
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 40px;
 }
 
@@ -147,10 +129,11 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .footer-brand p {
-  color: rgba(255,255,255,.75);
-  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
   margin-bottom: 24px;
   max-width: 320px;
+  font-size: 14px;
 }
 
 /* REDES */
@@ -163,30 +146,24 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 .socials a {
   width: 42px;
   height: 42px;
-  border-radius: 50%;
-
-  background:
-    rgba(255,255,255,.12);
-
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
-
   text-decoration: none;
   transition: var(--transition);
 }
 
 .socials a:hover {
-  background:
-    rgba(255,255,255,.22);
-
+  background: rgba(255, 255, 255, 0.22);
   transform: translateY(-3px);
 }
 
 .social-icon {
   width: 20px;
   height: 20px;
-  color: white;
+  color: var(--color-white);
 }
 
 /* COLUNAS */
@@ -196,7 +173,8 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 
 .footer-column h3 {
   margin-bottom: 22px;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .footer-column ul {
@@ -209,9 +187,10 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 
 .footer-column a {
   text-decoration: none;
-  color: rgba(255,255,255,.75);
+  color: rgba(255, 255, 255, 0.75);
   transition: var(--transition);
   word-break: break-word;
+  font-size: 14px;
 }
 
 .footer-column a:hover {
@@ -219,16 +198,15 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .contact-list li {
-  color: rgba(255,255,255,.75);
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
   word-break: break-word;
+  font-size: 14px;
 }
 
 /* BOTTOM */
 .footer-bottom {
-  border-top:
-    1px solid rgba(255,255,255,.12);
-
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding: 22px 0;
 }
 
@@ -241,7 +219,7 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .bottom-content p {
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
 }
 
@@ -253,10 +231,11 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .bottom-links a {
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   transition: var(--transition);
   text-align: center;
+  font-size: 14px;
 }
 
 .bottom-links a:hover {
@@ -265,18 +244,14 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 
 /* TABLET */
 @media(max-width:1024px){
-
   .footer-grid {
-    grid-template-columns:
-      repeat(2, 1fr);
-
+    grid-template-columns: repeat(2, 1fr);
     gap: 35px;
   }
 }
 
 /* MOBILE */
 @media(max-width:768px){
-
   .footer-grid {
     grid-template-columns: 1fr;
     text-align: center;

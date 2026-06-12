@@ -4,131 +4,51 @@
 
       <!-- HEADER -->
       <div class="section-header">
-
-        <div>
-          <span class="badge">
-            Soluções financeiras
-          </span>
-
-          <h2>
-            Encontre a linha de crédito ideal
-          </h2>
-
-          <p>
-            Escolha a melhor solução para
-            impulsionar seu negócio.
-          </p>
-        </div>
-
-        <a href="/linhas-de-credito" class="view-all desktop-link">
-          Ver todas →
-        </a>
-
+        <h2>Nossas <span>Linhas de Crédito</span></h2>
       </div>
 
-      <!-- TABS -->
-      <div class="tabs">
-        <button v-for="category in categories" :key="category" class="tab" :class="{
-          active:
-            selectedCategory === category
-        }" @click="selectedCategory = category">
-          {{ category }}
+      <!-- NAVIGATION -->
+      <div class="carousel-nav">
+        <button class="arrow-btn" @click="swiper?.slidePrev()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="arrow-btn" @click="swiper?.slideNext()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
 
-      <!-- TOP ACTIONS -->
-      <div class="carousel-top">
-
-        <div class="navigation-buttons">
-
-          <button class="arrow-btn" @click="swiper?.slidePrev()">
-            ←
-          </button>
-
-          <button class="arrow-btn" @click="swiper?.slideNext()">
-            →
-          </button>
-
-        </div>
-
-      </div>
-
       <!-- CAROUSEL -->
-      <!-- <Swiper
+      <Swiper
         @swiper="onSwiper"
         :modules="modules"
-        :slides-per-view="1"
+        :slides-per-view="'auto'"
         :space-between="22"
         :grab-cursor="true"
-        :pagination="{
-          clickable: true
-        }"
+        :pagination="{ clickable: true }"
         :breakpoints="{
-          640: {
-            slidesPerView: 2
-          },
-
-          992: {
-            slidesPerView: 3
-          },
-
-          1200: {
-            slidesPerView: 4
-          }
+          640: { slidesPerView: 2 },
+          992: { slidesPerView: 3 },
+          1200: { slidesPerView: 4 }
         }"
         class="credit-swiper"
-      > -->
-      <Swiper @swiper="onSwiper" :modules="modules" :slides-per-view="'auto'" :space-between="22" :grab-cursor="true"
-        :pagination="{
-          clickable: true
-        }" :breakpoints="{
-          640: {
-            slidesPerView: 2
-          },
-
-          992: {
-            slidesPerView: 3
-          },
-
-          1200: {
-            slidesPerView: 4
-          }
-        }" class="credit-swiper">
-        <SwiperSlide v-for="credit in filteredCredits" :key="credit.id">
+      >
+        <SwiperSlide v-for="credit in creditLines" :key="credit.id">
           <div class="credit-card">
-
-            <div class="icon-box" :style="{
-              background:
-                credit.color
-            }">
+            <div class="icon-box" :style="{ background: credit.color }">
               <img :src="credit.icon" :alt="credit.title" class="icon-image" />
             </div>
-
-            <span class="category">
-              {{ credit.category }}
-            </span>
-
-            <h3>
-              {{ credit.title }}
-            </h3>
-
-            <p>
-              {{ credit.description }}
-            </p>
-
-            <button class="credit-btn">
-              Saiba mais →
-            </button>
-
+            <div class="card-text">
+              <h3>{{ credit.title }}</h3>
+              <p>{{ credit.description }}</p>
+            </div>
+            <a href="#" class="saiba-mais">Saiba Mais ›</a>
           </div>
         </SwiperSlide>
       </Swiper>
 
       <!-- MOBILE BUTTON -->
       <div class="mobile-button">
-        <a href="/linhas-de-credito" class="view-all">
-          Ver todas as linhas →
-        </a>
+        <a href="/linhas-de-credito" class="view-all">Ver todas as linhas →</a>
       </div>
 
     </div>
@@ -136,16 +56,10 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
-import {
-  Swiper,
-  SwiperSlide
-} from 'swiper/vue'
-
-import {
-  Pagination
-} from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper/modules'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -158,244 +72,135 @@ const onSwiper = (instance) => {
   swiper.value = instance
 }
 
-const selectedCategory =
-  ref('Todas')
-
-const categories = [
-  'Todas',
-  'Empresas',
-  'Agro',
-  'Turismo',
-  'Especiais'
-]
-
-const credits = ref([
+const creditLines = ref([
   {
     id: 1,
     title: 'Microcrédito Online',
-    category: 'Empresas',
-    description:
-      ' Até R$20 mil. Crédito ideal para microempreendedores expandirem seus negócios.',
-
+    description: 'Até R$20 mil para microempreendedores expandirem seus negócios.',
     icon: '/icons/microcredito2.png',
     color: '#EEF4FF'
   },
-
   {
     id: 2,
     title: 'Crédito Online',
-    category: 'Empresas',
-    description:
-      'Até R$50 mil. Financiamento para expansão e crescimento sustentável.',
-
+    description: 'Até R$50 mil. Financiamento para expansão e crescimento sustentável.',
     icon: '/icons/credito-online.png',
     color: '#ECFDF3'
   },
-
   {
     id: 3,
     title: 'Mãos que Criam',
-    category: 'Especiais',
-    description:
-      'Até R$15 mil para artesãos e pequenos produtores culturais.',
-
+    description: 'Até R$15 mil para artesãos e pequenos produtores culturais.',
     icon: '/icons/maos.svg',
     color: '#F0FDF4'
   },
-
   {
     id: 4,
     title: 'Agricultura Familiar',
-    category: 'Agro',
-    description:
-      'Crédito para impulsionar pequenos produtores rurais.',
-
+    description: 'Crédito para impulsionar pequenos produtores rurais.',
     icon: '/icons/agricultura-familiar.svg',
     color: '#FEFCE8'
   },
-
   {
     id: 5,
     title: 'Fungetur - MEI',
-    category: 'Turismo',
-    description:
-      'Até R$20 mil. Invista no crescimento do seu negócio turístico.',
-
+    description: 'Até R$20 mil. Invista no crescimento do seu negócio turístico.',
     icon: '/icons/fungetur.svg',
     color: '#FFF7ED'
   },
   {
     id: 6,
     title: 'Fungetur - ME',
-    category: 'Turismo',
-    description:
-      'Até R$50 mil. Invista no crescimento do seu negócio turístico.',
-
-    icon: '/icons/fungetur2.svg',
-    color: '#FFF7ED'
-  },
-  {
-    id: 6,
-    title: 'Fungetur - Média e Grande porte',
-    category: 'Turismo',
-    description:
-      'De R$50 mil a R$300 mil. Invista no crescimento do seu negócio turístico.',
-
+    description: 'Até R$50 mil. Invista no crescimento do seu negócio turístico.',
     icon: '/icons/fungetur2.svg',
     color: '#FFF7ED'
   },
   {
     id: 7,
+    title: 'Fungetur - Médio e Grande',
+    description: 'De R$50 mil a R$300 mil. Expanda seu negócio turístico.',
+    icon: '/icons/fungetur2.svg',
+    color: '#FFF7ED'
+  },
+  {
+    id: 8,
     title: 'Crédito BNDES',
-    category: 'Especiais',
-    description:
-      'De R$50 mil a R$300 mil. Financiamento para projetos de investimento e capital de giro.',
+    description: 'De R$50 mil a R$300 mil. Investimento e capital de giro.',
     icon: '/icons/bndes.svg',
     color: '#FAF5FF'
   },
   {
-    id: 8,
-    title: 'Crédito Pronaf B',
-    category: 'Agro',
-    description:
-      'Mulher: Até R$15 mil Homem: Até R$12 mil',
-    icon: '/icons/pronaf.svg',
-    color: '#FAF5FF'
-  },
-  {
     id: 9,
-    title: 'Crédito Popular',
-    category: 'Especiais',
-    description:
-      '',
-    icon: '/icons/crédito-online.svg',
+    title: 'Crédito Pronaf B',
+    description: 'Mulher: Até R$15 mil. Homem: Até R$12 mil.',
+    icon: '/icons/pronaf.svg',
     color: '#FAF5FF'
   }
 ])
-
-const filteredCredits =
-  computed(() => {
-
-    if (
-      selectedCategory.value ===
-      'Todas'
-    ) {
-      return credits.value
-    }
-
-    return credits.value.filter(
-      credit =>
-        credit.category ===
-        selectedCategory.value
-    )
-  })
 </script>
 
 <style scoped>
 .credit-section {
-  padding: 90px 0;
-  background: var(--color-bg-alt);
+  padding: 80px 0;
+  background: var(--color-primary);
 }
 
 /* HEADER */
 .section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 20px;
-  margin-bottom: 35px;
-}
-
-.badge {
-  display: inline-flex;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: var(--color-accent);
-  color: var(--color-white);
-  font-weight: 600;
-  margin-bottom: 18px;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .section-header h2 {
-  font-size: 42px;
-  color: var(--color-primary);
-}
-
-.section-header p {
-  color: var(--color-text-muted);
-  margin-top: 10px;
-}
-
-.view-all {
-  color: var(--color-accent);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* TABS */
-.tabs {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-
-.tab {
-  border: none;
-  background: var(--color-bg);
-  height: 48px;
-  padding: 0 22px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.tab:hover {
-  background: var(--color-bg-alt);
-}
-
-.tab.active {
-  background: var(--color-accent);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   color: var(--color-white);
+  font-weight: 700;
 }
 
-/* TOP */
-.carousel-top {
+.section-header h2 span {
+  color: var(--color-secondary);
+  position: relative;
+}
+
+.section-header h2 span::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+}
+
+/* NAVIGATION */
+.carousel-nav {
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
-.navigation-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-/* BUTTON */
 .arrow-btn {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
   border: none;
-
-  background: var(--color-bg);
-  color: var(--color-accent);
-
-  font-size: 22px;
+  background: var(--color-white);
+  color: var(--color-primary);
   cursor: pointer;
   transition: var(--transition);
-
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, .08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
 }
 
 .arrow-btn:hover {
-  transform: translateY(-3px);
-
-  background: var(--color-accent);
-  color: var(--color-white);
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 /* SWIPER */
@@ -410,86 +215,95 @@ const filteredCredits =
   height: auto;
 }
 
+:deep(.swiper-pagination-bullet) {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+  transition: var(--transition);
+}
+
 :deep(.swiper-pagination-bullet-active) {
-  background: var(--color-accent);
+  background: var(--color-secondary);
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 /* CARD */
 .credit-card {
   width: 100%;
-  min-height: 360px;
   height: 100%;
-
-  background: var(--color-bg);
-  border-radius: 28px;
-  padding: 30px;
-  border: 1px solid var(--color-bg-alt);
-
+  min-height: 320px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  border: none;
   display: flex;
   flex-direction: column;
-
   transition: var(--transition);
+  box-shadow: var(--shadow-md);
 }
 
 .credit-card:hover {
-  transform: translateY(-8px);
-
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, .08);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
 }
 
 .icon-box {
-  width: 75px;
-  height: 75px;
-  border-radius: 22px;
-
+  width: 68px;
+  height: 68px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .icon-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
-.category {
-  color: var(--color-accent);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.credit-card h3 {
-  font-size: 24px;
-  color: var(--color-text);
-  margin: 12px 0;
-  min-height: 62px;
-}
-
-.credit-card p {
-  color: var(--color-text-muted);
-  line-height: 1.7;
-
+.card-text {
   flex: 1;
-  min-height: 72px;
 }
 
-.credit-btn {
-  border: none;
-  background: transparent;
-  color: var(--color-accent);
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: auto;
+.card-text h3 {
+  font-size: 18px;
+  color: var(--color-text);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.card-text p {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.saiba-mais {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
   transition: var(--transition);
+  margin-top: auto;
+  align-self: flex-start;
 }
 
-.credit-btn:hover {
-  transform: translateX(4px);
+.saiba-mais:hover {
+  background: color-mix(in srgb, var(--color-secondary), black 15%);
+  transform: translateY(-2px);
 }
 
 /* MOBILE */
@@ -497,23 +311,32 @@ const filteredCredits =
   display: none;
 }
 
-@media(max-width:768px) {
+.view-all {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-weight: 600;
+}
 
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .credit-card {
+    padding: 26px;
+    min-height: 300px;
+  }
+
+  .icon-box {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 768px) {
   .credit-section {
     padding: 60px 0;
   }
 
-  .section-header {
-    flex-direction: column;
-    align-items: start;
-  }
-
-  .section-header h2 {
-    font-size: 30px;
-  }
-
-  .desktop-link {
-    display: none;
+  .carousel-nav {
+    justify-content: center;
   }
 
   .mobile-button {
@@ -521,19 +344,22 @@ const filteredCredits =
     justify-content: center;
     margin-top: 24px;
   }
+}
 
-  .carousel-top {
-    justify-content: center;
+@media (max-width: 576px) {
+  .credit-card {
+    padding: 24px;
+    min-height: 280px;
+  }
+
+  .icon-box {
+    width: 56px;
+    height: 56px;
   }
 
   .arrow-btn {
-    width: 46px;
-    height: 46px;
-  }
-
-  .credit-card {
-    min-height: 330px;
-    padding: 28px;
+    width: 42px;
+    height: 42px;
   }
 }
 </style>

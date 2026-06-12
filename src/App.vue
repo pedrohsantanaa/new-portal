@@ -20,7 +20,7 @@ import HeroFeatures from './components/HeroFeatures.vue'
     <!-- <Carousel/> -->
     <CreditSection />
     <!-- <FinanceSection /> -->
-    <StoriesSection />
+    <!-- <StoriesSection /> -->
     <NewsSection />
     <QuickServices />
     <PartnersSection />

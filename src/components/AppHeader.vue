@@ -190,10 +190,10 @@ const toggleMenu = () => {
     top: 100%;
     right: 0;
     background: var(--color-bg);
-    border: 1px solid var(--color-bg-alt);
-    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     padding: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     min-width: 180px;
     z-index: 1000;
     margin-top: 10px;
@@ -224,29 +224,29 @@ const toggleMenu = () => {
 .btn-group button {
     flex: 1;
     padding: 6px;
-    border: 1px solid var(--color-bg-alt);
+    border: 1px solid var(--color-border);
     background: var(--color-bg-alt);
     cursor: pointer;
-    border-radius: 6px;
-    font-weight: bold;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
     color: var(--color-text);
 }
 
 .btn-group button:hover {
     background: var(--color-accent);
-    color: white;
+    color: var(--color-white);
 }
 
 .theme-btns button.active {
     background: var(--color-primary);
-    color: white;
+    color: var(--color-white);
 }
 
 /* NAVBAR */
 .navbar {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
+    box-shadow: var(--shadow-sm);
 }
 
 /* Quando em alto contraste, tirar a transparência */
@@ -288,11 +288,11 @@ const toggleMenu = () => {
 
 /* BUTTON */
 .btn-primary {
-    background: linear-gradient(135deg, var(--color-secondary), #f59e0b);
+    background: linear-gradient(135deg, var(--color-secondary), color-mix(in srgb, var(--color-secondary), black 15%));
     border: none;
     padding: 14px 24px;
-    border-radius: 12px;
-    font-weight: bold;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
     cursor: pointer;
     transition: var(--transition);
     color: var(--color-primary);
@@ -300,7 +300,7 @@ const toggleMenu = () => {
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 /* HAMBURGER */
@@ -317,7 +317,7 @@ const toggleMenu = () => {
     width: 28px;
     height: 3px;
     background: var(--color-primary);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     transition: var(--transition);
 }
 
@@ -338,7 +338,7 @@ const toggleMenu = () => {
     width: 18px;
     height: 18px;
     stroke-width: 2.3;
-    color: white;
+    color: var(--color-white);
     vertical-align: middle;
     margin-right: 5px;
 }
@@ -363,8 +363,8 @@ const toggleMenu = () => {
         left: -100%;
         width: 100%;
         background: var(--color-bg);
-        transition: .4s ease;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
         padding: 30px;
     }
 

@@ -10,7 +10,21 @@
   --color-text: #334155;
   --color-text-muted: #64748b;
   --color-white: #ffffff;
-  
+  --color-black: #000000;
+  --color-green: #16a34a;
+  --color-border: #e2e8f0;
+  --color-bg-card: #ffffff;
+
+  --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.18);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.15);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 999px;
+
   --transition: 0.3s ease;
 }
 
@@ -30,6 +44,14 @@ html.high-contrast {
   --color-text: #ffffff;
   --color-text-muted: #cccccc;
   --color-white: #000000;
+  --color-green: #00ff00;
+  --color-border: #444444;
+  --color-bg-card: #1a1a1a;
+
+  --shadow-sm: 0 4px 16px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 8px 30px rgba(255, 255, 255, 0.08);
+  --shadow-lg: 0 16px 40px rgba(255, 255, 255, 0.1);
+  --shadow-hover: 0 12px 32px rgba(255, 255, 255, 0.12);
 }
 
 /* ======================
@@ -275,16 +297,6 @@ a {
 
   .hero-image img {
     height: 260px !important;
-  }
-
-  .credit-card,
-  .news-card,
-  .service-card,
-  .simulator-card,
-  .stats-card,
-  .story-card {
-    border-radius: 20px;
-    padding: 22px !important;
   }
 
   .icon-wrapper,

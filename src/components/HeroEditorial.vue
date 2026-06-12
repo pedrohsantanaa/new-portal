@@ -26,30 +26,46 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const carouselCards = [
     {
-        title: '',
-        description: '',
-        image: '/carroussel/b10.png',
+
+        image: '/carroussel/b1.png',
         link: '#',
-        btnLabel: 'Simular Crédito',
+        btnLabel: 'Conheça Nossos Programas',
         btnClass: 'btn-orange'
     },
     {
-        title: 'Crédito Rural para Produtores',
-        description: 'Linhas exclusivas para fortalecer a produção do campo.',
-        image: '/carroussel/b7.png',
+    
+        image: '/carroussel/b2.png',
         link: '#',
-        btnLabel: 'Saiba Mais >',
-        btnClass: 'btn-light'
+        btnLabel: 'Ver Dashboard',
+        btnClass: 'btn-orange'
     },
     {
-        title: 'Programa Mulheres Empreendedoras',
-        description: 'Apoio e incentivo para o crescimento de negócios femininos.',
+    
+        image: '/carroussel/b3.png',
+        link: '#',
+        btnLabel: 'Localização',
+        btnClass: 'btn-orange'
+    },
+    {
         image: '/carroussel/b8.png',
         link: '#',
-        btnLabel: 'Saiba Mais >',
-        btnClass: 'btn-light'
+        btnLabel: 'Renegociação de Dívidas',
+        btnClass: 'btn-orange'
     },
-    
+    {
+
+        image: '/carroussel/b5.png',
+        link: '#',
+        btnLabel: 'Compras Diretas',
+        btnClass: 'btn-orange'
+    },
+    {
+
+        image: '/carroussel/b6.png',
+        link: '#',
+        btnLabel: 'Saiba Mais',
+        btnClass: 'btn-orange'
+    }
 ]
 
 const currentSlide = ref(0)
@@ -110,7 +126,7 @@ onUnmounted(() => {
     position: relative;
     width: 100%;
     overflow: hidden;
-    background: #011A4F;
+    background: var(--color-primary);
 }
 
 .carousel-container {
@@ -123,7 +139,7 @@ onUnmounted(() => {
 }
 
 .carousel-slide {
-    flex: 0 0 calc(100% / 3); /* Desktop */
+    flex: 0 0 calc(100% / 3);
     min-height: 700px;
     background-size: cover;
     background-position: top center;
@@ -142,7 +158,7 @@ onUnmounted(() => {
     position: relative;
     z-index: 2;
     padding: 60px 40px;
-    color: white;
+    color: var(--color-white);
 }
 
 .slide-content h2 {
@@ -150,7 +166,7 @@ onUnmounted(() => {
     font-weight: 800;
     margin-bottom: 12px;
     line-height: 1.1;
-    color: white;
+    color: var(--color-white);
 }
 
 .slide-content p {
@@ -165,29 +181,29 @@ onUnmounted(() => {
     align-items: center;
     padding: 12px 24px;
     font-weight: 700;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: var(--transition);
     font-size: 1rem;
 }
 
 .btn-orange {
-    background: #ff8c00; /* Laranja da imagem */
-    color: white;
+    background: var(--color-secondary);
+    color: var(--color-black);
 }
 
 .btn-orange:hover {
-    background: #ff7b00;
+    background: color-mix(in srgb, var(--color-secondary), black 15%);
     transform: translateY(-2px);
 }
 
 .btn-light {
-    background: #ffffff;
-    color: #011A4F;
+    background: var(--color-white);
+    color: var(--color-primary);
 }
 
 .btn-light:hover {
-    background: #f0f0f0;
+    background: var(--color-bg-alt);
     transform: translateY(-2px);
 }
 
@@ -206,29 +222,29 @@ onUnmounted(() => {
 .dot {
     width: 12px;
     height: 12px;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     background: rgba(255, 255, 255, 0.3);
     border: none;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: var(--transition);
     padding: 0;
 }
 
 .dot.active {
-    background: white;
+    background: var(--color-white);
     transform: scale(1.2);
 }
 
 /* Responsive fixes */
 @media (max-width: 1024px) {
     .carousel-slide {
-        flex: 0 0 50%; /* 2 items on tablet */
+        flex: 0 0 50%;
     }
 }
 
 @media (max-width: 768px) {
     .carousel-slide {
-        flex: 0 0 100%; /* 1 item on mobile */
+        flex: 0 0 100%;
         min-height: 480px;
     }
     .slide-content {
