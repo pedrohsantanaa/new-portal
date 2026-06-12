@@ -22,7 +22,7 @@ import HeroFeatures from './components/HeroFeatures.vue'
     <!-- <FinanceSection /> -->
     <!-- <StoriesSection /> -->
     <NewsSection />
-    <QuickServices />
+    <!-- <QuickServices /> -->
     <PartnersSection />
     <AppFooter />
 

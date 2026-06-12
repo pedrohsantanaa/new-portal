@@ -77,63 +77,63 @@ const creditLines = ref([
     id: 1,
     title: 'Microcrédito Online',
     description: 'Até R$20 mil para microempreendedores expandirem seus negócios.',
-    icon: '/icons/microcredito2.png',
+    icon: '/icons/microcredito_online.png',
     color: '#EEF4FF'
   },
   {
     id: 2,
     title: 'Crédito Online',
     description: 'Até R$50 mil. Financiamento para expansão e crescimento sustentável.',
-    icon: '/icons/credito-online.png',
+    icon: '/icons/credito_online.png',
     color: '#ECFDF3'
   },
   {
     id: 3,
     title: 'Mãos que Criam',
     description: 'Até R$15 mil para artesãos e pequenos produtores culturais.',
-    icon: '/icons/maos.svg',
+    icon: '/icons/maos_que_criam.png',
     color: '#F0FDF4'
   },
   {
     id: 4,
     title: 'Agricultura Familiar',
     description: 'Crédito para impulsionar pequenos produtores rurais.',
-    icon: '/icons/agricultura-familiar.svg',
+    icon: '/icons/agricultura_familiar.png',
     color: '#FEFCE8'
   },
   {
     id: 5,
     title: 'Fungetur - MEI',
     description: 'Até R$20 mil. Invista no crescimento do seu negócio turístico.',
-    icon: '/icons/fungetur.svg',
+    icon: '/icons/fungetur_mei.png',
     color: '#FFF7ED'
   },
   {
     id: 6,
     title: 'Fungetur - ME',
     description: 'Até R$50 mil. Invista no crescimento do seu negócio turístico.',
-    icon: '/icons/fungetur2.svg',
+    icon: '/icons/fungetur_me.png',
     color: '#FFF7ED'
   },
   {
     id: 7,
     title: 'Fungetur - Médio e Grande',
     description: 'De R$50 mil a R$300 mil. Expanda seu negócio turístico.',
-    icon: '/icons/fungetur2.svg',
+    icon: '/icons/fungetur_gg.png',
     color: '#FFF7ED'
   },
   {
     id: 8,
     title: 'Crédito BNDES',
     description: 'De R$50 mil a R$300 mil. Investimento e capital de giro.',
-    icon: '/icons/bndes.svg',
+    icon: '/icons/bnds.png',
     color: '#FAF5FF'
   },
   {
     id: 9,
     title: 'Crédito Pronaf B',
     description: 'Mulher: Até R$15 mil. Homem: Até R$12 mil.',
-    icon: '/icons/pronaf.svg',
+    icon: '/icons/pronaf.png',
     color: '#FAF5FF'
   }
 ])
@@ -233,7 +233,7 @@ const creditLines = ref([
 .credit-card {
   width: 100%;
   height: 100%;
-  min-height: 320px;
+  min-height: 500px;
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
   padding: 28px;
@@ -250,8 +250,8 @@ const creditLines = ref([
 }
 
 .icon-box {
-  width: 68px;
-  height: 68px;
+  width: 100%;
+  height: 40%;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -264,7 +264,7 @@ const creditLines = ref([
 .icon-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .card-text {
@@ -272,25 +272,27 @@ const creditLines = ref([
 }
 
 .card-text h3 {
-  font-size: 18px;
-  color: var(--color-text);
+  font-size: 26px;
+  color: var(--color-black);
   margin-bottom: 6px;
   font-weight: 700;
+  text-align: center;
 }
 
 .card-text p {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 18px;
+  font-size:20px;
+  color: var(--color-text-black);
+  /* line-height: 1.6; */
+  /* margin-bottom: 18px; */
+  text-align: center;
 }
 
 .saiba-mais {
-  display: inline-flex;
+  display: block;
   align-items: center;
   gap: 4px;
   background: var(--color-secondary);
-  color: var(--color-white);
+  color: var(--color-black);
   padding: 12px 24px;
   border-radius: var(--radius-sm);
   font-weight: 600;
@@ -298,7 +300,7 @@ const creditLines = ref([
   text-decoration: none;
   transition: var(--transition);
   margin-top: auto;
-  align-self: flex-start;
+  align-self: center;
 }
 
 .saiba-mais:hover {
