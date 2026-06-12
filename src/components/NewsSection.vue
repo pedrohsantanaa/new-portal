@@ -147,7 +147,7 @@ const newsList = ref([
 <style scoped>
 .news-section {
   padding: 80px 0;
-  background: var(--color-bg-alt);
+  background: linear-gradient(180deg, #e8eef8 0%, #f8fafc 100%);
 }
 
 /* HEADER */
@@ -169,9 +169,23 @@ const newsList = ref([
 }
 
 .view-all {
-  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 20px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.view-all:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+  transform: translateY(-2px);
 }
 
 /* GRID */
@@ -186,24 +200,31 @@ const newsList = ref([
   background: var(--color-bg-card);
   border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--color-border);
+  border: none;
   transition: var(--transition);
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
 }
 
 .news-card:hover {
   transform: translateY(-6px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .image-wrapper {
   position: relative;
+  overflow: hidden;
 }
 
 .image-wrapper img {
   width: 100%;
   height: 220px;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.news-card:hover .image-wrapper img {
+  transform: scale(1.05);
 }
 
 /* TAG */
@@ -211,7 +232,7 @@ const newsList = ref([
   position: absolute;
   top: 16px;
   left: 16px;
-  background: var(--color-green);
+  background: var(--color-accent);
   color: var(--color-white);
   padding: 8px 14px;
   border-radius: var(--radius-full);
@@ -242,9 +263,16 @@ const newsList = ref([
 .news-footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: var(--color-text-muted);
   font-size: 13px;
-  opacity: 0.8;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.news-footer span:last-child {
+  color: var(--color-accent);
+  font-weight: 600;
 }
 
 /* TABLET */
@@ -268,6 +296,11 @@ const newsList = ref([
 
   .news-grid {
     grid-template-columns: 1fr;
+  }
+
+  .view-all {
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }
 </style>

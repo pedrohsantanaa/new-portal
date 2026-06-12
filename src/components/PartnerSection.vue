@@ -19,7 +19,11 @@
         <div class="partners-track">
 
           <!-- lista duplicada para loop infinito -->
-          <div v-for="partner in duplicatedPartners" :key="partner.id + Math.random()" class="partner-item">
+          <div
+            v-for="(partner, index) in duplicatedPartners"
+            :key="partner.id + '-' + index"
+            class="partner-item"
+          >
             <img :src="partner.logo" :alt="partner.name" />
           </div>
 
@@ -40,25 +44,21 @@ const partners = ref([
     name: 'FACIET',
     logo: '/partners/logo_faciet.png'
   },
-
   {
     id: 2,
     name: 'FUNGETUR',
     logo: '/partners/fungetur_new.png'
   },
-
   {
     id: 3,
     name: 'SICS',
     logo: '/partners/sics-to.png'
   },
-
   {
     id: 4,
     name: 'Brasil',
     logo: '/partners/mtur.png'
   },
-
   {
     id: 5,
     name: 'SEBRAE',
@@ -101,7 +101,6 @@ const partners = ref([
   }
 ])
 
-/* duplicamos para loop infinito */
 const duplicatedPartners =
   computed(() => [
     ...partners.value,
@@ -112,7 +111,7 @@ const duplicatedPartners =
 <style scoped>
 .partners-section {
   padding: 80px 0;
-  background: var(--color-bg);
+  background: #f1f5f9;
   overflow: hidden;
 }
 
@@ -155,21 +154,21 @@ const duplicatedPartners =
 
 .partners-slider::before {
   left: 0;
-  background: linear-gradient(to right, var(--color-bg), transparent);
+  background: linear-gradient(to right, #f1f5f9, transparent);
 }
 
 .partners-slider::after {
   right: 0;
-  background: linear-gradient(to left, var(--color-bg), transparent);
+  background: linear-gradient(to left, #f1f5f9, transparent);
 }
 
 /* TRACK */
 .partners-track {
   display: flex;
   align-items: center;
-  gap: 80px;
+  gap: 32px;
   width: max-content;
-  animation: scroll 25s linear infinite;
+  animation: scroll 30s linear infinite;
 }
 
 .partner-item {
@@ -177,21 +176,23 @@ const duplicatedPartners =
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 18px 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.partner-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
 }
 
 .partner-item img {
-  height: 80px;
-  width: auto;
+  height: 56px;
+  width: 120px;
   object-fit: contain;
-  opacity: 0.75;
   transition: var(--transition);
-  filter: grayscale(100%);
-}
-
-.partner-item:hover img {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: scale(1.05);
 }
 
 /* LOOP */
@@ -203,11 +204,16 @@ const duplicatedPartners =
 /* TABLET */
 @media(max-width:992px) {
   .partners-track {
-    gap: 50px;
+    gap: 24px;
+  }
+
+  .partner-item {
+    padding: 14px 22px;
   }
 
   .partner-item img {
-    height: 65px;
+    height: 48px;
+    width: 100px;
   }
 }
 
@@ -222,11 +228,16 @@ const duplicatedPartners =
   }
 
   .partners-track {
-    gap: 40px;
+    gap: 18px;
+  }
+
+  .partner-item {
+    padding: 12px 18px;
   }
 
   .partner-item img {
-    height: 50px;
+    height: 40px;
+    width: 80px;
   }
 
   .partners-slider::before,

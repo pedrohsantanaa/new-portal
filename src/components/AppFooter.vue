@@ -102,7 +102,7 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 <style scoped>
 /* FOOTER */
 .footer {
-  background-color: var(--color-primary);
+  background: linear-gradient(180deg, #011A4F 0%, #0a2d6a 100%);
   color: var(--color-white);
   overflow: hidden;
   width: 100%;
@@ -110,30 +110,34 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 
 /* GRID */
 .footer-grid {
-  padding: 70px 0 50px;
+  padding: 60px 0 50px;
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 40px;
+  gap: 32px;
 }
 
 /* BRAND */
 .footer-brand {
   min-width: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 28px;
 }
 
 .footer-logo {
-  height: 60px;
+  height: 56px;
   width: auto;
   display: block;
   margin-bottom: 20px;
 }
 
 .footer-brand p {
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.70);
+  line-height: 1.7;
   margin-bottom: 24px;
   max-width: 320px;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 /* REDES */
@@ -144,10 +148,11 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .socials a {
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,25 +161,38 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .socials a:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
   transform: translateY(-3px);
+}
+
+.socials a:hover .social-icon {
+  color: var(--color-primary);
 }
 
 .social-icon {
   width: 20px;
   height: 20px;
   color: var(--color-white);
+  transition: var(--transition);
 }
 
 /* COLUNAS */
 .footer-column {
   min-width: 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 28px;
 }
 
 .footer-column h3 {
   margin-bottom: 22px;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-secondary);
 }
 
 .footer-column ul {
@@ -187,26 +205,34 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 
 .footer-column a {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.70);
   transition: var(--transition);
   word-break: break-word;
   font-size: 14px;
 }
 
 .footer-column a:hover {
-  color: var(--color-white);
+  color: var(--color-secondary);
 }
 
 .contact-list li {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.70);
   line-height: 1.6;
   word-break: break-word;
   font-size: 14px;
 }
 
+.contact-list li strong {
+  color: var(--color-white);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
 /* BOTTOM */
 .footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
   padding: 22px 0;
 }
 
@@ -219,8 +245,8 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .bottom-content p {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.60);
+  font-size: 13px;
 }
 
 .bottom-links {
@@ -231,22 +257,22 @@ import { Instagram, Facebook } from 'lucide-vue-next'
 }
 
 .bottom-links a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.60);
   text-decoration: none;
   transition: var(--transition);
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .bottom-links a:hover {
-  color: var(--color-white);
+  color: var(--color-secondary);
 }
 
 /* TABLET */
 @media(max-width:1024px){
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 35px;
+    gap: 28px;
   }
 }
 
@@ -255,8 +281,13 @@ import { Instagram, Facebook } from 'lucide-vue-next'
   .footer-grid {
     grid-template-columns: 1fr;
     text-align: center;
-    padding: 55px 0 40px;
-    gap: 40px;
+    padding: 50px 0 40px;
+    gap: 24px;
+  }
+
+  .footer-brand,
+  .footer-column {
+    padding: 24px;
   }
 
   .footer-logo {
