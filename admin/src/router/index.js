@@ -18,7 +18,7 @@ const routes = [
       { path: '', name: 'Dashboard', component: Dashboard },
       { path: 'news', name: 'NewsList', component: NewsList },
       { path: 'news/new', name: 'NewsNew', component: NewsForm },
-      { path: 'news/:id/edit', name: 'NewsEdit', component: NewsForm },
+      { path: 'news/:slug/edit', name: 'NewsEdit', component: NewsForm },
       { path: 'credit-lines', name: 'CreditLinesList', component: CreditLinesList },
       { path: 'credit-lines/new', name: 'CreditLineNew', component: CreditLineForm },
       { path: 'credit-lines/:id/edit', name: 'CreditLineEdit', component: CreditLineForm },

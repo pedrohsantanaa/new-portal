@@ -29,7 +29,7 @@
             </td>
             <td>{{ formatDate(item.created_at) }}</td>
             <td class="actions">
-              <router-link :to="`/news/${item.id}/edit`" class="btn-edit">Editar</router-link>
+              <router-link :to="`/news/${item.slug}/edit`" class="btn-edit">Editar</router-link>
               <button @click="handleDelete(item.id)" class="btn-delete">Excluir</button>
             </td>
           </tr>

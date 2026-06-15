@@ -14,7 +14,7 @@
               <ul>
                 <li><a href="#inicio" @click.prevent="navigate('inicio')">Início</a></li>
                 <li><a href="#creditos" @click.prevent="navigate('creditos')">Linhas de Crédito</a></li>
-                <li><a href="#noticias" @click.prevent="navigate('noticias')">Notícias</a></li>
+                <li><a href="/noticias" @click.prevent="navigateTo('/noticias')">Notícias</a></li>
                 <li><a href="#" class="disabled-link" aria-disabled="true">Acesso a Informação</a></li>
               </ul>
             </div>
@@ -47,6 +47,10 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 defineProps({
   isOpen: Boolean
 })
@@ -54,6 +58,11 @@ const emit = defineEmits(['close', 'navigate'])
 
 const navigate = (sectionId) => {
   emit('navigate', sectionId)
+  emit('close')
+}
+
+const navigateTo = (path) => {
+  router.push(path)
   emit('close')
 }
 </script>

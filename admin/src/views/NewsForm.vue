@@ -32,9 +32,43 @@
         <textarea v-model="form.content" rows="10" required></textarea>
       </div>
 
+      <!-- Upload de Imagem -->
       <div class="field">
-        <label>URL da Imagem</label>
-        <input v-model="form.image_url" type="text" placeholder="https://..." />
+        <label>Imagem da Notícia</label>
+
+        <div class="image-upload-area" v-if="!imagePreview && !form.image_url">
+          <input
+            type="file"
+            ref="fileInput"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            @change="handleFileSelect"
+            class="file-input"
+          />
+          <div class="upload-placeholder" @click="$refs.fileInput.click()">
+            <span class="upload-icon">📷</span>
+            <span class="upload-text">Clique para enviar uma imagem</span>
+            <span class="upload-hint">JPG, PNG ou WebP • Máx. 5MB</span>
+          </div>
+        </div>
+
+        <!-- Preview da imagem -->
+        <div v-if="imagePreview" class="image-preview">
+          <img :src="imagePreview" alt="Preview" />
+          <button type="button" class="remove-image" @click="removeImage">✕</button>
+        </div>
+
+        <!-- URL alternativa -->
+        <div class="url-input">
+          <input
+            v-model="form.image_url"
+            type="text"
+            placeholder="Ou cole a URL da imagem aqui"
+            @input="clearFileSelection"
+          />
+        </div>
+
+        <!-- Erro de upload -->
+        <div v-if="uploadError" class="upload-error">{{ uploadError }}</div>
       </div>
 
       <div class="field checkbox-field">
@@ -61,7 +95,8 @@ import api from '@/services/api'
 const route = useRoute()
 const router = useRouter()
 
-const isEdit = computed(() => !!route.params.id)
+const isEdit = computed(() => !!route.params.slug)
+const currentNews = ref(null)
 const saving = ref(false)
 
 const form = ref({
@@ -73,10 +108,69 @@ const form = ref({
   published: false,
 })
 
+const selectedFile = ref(null)
+const imagePreview = ref('')
+const uploadError = ref('')
+const fileInput = ref(null)
+
+function handleFileSelect(event) {
+  const file = event.target.files[0]
+  if (!file) return
+
+  uploadError.value = ''
+
+  if (file.size > 5 * 1024 * 1024) {
+    uploadError.value = 'Arquivo muito grande. Máximo: 5MB'
+    return
+  }
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+  if (!allowedTypes.includes(file.type)) {
+    uploadError.value = 'Tipo de arquivo não permitido. Use JPG, PNG ou WebP'
+    return
+  }
+
+  selectedFile.value = file
+  imagePreview.value = URL.createObjectURL(file)
+  form.value.image_url = ''
+}
+
+function removeImage() {
+  selectedFile.value = null
+  imagePreview.value = ''
+  form.value.image_url = ''
+  uploadError.value = ''
+  if (fileInput.value) {
+    fileInput.value.value = ''
+  }
+}
+
+function clearFileSelection() {
+  if (form.value.image_url) {
+    selectedFile.value = null
+    imagePreview.value = ''
+  }
+}
+
+async function uploadImage() {
+  if (!selectedFile.value) return form.value.image_url
+
+  const formData = new FormData()
+  formData.append('file', selectedFile.value)
+
+  const { data } = await api.post('/api/upload/', formData, {
+    params: { folder: 'news' },
+    headers: { 'Content-Type': 'multipart/form-data' },
+  })
+
+  return data.url
+}
+
 onMounted(async () => {
   if (isEdit.value) {
     try {
-      const { data } = await api.get(`/api/news/${route.params.id}`)
+      const { data } = await api.get(`/api/news/${route.params.slug}`)
+      currentNews.value = data
       form.value = {
         title: data.title,
         category: data.category,
@@ -94,9 +188,14 @@ onMounted(async () => {
 
 async function handleSave() {
   saving.value = true
+  uploadError.value = ''
   try {
+    if (selectedFile.value) {
+      form.value.image_url = await uploadImage()
+    }
+
     if (isEdit.value) {
-      await api.put(`/api/news/${route.params.id}`, form.value)
+      await api.put(`/api/news/${currentNews.value.id}`, form.value)
     } else {
       await api.post('/api/news/', form.value)
     }
@@ -166,6 +265,99 @@ async function handleSave() {
 .field textarea:focus {
   outline: none;
   border-color: #083ea8;
+}
+
+/* Upload de Imagem */
+.image-upload-area {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-placeholder:hover {
+  border-color: #083ea8;
+  background: #f1f5f9;
+}
+
+.upload-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.upload-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.upload-hint {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.image-preview {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.remove-image {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.remove-image:hover {
+  background: #b91c1c;
+}
+
+.url-input {
+  margin-top: 12px;
+}
+
+.upload-error {
+  margin-top: 8px;
+  color: #dc2626;
+  font-size: 13px;
 }
 
 .checkbox-field label {

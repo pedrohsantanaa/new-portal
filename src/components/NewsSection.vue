@@ -4,70 +4,46 @@
 
       <!-- Header -->
       <div class="section-header">
-
         <div>
-          <h2>
-            Notícias em destaque
-          </h2>
-
-          <p>
-            Fique por dentro das novidades
-            e ações da instituição.
-          </p>
+          <h2>Notícias em destaque</h2>
+          <p>Fique por dentro das novidades e ações da instituição.</p>
         </div>
-
-        <a
-          href="#"
-          class="view-all"
-        >
+        <router-link to="/noticias" class="view-all">
           Ver todas →
-        </a>
+        </router-link>
       </div>
 
-      <!-- Grid -->
-      <div class="news-grid">
+      <!-- Loading -->
+      <div v-if="loading" class="loading">Carregando notícias...</div>
 
+      <!-- Grid -->
+      <div v-else class="news-grid">
         <article
-          v-for="news in newsList"
-          :key="news.id"
+          v-for="item in newsList"
+          :key="item.id"
           class="news-card"
+          @click="goToDetail(item.slug)"
         >
           <!-- Image -->
           <div class="image-wrapper">
             <img
-              :src="news.image"
-              :alt="news.title"
+              :src="item.image_url || defaultImage"
+              :alt="item.title"
+              @error="$event.target.src = defaultImage"
             />
-
-            <span class="tag">
-              {{ news.category }}
-            </span>
+            <span class="tag">{{ item.category }}</span>
           </div>
 
           <!-- Content -->
           <div class="news-content">
-
-            <h3>
-              {{ news.title }}
-            </h3>
-
-            <p>
-              {{ news.description }}
-            </p>
-
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.summary }}</p>
             <div class="news-footer">
-              <span>
-                {{ news.date }}
-              </span>
-
-              <span>
-                {{ news.readingTime }}
-              </span>
+              <span>{{ formatDate(item.published_at || item.created_at) }}</span>
+              <span class="read-more">Ler mais →</span>
             </div>
-
           </div>
         </article>
-
       </div>
 
     </div>
@@ -75,73 +51,44 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import api from '@/services/api'
 
-const newsList = ref([
-  {
-    id: 1,
-    category: 'Crédito',
-    title:
-      'Nova linha de financiamento para empreendedores',
+const router = useRouter()
 
-    description:
-      'Programa amplia acesso ao crédito para pequenos negócios.',
+const newsList = ref([])
+const loading = ref(true)
+const defaultImage = 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=1200'
 
-    date: '20 de maio de 2026',
-    readingTime: '3 min leitura',
-
-    image:
-      'https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=1200'
-  },
-
-  {
-    id: 2,
-    category: 'Programa',
-    title:
-      'Projeto fortalece pequenos negócios locais',
-
-    description:
-      'Empreendedores recebem apoio financeiro e capacitação.',
-
-    date: '18 de maio de 2026',
-    readingTime: '2 min leitura',
-
-    image:
-      'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1200'
-  },
-
-  {
-    id: 3,
-    category: 'Evento',
-    title:
-      'Instituição participa de feira de inovação',
-
-    description:
-      'Evento reuniu empresários e startups da região.',
-
-    date: '15 de maio de 2026',
-    readingTime: '4 min leitura',
-
-    image:
-      'https://images.unsplash.com/photo-1511578314322-379afb476865?w=1200'
-  },
-
-  {
-    id: 4,
-    category: 'Empreendedorismo',
-    title:
-      'Mulheres empreendedoras ganham incentivo',
-
-    description:
-      'Nova iniciativa amplia oportunidades de crescimento.',
-
-    date: '12 de maio de 2026',
-    readingTime: '3 min leitura',
-
-    image:
-      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200'
+async function fetchNews() {
+  loading.value = true
+  try {
+    const { data } = await api.get('/api/news/', {
+      params: { published_only: true, limit: 4 }
+    })
+    newsList.value = data.items
+  } catch (e) {
+    console.error('Erro ao carregar notícias:', e)
+  } finally {
+    loading.value = false
   }
-])
+}
+
+function goToDetail(slug) {
+  router.push(`/noticias/${slug}`)
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return ''
+  return new Date(dateStr).toLocaleDateString('pt-BR', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  })
+}
+
+onMounted(fetchNews)
 </script>
 
 <style scoped>
@@ -270,9 +217,17 @@ const newsList = ref([
   border-top: 1px solid var(--color-border);
 }
 
-.news-footer span:last-child {
+.read-more {
   color: var(--color-accent);
   font-weight: 600;
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-muted);
+  font-size: 16px;
 }
 
 /* TABLET */

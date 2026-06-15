@@ -12,18 +12,14 @@
 
                 <div class="top-links">
                     <div class="accessibility-wrapper" ref="accessWrapperRef">
-                        <button 
-                            class="top-btn" 
-                            @click="toggleAccessPanel"
-                            :aria-expanded="isAccessMenuOpen"
-                            aria-haspopup="true"
-                            aria-label="Menu de acessibilidade"
-                        >
+                        <button class="top-btn" @click="toggleAccessPanel" :aria-expanded="isAccessMenuOpen"
+                            aria-haspopup="true" aria-label="Menu de acessibilidade">
                             Acessibilidade
                         </button>
-                        
+
                         <!-- Painel de Acessibilidade -->
-                        <div v-if="isAccessMenuOpen" class="access-panel" role="menu" aria-label="Opções de acessibilidade">
+                        <div v-if="isAccessMenuOpen" class="access-panel" role="menu"
+                            aria-label="Opções de acessibilidade">
                             <div class="panel-section">
                                 <span id="font-size-label">Fonte</span>
                                 <div class="btn-group" role="group" aria-labelledby="font-size-label">
@@ -34,37 +30,23 @@
                             <div class="panel-section">
                                 <span id="theme-label">Tema</span>
                                 <div class="btn-group theme-btns" role="group" aria-labelledby="theme-label">
-                                    <button 
-                                        :class="{ active: settings.theme === 'default' }"
-                                        @click="settings.setTheme('default')"
-                                        title="Tema Padrão"
-                                        :aria-pressed="settings.theme === 'default'"
-                                    >Azul</button>
-                                    <button 
-                                        :class="{ active: settings.theme === 'alternative' }"
-                                        @click="settings.setTheme('alternative')"
-                                        title="Tema Verde"
-                                        :aria-pressed="settings.theme === 'alternative'"
-                                    >Verde</button>
+                                    <button :class="{ active: settings.theme === 'default' }"
+                                        @click="settings.setTheme('default')" title="Tema Padrão"
+                                        :aria-pressed="settings.theme === 'default'">Azul</button>
+                                    <button :class="{ active: settings.theme === 'alternative' }"
+                                        @click="settings.setTheme('alternative')" title="Tema Verde"
+                                        :aria-pressed="settings.theme === 'alternative'">Verde</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <button 
-                        class="top-btn" 
-                        @click="settings.toggleHighContrast"
-                        :aria-pressed="settings.isHighContrast"
-                        :aria-label="settings.isHighContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'"
-                    >
+                    <button class="top-btn" @click="settings.toggleHighContrast" :aria-pressed="settings.isHighContrast"
+                        :aria-label="settings.isHighContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'">
                         {{ settings.isHighContrast ? 'Contraste Normal' : 'Alto Contraste' }}
                     </button>
-                    
-                    <button 
-                        class="top-btn" 
-                        @click="isSiteMapOpen = true"
-                        aria-label="Abrir mapa do site"
-                    >
+
+                    <button class="top-btn" @click="isSiteMapOpen = true" aria-label="Abrir mapa do site">
                         Mapa do Site
                     </button>
                 </div>
@@ -77,39 +59,42 @@
 
                 <!-- Logo -->
                 <div class="logo">
-                    <img src="../assets/image/logo.png" alt="Logo">
+                    <a href="/">
+                        <img src="../assets/image/logo.png" alt="Logo">
+                    </a>
+
                 </div>
 
                 <!-- Menu Desktop -->
                 <nav class="nav-menu" :class="{ active: isMenuOpen }" aria-label="Menu principal">
                     <ul class="menu">
-                        <li><a href="#inicio" @click.prevent="scrollTo('inicio')">Início</a></li>
-                        <li><a href="#creditos" @click.prevent="scrollTo('creditos')">Linhas de Crédito</a></li>
-                        <li><a href="#noticias" @click.prevent="scrollTo('noticias')">Notícias</a></li>
-                        <li><a href="#">Acesso a Informação</a></li>
+                        <li><router-link to="/" @click="closeMenu">Início</router-link></li>
+                        <li><a href="/#creditos" @click.prevent="navigateToHome('creditos')">Linhas de Crédito</a></li>
+                        <li><router-link to="/noticias" @click="closeMenu">Notícias</router-link></li>
+                        <li><a href="#" class="disabled-link" aria-disabled="true">Acesso a Informação</a></li>
 
                         <!-- Botão Mobile -->
                         <li class="mobile-btn">
-                            <button class="btn-primary">
-                                Intranet
-                            </button>
+                            <a href="https://intranet.fomento.to.gov.br/" target="_blank" rel="noopener">
+                                <button class="btn-primary">
+                                    Intranet
+                                </button>
+                            </a>
+
                         </li>
                     </ul>
                 </nav>
 
                 <!-- CTA Desktop -->
-                <button class="btn-primary desktop-btn">
-                    Intranet
-                </button>
+                <a href="https://intranet.fomento.to.gov.br/" target="_blank" rel="noopener">
+                    <button class="btn-primary">
+                        Intranet
+                    </button>
+                </a>
 
                 <!-- Hamburguer -->
-                <button 
-                    class="hamburger" 
-                    @click="toggleMenu"
-                    :aria-expanded="isMenuOpen"
-                    aria-label="Abrir menu de navegação"
-                    aria-controls="nav-menu"
-                >
+                <button class="hamburger" @click="toggleMenu" :aria-expanded="isMenuOpen"
+                    aria-label="Abrir menu de navegação" aria-controls="nav-menu">
                     <span :class="{ open: isMenuOpen }"></span>
                     <span :class="{ open: isMenuOpen }"></span>
                     <span :class="{ open: isMenuOpen }"></span>
@@ -124,10 +109,12 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { Phone } from 'lucide-vue-next'
 import { useSettingsStore } from '../store/useSettingsStore'
 import SiteMapModal from './SiteMapModal.vue'
 
+const router = useRouter()
 const settings = useSettingsStore()
 const isMenuOpen = ref(false)
 const isAccessMenuOpen = ref(false)
@@ -142,6 +129,10 @@ const toggleAccessPanel = () => {
     isAccessMenuOpen.value = !isAccessMenuOpen.value
 }
 
+const closeMenu = () => {
+    isMenuOpen.value = false
+}
+
 const scrollTo = (sectionId) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -149,6 +140,16 @@ const scrollTo = (sectionId) => {
     }
     isMenuOpen.value = false
     isSiteMapOpen.value = false
+}
+
+const navigateToHome = (sectionId) => {
+    isMenuOpen.value = false
+    isSiteMapOpen.value = false
+    if (window.location.pathname === '/') {
+        scrollTo(sectionId)
+    } else {
+        router.push({ path: '/', hash: `#${sectionId}` })
+    }
 }
 
 const handleKeydown = (e) => {
