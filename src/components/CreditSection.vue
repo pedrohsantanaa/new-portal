@@ -251,14 +251,14 @@ const creditLines = ref([
 
 .icon-box {
   width: 100%;
-  height: 40%;
+  height: 50%;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 16px;
   overflow: hidden;
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
 }
 
 .icon-image {
@@ -281,7 +281,7 @@ const creditLines = ref([
 
 .card-text p {
   font-size:20px;
-  color: var(--color-text-black);
+  color: var(--color-text);
   /* line-height: 1.6; */
   /* margin-bottom: 18px; */
   text-align: center;

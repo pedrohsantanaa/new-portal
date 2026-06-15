@@ -1,0 +1,32 @@
+[project]
+name = "portal-python"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "pedro amaral",email = "pedro.amaral@fomento.to.gov.br"}
+]
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi (==0.115.12)",
+    "uvicorn[standard] (==0.34.2)",
+    "sqlalchemy (==2.0.41)",
+    "alembic (==1.15.2)",
+    "python-jose[cryptography] (==3.4.0)",
+    "passlib[bcrypt] (==1.7.4)",
+    "python-multipart (==0.0.20)",
+    "pydantic-settings (==2.9.1)",
+    "python-dotenv (==1.1.0)",
+    "bcrypt (==4.0.1)",
+    "psycopg2-binary (>=2.9.12,<3.0.0)",
+    "psycopg[binary] (>=3.3.4,<4.0.0)",
+    "email-validator (>=2.3.0,<3.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "portal_python", from = "src"}]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

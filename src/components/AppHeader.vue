@@ -11,43 +11,60 @@
 
 
                 <div class="top-links">
-                    <div class="accessibility-wrapper">
-                        <button class="top-btn" @click="isAccessMenuOpen = !isAccessMenuOpen">
+                    <div class="accessibility-wrapper" ref="accessWrapperRef">
+                        <button 
+                            class="top-btn" 
+                            @click="toggleAccessPanel"
+                            :aria-expanded="isAccessMenuOpen"
+                            aria-haspopup="true"
+                            aria-label="Menu de acessibilidade"
+                        >
                             Acessibilidade
                         </button>
                         
                         <!-- Painel de Acessibilidade -->
-                        <div v-if="isAccessMenuOpen" class="access-panel">
+                        <div v-if="isAccessMenuOpen" class="access-panel" role="menu" aria-label="Opções de acessibilidade">
                             <div class="panel-section">
-                                <span>Fonte</span>
-                                <div class="btn-group">
-                                    <button @click="settings.decreaseFontSize">A-</button>
-                                    <button @click="settings.increaseFontSize">A+</button>
+                                <span id="font-size-label">Fonte</span>
+                                <div class="btn-group" role="group" aria-labelledby="font-size-label">
+                                    <button @click="settings.decreaseFontSize" aria-label="Diminuir fonte">A-</button>
+                                    <button @click="settings.increaseFontSize" aria-label="Aumentar fonte">A+</button>
                                 </div>
                             </div>
                             <div class="panel-section">
-                                <span>Tema</span>
-                                <div class="btn-group theme-btns">
+                                <span id="theme-label">Tema</span>
+                                <div class="btn-group theme-btns" role="group" aria-labelledby="theme-label">
                                     <button 
                                         :class="{ active: settings.theme === 'default' }"
                                         @click="settings.setTheme('default')"
                                         title="Tema Padrão"
+                                        :aria-pressed="settings.theme === 'default'"
                                     >Azul</button>
                                     <button 
                                         :class="{ active: settings.theme === 'alternative' }"
                                         @click="settings.setTheme('alternative')"
                                         title="Tema Verde"
+                                        :aria-pressed="settings.theme === 'alternative'"
                                     >Verde</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <button class="top-btn" @click="settings.toggleHighContrast">
+                    <button 
+                        class="top-btn" 
+                        @click="settings.toggleHighContrast"
+                        :aria-pressed="settings.isHighContrast"
+                        :aria-label="settings.isHighContrast ? 'Desativar alto contraste' : 'Ativar alto contraste'"
+                    >
                         {{ settings.isHighContrast ? 'Contraste Normal' : 'Alto Contraste' }}
                     </button>
                     
-                    <button class="top-btn" @click="isSiteMapOpen = true">
+                    <button 
+                        class="top-btn" 
+                        @click="isSiteMapOpen = true"
+                        aria-label="Abrir mapa do site"
+                    >
                         Mapa do Site
                     </button>
                 </div>
@@ -64,12 +81,11 @@
                 </div>
 
                 <!-- Menu Desktop -->
-                <nav class="nav-menu" :class="{ active: isMenuOpen }">
+                <nav class="nav-menu" :class="{ active: isMenuOpen }" aria-label="Menu principal">
                     <ul class="menu">
-                        <li><a href="#">Início</a></li>
-                        <li><a href="#">Linhas de Crédito</a></li>
-                        <li><a href="#">Institucional</a></li>
-                        <li><a href="#">Notícias</a></li>
+                        <li><a href="#inicio" @click.prevent="scrollTo('inicio')">Início</a></li>
+                        <li><a href="#creditos" @click.prevent="scrollTo('creditos')">Linhas de Crédito</a></li>
+                        <li><a href="#noticias" @click.prevent="scrollTo('noticias')">Notícias</a></li>
                         <li><a href="#">Acesso a Informação</a></li>
 
                         <!-- Botão Mobile -->
@@ -87,7 +103,13 @@
                 </button>
 
                 <!-- Hamburguer -->
-                <button class="hamburger" @click="toggleMenu">
+                <button 
+                    class="hamburger" 
+                    @click="toggleMenu"
+                    :aria-expanded="isMenuOpen"
+                    aria-label="Abrir menu de navegação"
+                    aria-controls="nav-menu"
+                >
                     <span :class="{ open: isMenuOpen }"></span>
                     <span :class="{ open: isMenuOpen }"></span>
                     <span :class="{ open: isMenuOpen }"></span>
@@ -97,11 +119,11 @@
         </div>
     </header>
 
-    <SiteMapModal :isOpen="isSiteMapOpen" @close="isSiteMapOpen = false" />
+    <SiteMapModal :isOpen="isSiteMapOpen" @close="isSiteMapOpen = false" @navigate="scrollTo" />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { Phone } from 'lucide-vue-next'
 import { useSettingsStore } from '../store/useSettingsStore'
 import SiteMapModal from './SiteMapModal.vue'
@@ -110,10 +132,51 @@ const settings = useSettingsStore()
 const isMenuOpen = ref(false)
 const isAccessMenuOpen = ref(false)
 const isSiteMapOpen = ref(false)
+const accessWrapperRef = ref(null)
 
 const toggleMenu = () => {
     isMenuOpen.value = !isMenuOpen.value
 }
+
+const toggleAccessPanel = () => {
+    isAccessMenuOpen.value = !isAccessMenuOpen.value
+}
+
+const scrollTo = (sectionId) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+    }
+    isMenuOpen.value = false
+    isSiteMapOpen.value = false
+}
+
+const handleKeydown = (e) => {
+    if (e.key === 'Escape') {
+        if (isAccessMenuOpen.value) {
+            isAccessMenuOpen.value = false
+        }
+        if (isSiteMapOpen.value) {
+            isSiteMapOpen.value = false
+        }
+    }
+}
+
+const handleClickOutside = (e) => {
+    if (accessWrapperRef.value && !accessWrapperRef.value.contains(e.target)) {
+        isAccessMenuOpen.value = false
+    }
+}
+
+onMounted(() => {
+    document.addEventListener('keydown', handleKeydown)
+    document.addEventListener('click', handleClickOutside)
+})
+
+onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeydown)
+    document.removeEventListener('click', handleClickOutside)
+})
 </script>
 
 <style scoped>
@@ -282,8 +345,14 @@ const toggleMenu = () => {
     transition: var(--transition);
 }
 
-.menu a:hover {
+.menu a:hover:not(.disabled-link) {
     color: var(--color-accent);
+}
+
+.menu a.disabled-link {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 /* BUTTON */

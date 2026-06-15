@@ -43,9 +43,9 @@ html.high-contrast {
   --color-bg-alt: #1a1a1a;
   --color-text: #ffffff;
   --color-text-muted: #cccccc;
-  --color-white: #000000;
+  --color-white: #ffffff;
   --color-green: #00ff00;
-  --color-border: #444444;
+  --color-border: #ffff00;
   --color-bg-card: #1a1a1a;
 
   --shadow-sm: 0 4px 16px rgba(255, 255, 255, 0.05);

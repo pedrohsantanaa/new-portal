@@ -1,12 +1,17 @@
 {
   "name": "new-portal",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:backend": "cd backend && uvicorn app.main:app --reload --port 8000",
+    "dev:admin": "cd admin && npm run dev",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:admin": "cd admin && npm run build",
+    "preview": "vite preview",
+    "db:migrate": "cd backend && alembic upgrade head",
+    "db:seed": "cd backend && python seed.py"
   },
   "dependencies": {
     "lucide-vue-next": "^1.0.0",

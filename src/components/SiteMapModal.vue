@@ -1,10 +1,10 @@
 <template>
   <Transition name="fade">
-    <div v-if="isOpen" class="sitemap-overlay" @click.self="$emit('close')">
+    <div v-if="isOpen" class="sitemap-overlay" @click.self="$emit('close')" @keydown.escape="$emit('close')" role="dialog" aria-modal="true" aria-label="Mapa do Site">
       <div class="sitemap-modal">
         <header class="modal-header">
           <h2>Mapa do Site</h2>
-          <button class="close-btn" @click="$emit('close')">✕</button>
+          <button class="close-btn" @click="$emit('close')" aria-label="Fechar mapa do site">✕</button>
         </header>
         
         <div class="modal-body">
@@ -12,32 +12,31 @@
             <div class="sitemap-column">
               <h3>Principal</h3>
               <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Linhas de Crédito</a></li>
-                <li><a href="#">Institucional</a></li>
-                <li><a href="#">Notícias</a></li>
-                <li><a href="#">Acesso a Informação</a></li>
+                <li><a href="#inicio" @click.prevent="navigate('inicio')">Início</a></li>
+                <li><a href="#creditos" @click.prevent="navigate('creditos')">Linhas de Crédito</a></li>
+                <li><a href="#noticias" @click.prevent="navigate('noticias')">Notícias</a></li>
+                <li><a href="#" class="disabled-link" aria-disabled="true">Acesso a Informação</a></li>
               </ul>
             </div>
             
             <div class="sitemap-column">
               <h3>Linhas de Crédito</h3>
               <ul>
-                <li><a href="#">Microcrédito</a></li>
-                <li><a href="#">Crédito Online</a></li>
-                <li><a href="#">Agronegócio</a></li>
-                <li><a href="#">Turismo</a></li>
-                <li><a href="#">Mulher Empreendedora</a></li>
+                <li><a href="#creditos" @click.prevent="navigate('creditos')">Microcrédito</a></li>
+                <li><a href="#creditos" @click.prevent="navigate('creditos')">Crédito Online</a></li>
+                <li><a href="#creditos" @click.prevent="navigate('creditos')">Agronegócio</a></li>
+                <li><a href="#creditos" @click.prevent="navigate('creditos')">Turismo</a></li>
+                <li><a href="#creditos" @click.prevent="navigate('creditos')">Mulher Empreendedora</a></li>
               </ul>
             </div>
             
             <div class="sitemap-column">
               <h3>Institucional</h3>
               <ul>
-                <li><a href="#">Quem Somos</a></li>
-                <li><a href="#">Transparência</a></li>
-                <li><a href="#">Ouvidoria</a></li>
-                <li><a href="#">Contato</a></li>
+                <li><a href="#" class="disabled-link" aria-disabled="true">Quem Somos</a></li>
+                <li><a href="#" class="disabled-link" aria-disabled="true">Transparência</a></li>
+                <li><a href="#" class="disabled-link" aria-disabled="true">Ouvidoria</a></li>
+                <li><a href="#" class="disabled-link" aria-disabled="true">Contato</a></li>
               </ul>
             </div>
           </div>
@@ -51,7 +50,12 @@
 defineProps({
   isOpen: Boolean
 })
-defineEmits(['close'])
+const emit = defineEmits(['close', 'navigate'])
+
+const navigate = (sectionId) => {
+  emit('navigate', sectionId)
+  emit('close')
+}
 </script>
 
 <style scoped>
@@ -128,9 +132,15 @@ defineEmits(['close'])
   transition: var(--transition);
 }
 
-.sitemap-column a:hover {
+.sitemap-column a:hover:not(.disabled-link) {
   color: var(--color-accent);
   padding-left: 8px;
+}
+
+.sitemap-column a.disabled-link {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* Transitions */

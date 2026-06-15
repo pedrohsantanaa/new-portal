@@ -116,8 +116,7 @@ const stories = ref([
     text:
       'Venho por meio dessa nota agradecer primeiramente a Deus e a agência do FOMENTO ao governo do estado TO por essa ação para os micro empreendedores que assim como eu precisam de recursos para o investimento no empreendimento, graças a essa ação consegui o recurso necessário que irá me ajudar a impulsionar ainda mais as vendas eu irei usa-lo em compras de mercadorias . Irei investir esse crédito de forma consciente e sou muito grata pela a credibilidade!',
 
-    image:
-      'public/stories/ivayres.jpg'
+    image: '/stories/ivayres.jpg'
   },
 
   {
@@ -128,8 +127,7 @@ const stories = ref([
     text:
       'Sou imensamente grata pelo apoio que recebi da Agência de Fomento. Através da linha Crédito Popular, consegui recurso para alavancar o meu pequeno negócio. Aumentei a minha produção com os maquinários adquiridos e consequentemente o a renda familiar.',
 
-    image:
-      'public/stories/marialber.jpeg'
+    image: '/stories/marialber.jpeg'
   },
   {
     id: 3,
@@ -138,8 +136,7 @@ const stories = ref([
     value: '0',
     text:
       'Padaria e Confeitaria.\n Linha de crédito: Capital de Giro - Recurso próprio.',
-    image:
-      'public/stories/leticia.jpg'
+    image: '/stories/leticia.jpg'
   },
 
 ])
