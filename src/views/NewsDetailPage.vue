@@ -14,10 +14,10 @@
     <template v-else-if="news">
       <div class="detail-hero">
         <img
-          :src="news.image_url || defaultImage"
+          :src="(news.image_url || defaultImage) + cacheBust"
           :alt="news.title"
           class="hero-image"
-          @error="$event.target.src = defaultImage"
+          @error="handleImageError($event)"
         />
       </div>
 
@@ -26,13 +26,41 @@
           <span class="tag">{{ news.category }}</span>
           <h1>{{ news.title }}</h1>
           <div class="meta">
+            <span v-if="news.author">Por {{ news.author }}</span>
+            <span v-if="news.author">·</span>
             <span>{{ formatDate(news.published_at || news.created_at) }}</span>
           </div>
         </div>
 
         <div class="detail-body">
-          <p class="summary">{{ news.summary }}</p>
+          <p class="summary" v-if="news.summary">{{ news.summary }}</p>
           <div class="content-text" v-html="formattedContent"></div>
+        </div>
+
+        <!-- Notícias relacionadas -->
+        <div v-if="relatedNews.length" class="related-section">
+          <h2>Notícias relacionadas</h2>
+          <div class="related-grid">
+            <article
+              v-for="item in relatedNews"
+              :key="item.id"
+              class="related-card"
+              @click="goToRelated(item.slug)"
+            >
+              <div class="related-image">
+                <img
+                  :src="(item.image_url || defaultImage) + cacheBust"
+                  :alt="item.title"
+@error="handleImageError($event)"
+                />
+              </div>
+              <div class="related-content">
+                <span class="related-tag">{{ item.category }}</span>
+                <h3>{{ item.title }}</h3>
+                <span class="related-date">{{ formatDate(item.published_at || item.created_at) }}</span>
+              </div>
+            </article>
+          </div>
         </div>
 
         <div class="detail-footer">
@@ -46,33 +74,58 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 
 const route = useRoute()
+const router = useRouter()
 
 const news = ref(null)
+const relatedNews = ref([])
 const loading = ref(true)
 const error = ref('')
 
-const defaultImage = 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=1200'
+const defaultImage = 'https://placehold.co/1200x800/e2e8f0/64748b?text=Sem+Imagem'
+const cacheBust = '?v=' + Date.now()
 
 const formattedContent = computed(() => {
   if (!news.value?.content) return ''
-  return news.value.content.replace(/\n/g, '<br>')
+  return news.value.content
 })
 
-async function fetchNews() {
+async function fetchNews(slug) {
   loading.value = true
   error.value = ''
+  news.value = null
+  relatedNews.value = []
   try {
-    const { data } = await api.get(`/api/news/${route.params.slug}`)
+    const { data } = await api.get(`/api/news/${slug}`)
     news.value = data
+    fetchRelated(slug)
   } catch (e) {
     error.value = e.response?.data?.detail || 'Erro ao carregar notícia.'
   } finally {
     loading.value = false
+  }
+}
+
+async function fetchRelated(slug) {
+  try {
+    const { data } = await api.get(`/api/news/${slug}/related`)
+    relatedNews.value = data
+  } catch {
+    relatedNews.value = []
+  }
+}
+
+function goToRelated(slug) {
+  router.push(`/noticias/${slug}`)
+}
+
+function handleImageError(e) {
+  if (e.target.src !== defaultImage) {
+    e.target.src = defaultImage
   }
 }
 
@@ -85,7 +138,11 @@ function formatDate(dateStr) {
   })
 }
 
-onMounted(fetchNews)
+onMounted(() => fetchNews(route.params.slug))
+
+watch(() => route.params.slug, (newSlug) => {
+  if (newSlug) fetchNews(newSlug)
+})
 </script>
 
 <style scoped>
@@ -135,6 +192,8 @@ onMounted(fetchNews)
 .meta {
   color: #64748b;
   font-size: 15px;
+  display: flex;
+  gap: 8px;
 }
 
 .detail-body {
@@ -155,6 +214,154 @@ onMounted(fetchNews)
   font-size: 1.05rem;
   color: #475569;
   line-height: 1.8;
+}
+
+.content-text :deep(h2) {
+  font-size: 1.6rem;
+  color: #011a4f;
+  margin: 2em 0 0.8em;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.content-text :deep(h3) {
+  font-size: 1.35rem;
+  color: #011a4f;
+  margin: 1.8em 0 0.6em;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.content-text :deep(h4) {
+  font-size: 1.15rem;
+  color: #011a4f;
+  margin: 1.5em 0 0.5em;
+  font-weight: 600;
+}
+
+.content-text :deep(p) {
+  margin-bottom: 1.2em;
+}
+
+.content-text :deep(ul),
+.content-text :deep(ol) {
+  margin: 1em 0;
+  padding-left: 1.8em;
+}
+
+.content-text :deep(li) {
+  margin-bottom: 0.5em;
+}
+
+.content-text :deep(blockquote) {
+  border-left: 4px solid #083ea8;
+  padding: 16px 24px;
+  margin: 1.5em 0;
+  background: #f8fafc;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #334155;
+}
+
+.content-text :deep(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em 0;
+}
+
+.content-text :deep(code) {
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.content-text :deep(pre) {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 16px 20px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.content-text :deep(pre code) {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* RELATED */
+.related-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.related-section h2 {
+  font-size: 1.5rem;
+  color: #011a4f;
+  margin-bottom: 24px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.related-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.related-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.related-image {
+  height: 140px;
+  overflow: hidden;
+}
+
+.related-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.related-content {
+  padding: 16px;
+}
+
+.related-tag {
+  display: inline-block;
+  background: #eff6ff;
+  color: #083ea8;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.related-content h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.related-date {
+  font-size: 12px;
+  color: #94a3b8;
 }
 
 .detail-footer {
@@ -181,7 +388,6 @@ onMounted(fetchNews)
   color: white;
 }
 
-/* LOADING / ERROR */
 .loading {
   text-align: center;
   padding: 120px 20px;
@@ -204,7 +410,6 @@ onMounted(fetchNews)
   margin-bottom: 24px;
 }
 
-/* RESPONSIVO */
 @media (max-width: 768px) {
   .hero-image {
     height: 280px;
@@ -212,6 +417,10 @@ onMounted(fetchNews)
 
   .detail-content {
     padding: 32px 16px 60px;
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>

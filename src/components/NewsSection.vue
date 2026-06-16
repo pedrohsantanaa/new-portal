@@ -27,9 +27,9 @@
           <!-- Image -->
           <div class="image-wrapper">
             <img
-              :src="item.image_url || defaultImage"
+              :src="(item.image_url || defaultImage) + cacheBust"
               :alt="item.title"
-              @error="$event.target.src = defaultImage"
+              @error="handleImageError"
             />
             <span class="tag">{{ item.category }}</span>
           </div>
@@ -39,7 +39,10 @@
             <h3>{{ item.title }}</h3>
             <p>{{ item.summary }}</p>
             <div class="news-footer">
-              <span>{{ formatDate(item.published_at || item.created_at) }}</span>
+              <div class="footer-left">
+                <span v-if="item.author" class="author">Por {{ item.author }}</span>
+                <span>{{ formatDate(item.published_at || item.created_at) }}</span>
+              </div>
               <span class="read-more">Ler mais →</span>
             </div>
           </div>
@@ -59,7 +62,8 @@ const router = useRouter()
 
 const newsList = ref([])
 const loading = ref(true)
-const defaultImage = 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=1200'
+const defaultImage = 'https://placehold.co/1200x800/e2e8f0/64748b?text=Sem+Imagem'
+const cacheBust = '?v=' + Date.now()
 
 async function fetchNews() {
   loading.value = true
@@ -77,6 +81,12 @@ async function fetchNews() {
 
 function goToDetail(slug) {
   router.push(`/noticias/${slug}`)
+}
+
+function handleImageError(e) {
+  if (e.target.src !== defaultImage) {
+    e.target.src = defaultImage
+  }
 }
 
 function formatDate(dateStr) {
@@ -215,6 +225,17 @@ onMounted(fetchNews)
   font-size: 13px;
   padding-top: 14px;
   border-top: 1px solid var(--color-border);
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author {
+  font-weight: 600;
+  color: var(--color-text);
 }
 
 .read-more {

@@ -36,9 +36,9 @@
         >
           <div class="image-wrapper">
             <img
-              :src="item.image_url || defaultImage"
+              :src="(item.image_url || defaultImage) + cacheBust"
               :alt="item.title"
-              @error="$event.target.src = defaultImage"
+              @error="handleImageError"
             />
             <span class="tag">{{ item.category }}</span>
           </div>
@@ -47,7 +47,10 @@
             <h3>{{ item.title }}</h3>
             <p>{{ item.summary }}</p>
             <div class="news-footer">
-              <span>{{ formatDate(item.published_at || item.created_at) }}</span>
+              <div class="footer-left">
+                <span v-if="item.author" class="author">Por {{ item.author }}</span>
+                <span>{{ formatDate(item.published_at || item.created_at) }}</span>
+              </div>
               <span class="read-more">Ler mais →</span>
             </div>
           </div>
@@ -108,7 +111,8 @@ const totalPages = ref(1)
 const selectedCategory = ref('')
 const limit = 12
 
-const defaultImage = 'https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=800'
+const defaultImage = 'https://placehold.co/800x600/e2e8f0/64748b?text=Sem+Imagem'
+const cacheBust = '?v=' + Date.now()
 
 const categories = ['Todos', 'Crédito', 'Programa', 'Evento', 'Empreendedorismo']
 
@@ -157,6 +161,12 @@ function goToPage(page) {
 
 function goToDetail(slug) {
   router.push(`/noticias/${slug}`)
+}
+
+function handleImageError(e) {
+  if (e.target.src !== defaultImage) {
+    e.target.src = defaultImage
+  }
 }
 
 function formatDate(dateStr) {
@@ -309,6 +319,17 @@ onMounted(() => {
   border-top: 1px solid #e2e8f0;
   font-size: 13px;
   color: #64748b;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.author {
+  font-weight: 600;
+  color: #334155;
 }
 
 .read-more {

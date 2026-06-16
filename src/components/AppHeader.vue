@@ -71,7 +71,7 @@
                         <li><router-link to="/" @click="closeMenu">Início</router-link></li>
                         <li><a href="/#creditos" @click.prevent="navigateToHome('creditos')">Linhas de Crédito</a></li>
                         <li><router-link to="/noticias" @click="closeMenu">Notícias</router-link></li>
-                        <li><a href="#" class="disabled-link" aria-disabled="true">Acesso a Informação</a></li>
+                        <li><a href="#">Acesso a Informação</a></li>
 
                         <!-- Botão Mobile -->
                         <li class="mobile-btn">
