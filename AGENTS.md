@@ -1,49 +1,60 @@
 # AGENTS.md
 
-## Visão geral do projeto
+## Visão geral
 
-Portal single-page em Vue 3 + Vite (sem router, sem SSR, sem testes). Todo o conteúdo está em português do Brasil. Portal de serviços financeiros / crédito para Tocantins.
+Monorepo: frontend Vue 3, backend FastAPI, admin Vue 3.
+Portal de crédito/serviços para Tocantins, conteúdo em pt-BR.
 
 ## Comandos
 
-- `npm run dev` — servidor de desenvolvimento Vite (porta padrão 5173)
-- `npm run build` — build de produção em `dist/`
-- `npm run preview` — visualiza o build de produção
+- `npm run dev` — frontend (porta 5173)
+- `npm run dev:backend` — backend FastAPI (porta 8000)
+- `npm run dev:admin` — admin (porta 5174)
+- `npm run build` — build frontend em `dist/`
+- `npm run build:admin` — build admin
+- `npm run preview` — visualizar build de produção
+- `npm run db:migrate` — rodar migrações Alembic
+- `npm run db:seed` — popular banco com dados iniciais
 
-Nenhum linter, formatter, typecheck ou framework de testes está configurado. Não há pre-commit hooks nem workflows de CI.
+Nenhum linter, formatter, typecheck ou framework de testes está configurado. Sem pre-commit hooks nem workflows de CI.
 
-## Stack técnica
+## Arquitetura
 
-- Vue 3 com `<script setup>` (Composition API)
-- Pinia para estado (store única: `src/store/useSettingsStore.js`)
-- Swiper (`swiper/vue`) para carousels — requer importação de CSS: `import 'swiper/css'` e `import 'swiper/css/pagination'`
-- Lucide Vue Next para ícones (ex: `import { Phone } from 'lucide-vue-next'`)
-- Vite 8 com `@vitejs/plugin-vue`
+### Frontend (`src/`)
+- Vue 3 com `<script setup>`, vue-router, Pinia, Swiper, Lucide icons
+- **App.vue**: shell com `AppHeader` + `<router-view />` + `AppFooter`
+- **3 rotas**: `/` (Home), `/noticias` (listagem), `/noticias/:slug` (detalhe)
+- **Home.vue** compõe: `HeroEditorial`, `CreditSection`, `NewsSection`, `PartnerSection`
+- **Design tokens** em `src/assets/styles/global.css` (custom properties CSS)
+- **Temas**: padrão (azul), alternativo (verde), alto contraste — via `data-theme` + `.high-contrast`
+- **Proxy Vite**: `/api` e `/uploads` → `localhost:8000`
 
-## Fatos arquitetônicos importantes
+### Backend (`backend/`)
+- FastAPI + SQLAlchemy + Alembic + PostgreSQL
+- Rotas: `/api/auth`, `/api/news`, `/api/credit-lines`, `/api/upload`
+- JWT auth com refresh tokens
 
-- **Sem router.** `App.vue` monta todas as seções diretamente como componentes.
-- **Ponto de entrada:** `src/main.js` → cria o app, instala Pinia, monta em `#app`.
-- **Estilos globais:** `src/assets/styles/global.css` — define custom properties CSS (design tokens). Importado em `main.js`, não em `style.css`.
-- **`src/style.css` é boilerplate não utilizado** do template Vite. Não é importado em lugar algum. Não edite esperando mudanças visuais.
-- **Design tokens** ficam em `global.css` como custom properties CSS: `--color-primary`, `--color-secondary`, `--color-accent`, `--color-bg`, `--color-bg-alt`, `--color-text`, `--color-text-muted`, `--color-white`, `--transition`.
-- **Sistema de temas:** Três modos alternados via atributo `data-theme` e classe `.high-contrast` no `<html>`: padrão (azul), alternativo (verde), alto contraste. Gerenciado por `useSettingsStore`.
-- **Assets estáticos** servidos de `public/` (imagens de carousel em `public/carroussel/`, ícones em `public/icons/`, logos de parceiros em `public/partners/`).
-- **Dados do conteúdo são hardcoded** dentro dos blocos `<script setup>` dos componentes, não buscados de API.
+### Admin (`admin/`)
+- Vue 3 + TinyMCE para edição de conteúdo
+- Rotas autenticadas com guards
 
-## Layout de componentes em App.vue
+## Fatos para agents
 
-Componentes ativos: `AppHeader`, `HeroEditorial`, `CreditSection`, `StoriesSection`, `NewsSection`, `QuickServices`, `PartnersSection`, `AppFooter`.
+- `src/style.css` é boilerplate do Vite, não utilizado
+- `src/icons/` é cópia não referenciada de `public/icons/`
+- `NewsSection` é o único componente frontend que busca dados da API
+- `CreditSection` e `PartnerSection` usam dados hardcoded
+- `StoriesSection` e `QuickServices` existem mas **não são renderizados** em nenhuma view
+- `HeroFeatures`, `Carousel`, `FinanceSection` existem mas **não são importados** em lugar algum
+- `SiteMapModal` é usado por `AppHeader.vue` (não é componente órfão)
+- `v-html` em `NewsDetailPage` pode ter risco de XSS se conteúdo não for sanitizado
+- `useSettingsStore` **não persiste** no `localStorage` — tema/fonte resetam ao recarregar
 
-Comentados: `HeroFeatures`, `Carousel`, `FinanceSection`. São implementações alternativas de hero/seção mantidas no código. `HeroCarousel` e `HeroSection` **não existem** neste repositório — não os crie.
+## Convenções
 
-Componente órfão: `SiteMapModal.vue` existe em `components/` mas nunca é importado em lugar algum. Pode ser ignorado ou removido.
-
-## Convenções de código
-
-- Todos os componentes usam `<script setup>` (sem Options API).
-- `<style scoped>` em todos os componentes.
-- Breakpoints responsivos: 992px (tablet), 768px (mobile), 480px (mobile pequeno).
-- Classe container: `.container` (max-width 1280px, centralizado, padding responsivo).
-- Dados dos componentes (linhas de crédito, banners, stories, notícias) são definidos como arrays `ref()` no bloco script de cada componente.
-- **Atenção ao alias de importação:** `PartnerSection.vue` (sem 's') é importado como `PartnersSection` (com 's') em `App.vue`. O nome do arquivo e o nome da variável de importação divergem.
+- `<script setup>` em todos os componentes (sem Options API)
+- `<style scoped>` em todos os componentes
+- Breakpoints responsivos: 992px (tablet), 768px (mobile), 480px (mobile pequeno)
+- Classe `.container`: max-width 1280px, centralizado, padding responsivo
+- Ícones: `lucide-vue-next` (ex: `import { Phone } from 'lucide-vue-next'`)
+- Swiper requer: `import 'swiper/css'` e `import 'swiper/css/pagination'`

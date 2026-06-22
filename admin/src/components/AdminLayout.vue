@@ -5,7 +5,7 @@
       <div class="sidebar-header">
         <div class="logo">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span>Portal Institucional</span>
+          <span>Portal Institucional Fomento</span>
         </div>
       </div>
 
@@ -22,11 +22,11 @@
             <ChevronDown :size="16" class="chevron" :class="{ rotated: contentExpanded }" />
           </button>
           <div class="nav-submenu" v-show="contentExpanded">
-            <router-link to="/pages" class="nav-subitem" @click="sidebarOpen = false">Páginas</router-link>
+            <!-- <router-link to="/pages" class="nav-subitem" @click="sidebarOpen = false">Páginas</router-link> -->
             <router-link to="/news" class="nav-subitem" @click="sidebarOpen = false">Notícias</router-link>
-            <router-link to="/events" class="nav-subitem" @click="sidebarOpen = false">Eventos</router-link>
-            <router-link to="/publications" class="nav-subitem" @click="sidebarOpen = false">Publicações</router-link>
-            <router-link to="/media" class="nav-subitem" @click="sidebarOpen = false">Mídia</router-link>
+            <!-- <router-link to="/events" class="nav-subitem" @click="sidebarOpen = false">Eventos</router-link> -->
+            <!-- <router-link to="/publications" class="nav-subitem" @click="sidebarOpen = false">Publicações</router-link> -->
+            <!-- <router-link to="/media" class="nav-subitem" @click="sidebarOpen = false">Mídia</router-link> -->
           </div>
         </div>
 
@@ -51,11 +51,11 @@
             <router-link to="/categories" class="nav-subitem" @click="sidebarOpen = false">Gerenciar</router-link>
           </div>
         </div>
-
+<!-- 
         <router-link to="/menus" class="nav-item" @click="sidebarOpen = false">
           <Menu :size="20" />
           <span>Menus</span>
-        </router-link>
+        </router-link> -->
 
         <div class="nav-group">
           <button class="nav-item nav-group-toggle" :class="{ active: isSettingsActive }" @click="settingsExpanded = !settingsExpanded">
@@ -67,11 +67,11 @@
             <router-link to="/settings/general" class="nav-subitem" @click="sidebarOpen = false">Geral</router-link>
           </div>
         </div>
-
+<!-- 
         <router-link to="/reports" class="nav-item" @click="sidebarOpen = false">
           <BarChart3 :size="20" />
           <span>Relatórios</span>
-        </router-link>
+        </router-link> -->
       </nav>
 
       <div class="sidebar-footer">
