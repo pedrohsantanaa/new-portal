@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
 from app.database import engine, Base
-from app.routes import auth, news, credit_lines, upload
+from app.routes import auth, news, credit_lines, upload, categories, users, info_categories, info_documents
 
 Base.metadata.create_all(bind=engine)
 
@@ -33,6 +33,10 @@ app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(news.router, prefix="/api/news", tags=["News"])
 app.include_router(credit_lines.router, prefix="/api/credit-lines", tags=["Credit Lines"])
 app.include_router(upload.router, prefix="/api/upload", tags=["Upload"])
+app.include_router(categories.router, prefix="/api/categories", tags=["Categories"])
+app.include_router(users.router, prefix="/api/users", tags=["Users"])
+app.include_router(info_categories.router, prefix="/api/info-categories", tags=["Info Categories"])
+app.include_router(info_documents.router, prefix="/api/info-documents", tags=["Info Documents"])
 
 
 @app.get("/")

@@ -37,3 +37,14 @@ def get_current_user(
             detail="Usuário inativo",
         )
     return user
+
+
+def require_permission(codename: str):
+    def checker(current_user: User = Depends(get_current_user)):
+        if not any(p.codename == codename for p in current_user.permissions):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Sem permissão para acessar este recurso",
+            )
+        return current_user
+    return checker

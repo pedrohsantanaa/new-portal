@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import NewsPage from '@/views/NewsPage.vue'
 import NewsDetailPage from '@/views/NewsDetailPage.vue'
+import InfoAccessPage from '@/views/InfoAccessPage.vue'
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/noticias/:slug',
     name: 'NewsDetail',
     component: NewsDetailPage,
+  },
+  {
+    path: '/acesso-a-informacao',
+    name: 'InfoAccess',
+    component: InfoAccessPage,
   },
 ]
 

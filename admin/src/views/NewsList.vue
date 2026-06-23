@@ -6,7 +6,7 @@
         <h1>Notícias</h1>
         <p class="subtitle">Gerencie todas as notícias do portal</p>
       </div>
-      <router-link to="/news/new" class="btn-primary">
+      <router-link v-if="canAccess('news')" to="/news/new" class="btn-primary">
         <Plus :size="18" /> Nova notícia
       </router-link>
     </div>
@@ -19,10 +19,7 @@
       </div>
       <select v-model="filterCategory" @change="loadNews(1)">
         <option value="">Todas as categorias</option>
-        <option value="Crédito">Crédito</option>
-        <option value="Programa">Programa</option>
-        <option value="Evento">Evento</option>
-        <option value="Empreendedorismo">Empreendedorismo</option>
+        <option v-for="cat in categories" :key="cat.id" :value="cat.name">{{ cat.name }}</option>
       </select>
       <select v-model="filterStatus" @change="loadNews(1)">
         <option value="">Todos os status</option>
@@ -62,13 +59,13 @@
             </td>
             <td>{{ formatDate(item.published_at || item.created_at) }}</td>
             <td class="td-actions">
-              <router-link :to="`/news/${item.slug}/edit`" class="btn-action btn-edit" title="Editar">
+              <router-link v-if="canAccess('news')" :to="`/news/${item.slug}/edit`" class="btn-action btn-edit" title="Editar">
                 <Pencil :size="15" />
               </router-link>
               <a :href="`/noticias/${item.slug}`" target="_blank" class="btn-action btn-view" title="Visualizar" v-if="item.published">
                 <ExternalLink :size="15" />
               </a>
-              <button class="btn-action btn-delete" @click="handleDelete(item)" title="Excluir">
+              <button v-if="canAccess('news')" class="btn-action btn-delete" @click="handleDelete(item)" title="Excluir">
                 <Trash2 :size="15" />
               </button>
             </td>
@@ -100,9 +97,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import api from '@/services/api'
+import { canAccess } from '@/utils/permissions'
 import { Plus, Search, Pencil, ExternalLink, Trash2 } from 'lucide-vue-next'
 
 const news = ref([])
+const categories = ref([])
 const loading = ref(true)
 const currentPage = ref(1)
 const totalPages = ref(1)
@@ -167,7 +166,15 @@ function formatDate(dateStr) {
   })
 }
 
-onMounted(() => loadNews(1))
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/api/categories/')
+    categories.value = data
+  } catch (err) {
+    console.error('Erro ao carregar categorias:', err)
+  }
+  loadNews(1)
+})
 </script>
 
 <style scoped>

@@ -15,22 +15,19 @@
           <span>Dashboard</span>
         </router-link>
 
-        <div class="nav-group">
+        <div class="nav-group" v-if="canAccess('news') || canAccess('credit_lines')">
           <button class="nav-item nav-group-toggle" :class="{ active: isContentActive }" @click="contentExpanded = !contentExpanded">
             <FolderOpen :size="20" />
             <span>Conteúdo</span>
             <ChevronDown :size="16" class="chevron" :class="{ rotated: contentExpanded }" />
           </button>
           <div class="nav-submenu" v-show="contentExpanded">
-            <!-- <router-link to="/pages" class="nav-subitem" @click="sidebarOpen = false">Páginas</router-link> -->
-            <router-link to="/news" class="nav-subitem" @click="sidebarOpen = false">Notícias</router-link>
-            <!-- <router-link to="/events" class="nav-subitem" @click="sidebarOpen = false">Eventos</router-link> -->
-            <!-- <router-link to="/publications" class="nav-subitem" @click="sidebarOpen = false">Publicações</router-link> -->
-            <!-- <router-link to="/media" class="nav-subitem" @click="sidebarOpen = false">Mídia</router-link> -->
+            <router-link v-if="canAccess('news')" to="/news" class="nav-subitem" @click="sidebarOpen = false">Notícias</router-link>
+            <router-link v-if="canAccess('credit_lines')" to="/credit-lines" class="nav-subitem" @click="sidebarOpen = false">Linhas de Crédito</router-link>
           </div>
         </div>
 
-        <div class="nav-group">
+        <div class="nav-group" v-if="canAccess('users')">
           <button class="nav-item nav-group-toggle" :class="{ active: isUsersActive }" @click="usersExpanded = !usersExpanded">
             <Users :size="20" />
             <span>Usuários</span>
@@ -41,7 +38,7 @@
           </div>
         </div>
 
-        <div class="nav-group">
+        <div class="nav-group" v-if="canAccess('categories')">
           <button class="nav-item nav-group-toggle" :class="{ active: isCategoriesActive }" @click="categoriesExpanded = !categoriesExpanded">
             <Tag :size="20" />
             <span>Categorias</span>
@@ -51,13 +48,25 @@
             <router-link to="/categories" class="nav-subitem" @click="sidebarOpen = false">Gerenciar</router-link>
           </div>
         </div>
+
+        <div class="nav-group" v-if="canAccess('info_access')">
+          <button class="nav-item nav-group-toggle" :class="{ active: isInfoAccessActive }" @click="infoAccessExpanded = !infoAccessExpanded">
+            <BookOpen :size="20" />
+            <span>Acesso à Informação</span>
+            <ChevronDown :size="16" class="chevron" :class="{ rotated: infoAccessExpanded }" />
+          </button>
+          <div class="nav-submenu" v-show="infoAccessExpanded">
+            <router-link to="/info-access" class="nav-subitem" @click="sidebarOpen = false">Categorias</router-link>
+            <router-link to="/info-documents" class="nav-subitem" @click="sidebarOpen = false">Documentos</router-link>
+          </div>
+        </div>
 <!-- 
         <router-link to="/menus" class="nav-item" @click="sidebarOpen = false">
           <Menu :size="20" />
           <span>Menus</span>
         </router-link> -->
 
-        <div class="nav-group">
+        <!-- <div class="nav-group">
           <button class="nav-item nav-group-toggle" :class="{ active: isSettingsActive }" @click="settingsExpanded = !settingsExpanded">
             <Settings :size="20" />
             <span>Configurações</span>
@@ -66,7 +75,7 @@
           <div class="nav-submenu" v-show="settingsExpanded">
             <router-link to="/settings/general" class="nav-subitem" @click="sidebarOpen = false">Geral</router-link>
           </div>
-        </div>
+        </div> -->
 <!-- 
         <router-link to="/reports" class="nav-item" @click="sidebarOpen = false">
           <BarChart3 :size="20" />
@@ -76,10 +85,10 @@
 
       <div class="sidebar-footer">
         <div class="user-info" v-if="auth.user">
-          <div class="user-avatar">{{ auth.user.email?.charAt(0).toUpperCase() || 'U' }}</div>
+          <div class="user-avatar">{{ (auth.user.name || auth.user.email)?.charAt(0).toUpperCase() || 'U' }}</div>
           <div class="user-details">
-            <span class="user-name">{{ auth.user.email }}</span>
-            <span class="user-role">Administrador</span>
+            <span class="user-name">{{ auth.user.name || auth.user.email }}</span>
+            <span class="user-role">{{ auth.user.permissions?.length ? `${auth.user.permissions.length} permissão(ões)` : 'Sem permissões' }}</span>
           </div>
           <button class="btn-logout" @click="handleLogout" title="Sair">
             <LogOut :size="18" />
@@ -131,9 +140,10 @@
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { canAccess } from '@/utils/permissions'
 import {
   LayoutDashboard, FolderOpen, ChevronDown, Users, Tag, Menu,
-  Settings, BarChart3, LogOut, ExternalLink, Bell
+  Settings, BarChart3, LogOut, ExternalLink, Bell, BookOpen
 } from 'lucide-vue-next'
 
 const router = useRouter()
@@ -144,6 +154,7 @@ const sidebarOpen = ref(false)
 const contentExpanded = ref(true)
 const usersExpanded = ref(false)
 const categoriesExpanded = ref(false)
+const infoAccessExpanded = ref(false)
 const settingsExpanded = ref(false)
 
 const isContentActive = computed(() => {
@@ -152,6 +163,7 @@ const isContentActive = computed(() => {
 })
 const isUsersActive = computed(() => route.path.startsWith('/users'))
 const isCategoriesActive = computed(() => route.path.startsWith('/categories'))
+const isInfoAccessActive = computed(() => route.path.startsWith('/info-access') || route.path.startsWith('/info-documents'))
 const isSettingsActive = computed(() => route.path.startsWith('/settings'))
 
 const breadcrumbs = computed(() => {
@@ -170,6 +182,14 @@ const breadcrumbs = computed(() => {
     crumbs.push({ label: 'Usuários' })
   } else if (path.startsWith('/categories')) {
     crumbs.push({ label: 'Categorias' })
+  } else if (path.startsWith('/info-access')) {
+    crumbs.push({ label: 'Acesso à Informação', to: '/info-access' })
+    if (path.includes('/new')) crumbs.push({ label: 'Nova categoria' })
+    else if (path.includes('/edit')) crumbs.push({ label: 'Editar categoria' })
+  } else if (path.startsWith('/info-documents')) {
+    crumbs.push({ label: 'Documentos', to: '/info-documents' })
+    if (path.includes('/new')) crumbs.push({ label: 'Novo documento' })
+    else if (path.includes('/edit')) crumbs.push({ label: 'Editar documento' })
   } else if (path.startsWith('/settings')) {
     crumbs.push({ label: 'Configurações' })
   } else if (path.startsWith('/reports')) {

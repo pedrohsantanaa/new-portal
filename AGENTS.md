@@ -31,12 +31,17 @@ Nenhum linter, formatter, typecheck ou framework de testes está configurado. Se
 
 ### Backend (`backend/`)
 - FastAPI + SQLAlchemy + Alembic + PostgreSQL
-- Rotas: `/api/auth`, `/api/news`, `/api/credit-lines`, `/api/upload`
+- Rotas: `/api/auth`, `/api/news`, `/api/credit-lines`, `/api/upload`, `/api/categories`, `/api/users`, `/api/permissions`
 - JWT auth com refresh tokens
+- **RBAC granular**: tabela `permissions` (7 permissões) + `user_permissions` (N:N)
+- **Categorias**: tabela `categories` com CRUD completo (não mais hardcoded)
 
 ### Admin (`admin/`)
 - Vue 3 + TinyMCE para edição de conteúdo
 - Rotas autenticadas com guards
+- **Permissões por tela**: 7 telas controláveis (Dashboard, Notícias, Linhas de Crédito, Categorias, Usuários, Configurações, Relatórios)
+- Helper `canAccess(codename)` em `utils/permissions.js`
+- Store `auth.js` expõe `hasPermission(codename)`
 
 ## Fatos para agents
 
@@ -49,6 +54,8 @@ Nenhum linter, formatter, typecheck ou framework de testes está configurado. Se
 - `SiteMapModal` é usado por `AppHeader.vue` (não é componente órfão)
 - `v-html` em `NewsDetailPage` pode ter risco de XSS se conteúdo não for sanitizado
 - `useSettingsStore` **não persiste** no `localStorage` — tema/fonte resetam ao recarregar
+- Seed cria admin com **todas as 7 permissões** (`admin@fomento.to.gov.br` / `admin123`)
+- Categorias padrão: Crédito, Programa, Evento, Empreendedorismo (via seed/migration)
 
 ## Convenções
 

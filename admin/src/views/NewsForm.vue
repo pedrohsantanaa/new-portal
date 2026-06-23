@@ -93,10 +93,7 @@
             <label>Categoria <span class="required">*</span></label>
             <select v-model="form.category" required>
               <option value="" disabled>Selecione uma categoria</option>
-              <option value="Crédito">Crédito</option>
-              <option value="Programa">Programa</option>
-              <option value="Evento">Evento</option>
-              <option value="Empreendedorismo">Empreendedorismo</option>
+              <option v-for="cat in categories" :key="cat.id" :value="cat.name">{{ cat.name }}</option>
             </select>
           </div>
 
@@ -219,6 +216,8 @@ const form = ref({
   pinnedTop: false,
   highlighted: false,
 })
+
+const categories = ref([])
 
 const editorConfig = {
   license_key: 'gpl',
@@ -414,6 +413,13 @@ function handleSchedule() {
 }
 
 onMounted(async () => {
+  try {
+    const { data } = await api.get('/api/categories/')
+    categories.value = data
+  } catch (err) {
+    console.error('Erro ao carregar categorias:', err)
+  }
+
   if (isEdit.value) {
     try {
       const { data } = await api.get(`/api/news/${route.params.slug}`)

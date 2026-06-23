@@ -1,4 +1,4 @@
-from logging.config import fileConfig
+﻿from logging.config import fileConfig
 from sqlalchemy import create_engine, pool
 from alembic import context
 
@@ -8,7 +8,7 @@ if config.config_file_name is not None:
 
 from app.config import settings
 from app.database import Base
-from app.models import User, News, CreditLine
+from app.models import User, News, CreditLine, Category, Permission, UserPermission
 
 target_metadata = Base.metadata
 

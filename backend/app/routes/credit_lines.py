@@ -14,7 +14,7 @@ from app.schemas.credit_line import (
     CreditLineResponse,
     CreditLineUpdate,
 )
-from app.utils.deps import get_current_user
+from app.utils.deps import get_current_user, require_permission
 
 router = APIRouter()
 
@@ -60,7 +60,7 @@ def get_credit_line(slug: str, db: Session = Depends(get_db)):
 def create_credit_line(
     data: CreditLineCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_permission("credit_lines")),
 ):
     slug = generate_slug(data.title)
     existing = db.query(CreditLine).filter(CreditLine.slug == slug).first()
@@ -87,7 +87,7 @@ def update_credit_line(
     credit_line_id: int,
     data: CreditLineUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_permission("credit_lines")),
 ):
     credit_line = db.query(CreditLine).filter(CreditLine.id == credit_line_id).first()
     if not credit_line:
@@ -106,7 +106,7 @@ def update_credit_line(
 def delete_credit_line(
     credit_line_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_permission("credit_lines")),
 ):
     credit_line = db.query(CreditLine).filter(CreditLine.id == credit_line_id).first()
     if not credit_line:

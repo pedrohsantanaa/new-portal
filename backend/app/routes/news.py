@@ -14,7 +14,7 @@ from app.schemas.news import (
     NewsResponse,
     NewsUpdate,
 )
-from app.utils.deps import get_current_user
+from app.utils.deps import get_current_user, require_permission
 
 router = APIRouter()
 
@@ -81,7 +81,7 @@ def get_related_news(slug: str, db: Session = Depends(get_db)):
 def create_news(
     data: NewsCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_permission("news")),
 ):
     if data.slug and data.slug.strip():
         slug = generate_slug(data.slug)
@@ -126,7 +126,7 @@ def update_news(
     news_id: int,
     data: NewsUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_permission("news")),
 ):
     news = db.query(News).filter(News.id == news_id).first()
     if not news:
@@ -156,7 +156,7 @@ def update_news(
 def delete_news(
     news_id: int,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
+    current_user: User = Depends(require_permission("news")),
 ):
     news = db.query(News).filter(News.id == news_id).first()
     if not news:

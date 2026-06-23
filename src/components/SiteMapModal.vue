@@ -15,7 +15,7 @@
                 <li><a href="#inicio" @click.prevent="navigate('inicio')">Início</a></li>
                 <li><a href="#creditos" @click.prevent="navigate('creditos')">Linhas de Crédito</a></li>
                 <li><a href="/noticias" @click.prevent="navigateTo('/noticias')">Notícias</a></li>
-                <li><a href="#" class="disabled-link" aria-disabled="true">Acesso a Informação</a></li>
+                <li><a href="/acesso-a-informacao" @click.prevent="navigateTo('/acesso-a-informacao')">Acesso a Informação</a></li>
               </ul>
             </div>
             

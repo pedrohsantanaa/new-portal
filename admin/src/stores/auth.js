@@ -9,6 +9,10 @@ export const useAuthStore = defineStore('auth', () => {
 
   const isAuthenticated = computed(() => !!accessToken.value)
 
+  function hasPermission(codename) {
+    return user.value?.permissions?.some(p => p.codename === codename) ?? false
+  }
+
   async function login(email, password) {
     const { data } = await api.post('/api/auth/login', { email, password })
     accessToken.value = data.access_token
@@ -44,5 +48,5 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  return { user, accessToken, refreshToken, isAuthenticated, login, fetchUser, logout, init }
+  return { user, accessToken, refreshToken, isAuthenticated, hasPermission, login, fetchUser, logout, init }
 })

@@ -2,7 +2,7 @@
   <div class="page">
     <div class="page-header">
       <h1>Linhas de Crédito</h1>
-      <router-link to="/credit-lines/new" class="btn-primary">Nova Linha</router-link>
+      <router-link v-if="canAccess('credit_lines')" to="/credit-lines/new" class="btn-primary">Nova Linha</router-link>
     </div>
 
     <div v-if="loading" class="loading">Carregando...</div>
@@ -31,8 +31,8 @@
               </span>
             </td>
             <td class="actions">
-              <router-link :to="`/credit-lines/${item.id}/edit`" class="btn-edit">Editar</router-link>
-              <button @click="handleDelete(item.id)" class="btn-delete">Excluir</button>
+              <router-link v-if="canAccess('credit_lines')" :to="`/credit-lines/${item.id}/edit`" class="btn-edit">Editar</router-link>
+              <button v-if="canAccess('credit_lines')" @click="handleDelete(item.id)" class="btn-delete">Excluir</button>
             </td>
           </tr>
         </tbody>
@@ -44,6 +44,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api'
+import { canAccess } from '@/utils/permissions'
 
 const creditLines = ref([])
 const loading = ref(true)
