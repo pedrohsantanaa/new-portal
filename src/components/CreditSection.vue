@@ -41,7 +41,7 @@
               <h3>{{ credit.title }}</h3>
               <p>{{ credit.description }}</p>
             </div>
-            <a href="#" class="saiba-mais">Saiba Mais ›</a>
+            <router-link :to="'/linhas-de-credito/' + credit.slug" class="saiba-mais">Saiba Mais ›</router-link>
           </div>
         </SwiperSlide>
       </Swiper>
@@ -76,6 +76,7 @@ const creditLines = ref([
   {
     id: 1,
     title: 'Microcrédito Online',
+    slug: 'microcredito-online',
     description: 'Até R$20 mil para microempreendedores expandirem seus negócios.',
     icon: '/icons/microcredito_online.png',
     color: '#EEF4FF'
@@ -83,6 +84,7 @@ const creditLines = ref([
   {
     id: 2,
     title: 'Crédito Online',
+    slug: 'credito-online',
     description: 'Até R$50 mil. Financiamento para expansão e crescimento sustentável.',
     icon: '/icons/credito_online.png',
     color: '#ECFDF3'
@@ -90,6 +92,7 @@ const creditLines = ref([
   {
     id: 3,
     title: 'Mãos que Criam',
+    slug: 'maos-que-criam',
     description: 'Até R$15 mil para artesãos e pequenos produtores culturais.',
     icon: '/icons/maos_que_criam.png',
     color: '#F0FDF4'
@@ -97,6 +100,7 @@ const creditLines = ref([
   {
     id: 4,
     title: 'Agricultura Familiar',
+    slug: 'agricultura-familiar',
     description: 'Crédito para impulsionar pequenos produtores rurais.',
     icon: '/icons/agricultura_familiar.png',
     color: '#FEFCE8'
@@ -104,6 +108,7 @@ const creditLines = ref([
   {
     id: 5,
     title: 'Fungetur - MEI',
+    slug: 'fungetur-mei',
     description: 'Até R$20 mil. Invista no crescimento do seu negócio turístico.',
     icon: '/icons/fungetur_mei.png',
     color: '#FFF7ED'
@@ -111,6 +116,7 @@ const creditLines = ref([
   {
     id: 6,
     title: 'Fungetur - ME',
+    slug: 'fungetur-me',
     description: 'Até R$50 mil. Invista no crescimento do seu negócio turístico.',
     icon: '/icons/fungetur_me.png',
     color: '#FFF7ED'
@@ -118,6 +124,7 @@ const creditLines = ref([
   {
     id: 7,
     title: 'Fungetur - Médio e Grande',
+    slug: 'fungetur-medio-e-grande',
     description: 'De R$50 mil a R$300 mil. Expanda seu negócio turístico.',
     icon: '/icons/fungetur_gg.png',
     color: '#FFF7ED'
@@ -125,6 +132,7 @@ const creditLines = ref([
   {
     id: 8,
     title: 'Crédito BNDES',
+    slug: 'credito-bndes',
     description: 'De R$50 mil a R$300 mil. Investimento e capital de giro.',
     icon: '/icons/bnds.png',
     color: '#FAF5FF'
@@ -132,6 +140,7 @@ const creditLines = ref([
   {
     id: 9,
     title: 'Crédito Pronaf B',
+    slug: 'credito-pronaf-b',
     description: 'Mulher: Até R$15 mil. Homem: Até R$12 mil.',
     icon: '/icons/pronaf.png',
     color: '#FAF5FF'

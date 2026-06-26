@@ -70,7 +70,7 @@
                     <ul class="menu">
                         <li><router-link to="/" @click="closeMenu">Início</router-link></li>
                         <li><a href="/#creditos" @click.prevent="navigateToHome('creditos')">Linhas de Crédito</a></li>
-                        <li><router-link to="/noticias" @click="closeMenu">Notícias</router-link></li>
+                        <li><a href="/#noticias" @click.prevent="navigateToHome('noticias')">Notícias</a></li>
                         <li><router-link to="/acesso-a-informacao" @click="closeMenu">Acesso a Informação</router-link></li>
 
                         <!-- Botão Mobile -->
@@ -308,9 +308,37 @@ onUnmounted(() => {
 
 /* NAVBAR */
 .navbar {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    /* background: rgba(255, 255, 255, 0.521); */ 
+    background: #faf8f3;
+     
+    /* background-image: url('/icons/appbar.png'); */
+    /* backdrop-filter: blur(10px); */
+    position: relative;
+    /* height: 30vh;   */
     box-shadow: var(--shadow-sm);
+}
+
+.navbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("/carroussel/appbar.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
+
+    /* filter: contrast(1.4) saturate(1.2); */
+
+    opacity: 0.22;      /* Ajuste entre 0.03 e 0.10 */
+
+    pointer-events: none;
+    z-index: 0;
+}
+
+.navbar > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Quando em alto contraste, tirar a transparência */
@@ -344,10 +372,13 @@ onUnmounted(() => {
     color: var(--color-text);
     font-weight: 500;
     transition: var(--transition);
+    font-size: 20px;
 }
 
 .menu a:hover:not(.disabled-link) {
     color: var(--color-accent);
+    background-color: var(--color-secondary);
+    padding: 15px;
 }
 
 .menu a.disabled-link {

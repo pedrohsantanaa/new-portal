@@ -140,7 +140,7 @@ onUnmounted(() => {
 
 .carousel-slide {
     flex: 0 0 calc(100% / 3);
-    min-height: 800px;
+    min-height: 90vh;
     background-size: cover;
     background-position: top center;
     position: relative;

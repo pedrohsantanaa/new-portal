@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
+from sqlalchemy import Boolean, Column, DateTime, Integer, JSON, String, Text
 
 from app.database import Base
 
@@ -17,6 +17,9 @@ class CreditLine(Base):
     color = Column(String(7), nullable=False, default="#EEF4FF")
     order = Column(Integer, default=0)
     active = Column(Boolean, default=True)
+    documents = Column(JSON, nullable=True)
+    authorization_text = Column(Text, nullable=True)
+    external_html = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 

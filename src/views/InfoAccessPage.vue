@@ -77,11 +77,11 @@
       </div>
 
       <!-- Lista de documentos -->
-      <div class="section-documents" v-if="!selectedCategory && !searchQuery">
+      <div class="section-documents">
         <div class="section-header">
           <h2>
             <FileText :size="20" />
-            Todos os documentos
+            {{ documentsSectionTitle }}
           </h2>
         </div>
 
@@ -184,6 +184,17 @@ const limit = 10
 
 const displayedHighlights = computed(() => {
   return showAllHighlights.value ? highlightDocs.value : highlightDocs.value.slice(0, 5)
+})
+
+const selectedCategoryName = computed(() => {
+  return categories.value.find((cat) => cat.slug === selectedCategory.value)?.name || ''
+})
+
+const documentsSectionTitle = computed(() => {
+  if (selectedCategory.value) return selectedCategoryName.value || 'Documentos da categoria'
+  if (searchQuery.value) return 'Resultado da busca'
+  if (selectedYear.value) return `Documentos de ${selectedYear.value}`
+  return 'Todos os documentos'
 })
 
 const visiblePages = computed(() => {

@@ -4,6 +4,11 @@ from typing import Optional
 from pydantic import BaseModel
 
 
+class CreditLineDocument(BaseModel):
+    url: str
+    label: str
+
+
 class CreditLineBase(BaseModel):
     title: str
     description: str
@@ -12,6 +17,9 @@ class CreditLineBase(BaseModel):
     color: str = "#EEF4FF"
     order: int = 0
     active: bool = True
+    documents: Optional[list[CreditLineDocument]] = None
+    authorization_text: Optional[str] = None
+    external_html: Optional[str] = None
 
 
 class CreditLineCreate(CreditLineBase):
@@ -26,11 +34,17 @@ class CreditLineUpdate(BaseModel):
     color: Optional[str] = None
     order: Optional[int] = None
     active: Optional[bool] = None
+    documents: Optional[list[CreditLineDocument]] = None
+    authorization_text: Optional[str] = None
+    external_html: Optional[str] = None
 
 
 class CreditLineResponse(CreditLineBase):
     id: int
     slug: str
+    documents: Optional[list[CreditLineDocument]] = None
+    authorization_text: Optional[str] = None
+    external_html: Optional[str] = None
     created_at: datetime
     updated_at: datetime
 
