@@ -6,6 +6,7 @@ import NewsDetailPage from '@/views/NewsDetailPage.vue'
 import InfoAccessPage from '@/views/InfoAccessPage.vue'
 import CreditLinesPage from '@/views/CreditLinesPage.vue'
 import CreditLineDetailPage from '@/views/CreditLineDetailPage.vue'
+import InstitutionalPage from '@/views/InstitutionalPage.vue'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/linhas-de-credito/:slug',
     name: 'CreditLineDetail',
     component: CreditLineDetailPage,
+  },
+  {
+    path: '/institucional',
+    name: 'Institutional',
+    component: InstitutionalPage,
   },
 ]
 
