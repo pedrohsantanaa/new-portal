@@ -35,7 +35,7 @@
         <SwiperSlide v-for="credit in creditLines" :key="credit.id">
           <div class="credit-card">
             <div class="icon-box" :style="{ background: credit.color }">
-              <img :src="credit.icon" :alt="credit.title" class="icon-image" />
+              <img :src="credit.icon_url" :alt="credit.title" class="icon-image" />
             </div>
             <div class="card-text">
               <h3>{{ credit.title }}</h3>
@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination } from 'swiper/modules'
@@ -64,88 +64,27 @@ import { Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
+import api from '@/services/api'
+
 const modules = [Pagination]
 
 const swiper = ref(null)
+const creditLines = ref([])
 
 const onSwiper = (instance) => {
   swiper.value = instance
 }
 
-const creditLines = ref([
-  {
-    id: 1,
-    title: 'Microcrédito Online',
-    slug: 'microcredito-online',
-    description: 'Até R$20 mil para microempreendedores expandirem seus negócios.',
-    icon: '/icons/microcredito_online.png',
-    color: '#EEF4FF'
-  },
-  {
-    id: 2,
-    title: 'Crédito Online',
-    slug: 'credito-online',
-    description: 'Até R$50 mil. Financiamento para expansão e crescimento sustentável.',
-    icon: '/icons/credito_online.png',
-    color: '#ECFDF3'
-  },
-  {
-    id: 3,
-    title: 'Mãos que Criam',
-    slug: 'maos-que-criam',
-    description: 'Até R$15 mil para artesãos e pequenos produtores culturais.',
-    icon: '/icons/maos_que_criam.png',
-    color: '#F0FDF4'
-  },
-  {
-    id: 4,
-    title: 'Agricultura Familiar',
-    slug: 'agricultura-familiar',
-    description: 'Crédito para impulsionar pequenos produtores rurais.',
-    icon: '/icons/agricultura_familiar.png',
-    color: '#FEFCE8'
-  },
-  {
-    id: 5,
-    title: 'Fungetur - MEI',
-    slug: 'fungetur-mei',
-    description: 'Até R$20 mil. Invista no crescimento do seu negócio turístico.',
-    icon: '/icons/fungetur_mei.png',
-    color: '#FFF7ED'
-  },
-  {
-    id: 6,
-    title: 'Fungetur - ME',
-    slug: 'fungetur-me',
-    description: 'Até R$50 mil. Invista no crescimento do seu negócio turístico.',
-    icon: '/icons/fungetur_me.png',
-    color: '#FFF7ED'
-  },
-  {
-    id: 7,
-    title: 'Fungetur - Médio e Grande',
-    slug: 'fungetur-medio-e-grande',
-    description: 'De R$50 mil a R$300 mil. Expanda seu negócio turístico.',
-    icon: '/icons/fungetur_gg.png',
-    color: '#FFF7ED'
-  },
-  {
-    id: 8,
-    title: 'Crédito BNDES',
-    slug: 'credito-bndes',
-    description: 'De R$50 mil a R$300 mil. Investimento e capital de giro.',
-    icon: '/icons/bnds.png',
-    color: '#FAF5FF'
-  },
-  {
-    id: 9,
-    title: 'Crédito Pronaf B',
-    slug: 'credito-pronaf-b',
-    description: 'Mulher: Até R$15 mil. Homem: Até R$12 mil.',
-    icon: '/icons/pronaf.png',
-    color: '#FAF5FF'
+async function loadCreditLines() {
+  try {
+    const { data } = await api.get('/api/credit-lines/?active_only=true&limit=50')
+    creditLines.value = data.items
+  } catch (e) {
+    console.error('Erro ao carregar linhas de crédito', e)
   }
-])
+}
+
+onMounted(loadCreditLines)
 </script>
 
 <style scoped>

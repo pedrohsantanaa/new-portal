@@ -33,7 +33,7 @@
             <a
               v-for="(doc, index) in creditLine.documents"
               :key="index"
-              :href="doc.url"
+              :href="doc.file_url"
               target="_blank"
               rel="noopener noreferrer"
               class="document-btn"
@@ -48,11 +48,6 @@
               {{ doc.label }}
             </a>
           </div>
-        </div>
-
-        <div v-if="creditLine.authorization_text" class="detail-section authorization-section">
-          <h2>Autorização e Declaração</h2>
-          <div class="content-text" v-html="creditLine.authorization_text"></div>
         </div>
 
         <div v-if="creditLine.external_html" class="detail-section external-section">
@@ -227,13 +222,6 @@ watch(() => route.params.slug, (newSlug) => {
   transform: translateY(-2px);
 }
 
-.authorization-section {
-  background: var(--color-bg-alt);
-  padding: 32px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-}
-
 .external-section {
   background: var(--color-bg-alt);
   padding: 32px;
@@ -306,7 +294,6 @@ watch(() => route.params.slug, (newSlug) => {
     padding: 32px 16px 60px;
   }
 
-  .authorization-section,
   .external-section {
     padding: 20px;
   }

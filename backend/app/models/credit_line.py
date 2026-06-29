@@ -18,7 +18,7 @@ class CreditLine(Base):
     order = Column(Integer, default=0)
     active = Column(Boolean, default=True)
     documents = Column(JSON, nullable=True)
-    authorization_text = Column(Text, nullable=True)
+    authorization_documents = Column(JSON, nullable=True)
     external_html = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))

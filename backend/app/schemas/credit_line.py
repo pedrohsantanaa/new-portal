@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 
 class CreditLineDocument(BaseModel):
-    url: str
     label: str
+    file_url: str
 
 
 class CreditLineBase(BaseModel):
@@ -18,7 +18,7 @@ class CreditLineBase(BaseModel):
     order: int = 0
     active: bool = True
     documents: Optional[list[CreditLineDocument]] = None
-    authorization_text: Optional[str] = None
+    authorization_documents: Optional[list[CreditLineDocument]] = None
     external_html: Optional[str] = None
 
 
@@ -35,7 +35,7 @@ class CreditLineUpdate(BaseModel):
     order: Optional[int] = None
     active: Optional[bool] = None
     documents: Optional[list[CreditLineDocument]] = None
-    authorization_text: Optional[str] = None
+    authorization_documents: Optional[list[CreditLineDocument]] = None
     external_html: Optional[str] = None
 
 
@@ -43,7 +43,7 @@ class CreditLineResponse(CreditLineBase):
     id: int
     slug: str
     documents: Optional[list[CreditLineDocument]] = None
-    authorization_text: Optional[str] = None
+    authorization_documents: Optional[list[CreditLineDocument]] = None
     external_html: Optional[str] = None
     created_at: datetime
     updated_at: datetime

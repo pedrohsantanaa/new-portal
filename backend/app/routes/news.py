@@ -120,7 +120,7 @@ def create_news(
     db.refresh(news)
     return news
 
-
+# https://fomento.to.gov.br/externo/micro-credito-online?type_contato=1
 @router.put("/{news_id}", response_model=NewsResponse)
 def update_news(
     news_id: int,

@@ -48,6 +48,14 @@ def list_credit_lines(
     return CreditLineListResponse(items=items, total=total, page=page, pages=pages)
 
 
+@router.get("/by-id/{credit_line_id}", response_model=CreditLineResponse)
+def get_credit_line_by_id(credit_line_id: int, db: Session = Depends(get_db)):
+    credit_line = db.query(CreditLine).filter(CreditLine.id == credit_line_id).first()
+    if not credit_line:
+        raise HTTPException(status_code=404, detail="Linha de crédito não encontrada")
+    return credit_line
+
+
 @router.get("/{slug}", response_model=CreditLineResponse)
 def get_credit_line(slug: str, db: Session = Depends(get_db)):
     credit_line = db.query(CreditLine).filter(CreditLine.slug == slug).first()
@@ -75,6 +83,9 @@ def create_credit_line(
         color=data.color,
         order=data.order,
         active=data.active,
+        documents=data.documents,
+        authorization_documents=data.authorization_documents,
+        external_html=data.external_html,
     )
     db.add(credit_line)
     db.commit()

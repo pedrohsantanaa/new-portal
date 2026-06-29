@@ -30,16 +30,18 @@ def column_exists(table_name: str, column_name: str) -> bool:
 def upgrade() -> None:
     if not column_exists("credit_lines", "documents"):
         op.add_column("credit_lines", sa.Column("documents", sa.JSON(), nullable=True))
-    if not column_exists("credit_lines", "authorization_text"):
-        op.add_column("credit_lines", sa.Column("authorization_text", sa.Text(), nullable=True))
+    if not column_exists("credit_lines", "authorization_documents"):
+        op.add_column("credit_lines", sa.Column("authorization_documents", sa.JSON(), nullable=True))
     if not column_exists("credit_lines", "external_html"):
         op.add_column("credit_lines", sa.Column("external_html", sa.Text(), nullable=True))
+    if column_exists("credit_lines", "authorization_text"):
+        op.drop_column("credit_lines", "authorization_text")
 
 
 def downgrade() -> None:
     if column_exists("credit_lines", "external_html"):
         op.drop_column("credit_lines", "external_html")
-    if column_exists("credit_lines", "authorization_text"):
-        op.drop_column("credit_lines", "authorization_text")
+    if column_exists("credit_lines", "authorization_documents"):
+        op.drop_column("credit_lines", "authorization_documents")
     if column_exists("credit_lines", "documents"):
         op.drop_column("credit_lines", "documents")
