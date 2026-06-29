@@ -48,7 +48,7 @@
 
       <!-- LINK "VER TODAS" -->
       <div class="view-all-container">
-        <a href="/linhas-de-credito" class="view-all-link">Ver todas as linhas de crédito ›</a>
+        <router-link to="/linhas-de-credito" class="view-all-link">Ver todas as linhas de crédito ›</router-link>
       </div>
 
     </div>

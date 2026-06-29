@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import NewsPage from '@/views/NewsPage.vue'
 import NewsDetailPage from '@/views/NewsDetailPage.vue'
 import InfoAccessPage from '@/views/InfoAccessPage.vue'
+import CreditLinesPage from '@/views/CreditLinesPage.vue'
 import CreditLineDetailPage from '@/views/CreditLineDetailPage.vue'
 
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
     path: '/acesso-a-informacao',
     name: 'InfoAccess',
     component: InfoAccessPage,
+  },
+  {
+    path: '/linhas-de-credito',
+    name: 'CreditLines',
+    component: CreditLinesPage,
   },
   {
     path: '/linhas-de-credito/:slug',
