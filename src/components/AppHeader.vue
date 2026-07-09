@@ -323,7 +323,7 @@ onUnmounted(() => {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("/carroussel/appbar.png");
+    background-image: url("/carroussel/appbar.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -331,7 +331,7 @@ onUnmounted(() => {
 
     /* filter: contrast(1.4) saturate(1.2); */
 
-    opacity: 0.22;      /* Ajuste entre 0.03 e 0.10 */
+    opacity: 0.70;      /* Ajuste entre 0.03 e 0.10 */
 
     pointer-events: none;
     z-index: 0;

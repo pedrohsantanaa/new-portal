@@ -24,11 +24,11 @@
               levando em
               consideração as necessidades e potencialidades locais.
             </p>
-
+<!-- 
             <a href="#historia" class="btn-about">
               Saiba mais sobre a nossa história
               <ArrowRight :size="16" />
-            </a>
+            </a> -->
           </div>
           <div class="about-image">
 
@@ -39,7 +39,7 @@
         </div>
       </section>
 
-      <!-- Info Cards -->
+      <!-- Info Cards
       <section class="info-cards-section">
         <div class="info-cards-grid">
           <div class="info-card">
@@ -79,10 +79,10 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!-- Nossos Números -->
-      <section class="numbers-section">
+      <!-- <section class="numbers-section">
         <h2>Nossos números</h2>
         <div class="numbers-grid">
           <div class="number-card">
@@ -102,7 +102,7 @@
             <span class="number-label">empresas atendidas</span>
           </div>
         </div>
-      </section>
+      </section> -->
 
       <!-- Missão, Visão, Valores -->
       <section class="mission-section">
@@ -139,29 +139,13 @@
       <section class="directors-section">
         <h2>Diretoria</h2>
         <div class="directors-grid">
-          <div class="director-card">
+          <div v-for="director in directors" :key="director.name" class="director-card">
             <div class="director-photo">
-              <img src="/acesso_informacao/perfil_portilho.webp" />
+              <img :src="director.photo" :alt="`Foto de ${director.name}`" />
             </div>
-            <h3>Lyndon Johnson Portilho Prado</h3>
-            <p class="director-role">Diretor-Presidente</p>
-            <a href="#" class="btn-bio">Ver biografia</a>
-          </div>
-          <div class="director-card">
-            <div class="director-photo">
-              <img src="/acesso_informacao/perfil_jardel.webp" />
-            </div>
-            <h3>Jardel Crystiano Nunes Ribeiro</h3>
-            <p class="director-role">Diretor Administrativo</p>
-            <a href="#" class="btn-bio">Ver biografia</a>
-          </div>
-          <div class="director-card">
-            <div class="director-photo">
-              <img src="/acesso_informacao/perfil_elaine.webp" />
-            </div>
-            <h3>Elaine Maria de Matos</h3>
-            <p class="director-role">Diretora Operacional</p>
-            <a href="#" class="btn-bio">Ver biografia</a>
+            <h3>{{ director.name }}</h3>
+            <p class="director-role">{{ director.role }}</p>
+            <button class="btn-bio" @click="openBio(director)">Ver biografia</button>
           </div>
         </div>
         <div class="directors-footer">
@@ -347,7 +331,7 @@
       </section>
 
       <!-- Estrutura Organizacional -->
-      <section class="org-section">
+      <!-- <section class="org-section">
         <div class="org-banner">
           <div class="org-icon">
             <Network :size="40" />
@@ -361,16 +345,60 @@
             <ArrowRight :size="16" />
           </a>
         </div>
-      </section>
+      </section> -->
+
+      <BiographyModal :is-open="isBioOpen" :director="selectedDirector" @close="isBioOpen = false" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import {
   ArrowRight, Building2, Calendar, MapPin, Building, Target,
   Compass, Eye, Heart, User, Network
 } from 'lucide-vue-next'
+import BiographyModal from '../components/BiographyModal.vue'
+
+const isBioOpen = ref(false)
+const selectedDirector = ref({ name: '', role: '', photo: '', biography: [] })
+
+const directors = [
+  {
+    name: 'Lyndon Johnson Portilho Prado',
+    role: 'Diretor-Presidente',
+    photo: '/acesso_informacao/perfil_portilho.webp',
+    biography: [
+      'Graduado em Ciências Contábeis, especializado em Gestão e Auditoria na Administração Pública, além de MBA Executivo em Negócios Financeiros. Profissional com mais de três décadas de atuação no setor financeiro, consolidou sua carreira gerencial em grandes instituições financeiras, entre as quais, BEG – Banco do Estado de Goiás, Banco do Brasil e Sicoob.',
+      'Destaca-se pela sólida experiência em liberação de crédito e gestão de riscos. Ao longo de sua carreira, acumulou profundo conhecimento na análise criteriosa e liberação de crédito, sempre focando em impulsionar o crescimento econômico de maneira segura e sustentável.',
+      'Sua trajetória mostra, também, um forte compromisso com o fomento ao empreendedorismo, tendo auxiliado, ao longo dos anos, muitos empreendedores a conquistarem crédito e apoio para transformar ideias em negócios rentáveis.',
+      'Seu perfil é marcado por uma postura ética e visionária, que agrega segurança e confiança à gestão pública, como também, é reconhecido pelo talento na gestão de pessoas, incentivando a criação de um ambiente de trabalho colaborativo e motivador, resultando no desenvolvimento contínuo da equipe.',
+    ]
+  },
+  {
+    name: 'Jardel Crystiano Nunes Ribeiro',
+    role: 'Diretor Administrativo',
+    photo: '/acesso_informacao/perfil_jardel.webp',
+    biography: [
+      'Graduado em Administração de Empresas, pós graduado em Finanças Empresariais e Docência do Ensino Superior. Ao longo de sua carreira, atuou em diversas áreas de instituições financeiras bancárias e não bancária, como gerente geral no Banco Bradesco. Ao todo, são mais de 25 anos de experiência bancária.',
+      'Já fez parte do Conselho de Administração da Agência de Fomento. Atualmente responde pela Diretoria Administrativa Financeira da Agência de Fomento do Tocantins.'
+    ]
+  },
+  {
+    name: 'Elaine Maria de Matos',
+    role: 'Diretora Operacional',
+    photo: '/acesso_informacao/perfil_elaine.webp',
+    biography: [
+      'Graduada em Administração com ênfase em Recursos Humanos, pós-graduada em Gestão Empresarial. Atua na Agencia de Fomento do Estado do Tocantins desde dezembro de 2008. Atuou como Coordenadora Administrativa, Gerente administrativa e financeira e gerente de Fundos Públicos.',
+      ' Anteriormente, no âmbito estadual ocupou o cargo de Assessor Financeiro no Departamento de Recursos Federais da Secretaria de Ciência e Tecnologia. Atualmente responde pela Diretoria Operacional da Agência de Fomento do Tocantins.',
+    ]
+  }
+]
+
+const openBio = (director) => {
+  selectedDirector.value = director
+  isBioOpen.value = true
+}
 </script>
 
 <style scoped>
@@ -385,6 +413,7 @@ import {
 .inst-hero h1 {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
+  color: white;
   margin: 0 0 8px;
 }
 
@@ -691,11 +720,12 @@ import {
   gap: 6px;
   padding: 8px 16px;
   border: 2px solid #083ea8;
+  background: none;
   color: #083ea8;
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
-  text-decoration: none;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
