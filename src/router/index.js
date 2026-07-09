@@ -7,6 +7,7 @@ import InfoAccessPage from '@/views/InfoAccessPage.vue'
 import CreditLinesPage from '@/views/CreditLinesPage.vue'
 import CreditLineDetailPage from '@/views/CreditLineDetailPage.vue'
 import InstitutionalPage from '@/views/InstitutionalPage.vue'
+import VendasDiretasPage from '@/views/VendasDiretasPage.vue'
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
     path: '/institucional',
     name: 'Institutional',
     component: InstitutionalPage,
+  },
+  {
+    path: '/vendas-diretas',
+    name: 'VendasDiretas',
+    component: VendasDiretasPage,
   },
 ]
 

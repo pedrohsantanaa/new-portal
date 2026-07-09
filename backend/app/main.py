@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
 from app.database import engine, Base
-from app.routes import auth, news, credit_lines, upload, categories, users, info_categories, info_documents, site_settings, carousel_slides
+from app.routes import auth, news, credit_lines, upload, categories, users, info_categories, info_documents, site_settings, carousel_slides, sale_items
 
 Base.metadata.create_all(bind=engine)
 
@@ -39,6 +39,7 @@ app.include_router(info_categories.router, prefix="/api/info-categories", tags=[
 app.include_router(info_documents.router, prefix="/api/info-documents", tags=["Info Documents"])
 app.include_router(site_settings.router, prefix="/api/site-settings", tags=["Site Settings"])
 app.include_router(carousel_slides.router, prefix="/api/carousel-slides", tags=["Carousel Slides"])
+app.include_router(sale_items.router, prefix="/api/sale-items", tags=["Sale Items"])
 
 
 @app.get("/")

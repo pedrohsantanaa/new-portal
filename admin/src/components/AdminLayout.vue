@@ -70,6 +70,7 @@
           <div class="nav-submenu" v-show="settingsExpanded">
             <router-link to="/settings" class="nav-subitem" @click="sidebarOpen = false">Configurações do Site</router-link>
             <router-link to="/carousel" class="nav-subitem" @click="sidebarOpen = false">Carousel Hero</router-link>
+            <router-link to="/sale-items" class="nav-subitem" @click="sidebarOpen = false">Vendas Diretas</router-link>
           </div>
         </div>
 
@@ -192,6 +193,10 @@ const breadcrumbs = computed(() => {
     crumbs.push({ label: 'Carousel', to: '/carousel' })
     if (path.includes('/new')) crumbs.push({ label: 'Novo slide' })
     else if (path.includes('/edit')) crumbs.push({ label: 'Editar slide' })
+  } else if (path.startsWith('/sale-items')) {
+    crumbs.push({ label: 'Vendas Diretas', to: '/sale-items' })
+    if (path.includes('/new')) crumbs.push({ label: 'Novo item' })
+    else if (path.includes('/edit')) crumbs.push({ label: 'Editar item' })
   } else if (path.startsWith('/reports')) {
     crumbs.push({ label: 'Relatórios' })
   }

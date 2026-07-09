@@ -11,6 +11,7 @@ from app.models.permission import Permission
 from app.models.info_category import InfoCategory
 from app.models.site_setting import SiteSetting
 from app.models.carousel_slide import CarouselSlide
+from app.models.sale_item import SaleItem
 from app.utils.auth import hash_password
 
 PERMISSIONS = [
@@ -66,6 +67,17 @@ CAROUSEL_SLIDES = [
     ("/carroussel/b6.png", None, None, "#", "Saiba Mais", "btn-orange", 6, True),
 ]
 
+SALE_ITEMS = [
+    ("imovel", "Palmas", "Imóvel residencial urbano em Palmas", None, "Palmas", None, "Urbano", "Residencial", None, None, None, 243000.00, 360, None, "(63) 99999-0001", True, True, 1),
+    ("imovel", "Porto Nacional", "Imóvel residencial urbano em Porto Nacional", None, "Porto Nacional", None, "Urbano", "Residencial", None, None, None, 225000.00, 300, None, "(63) 99999-0002", True, True, 2),
+    ("imovel", "Pedro Afonso", "Imóvel residencial urbano em Pedro Afonso", None, "Pedro Afonso", None, "Urbano", "Residencial", None, None, None, 252047.67, 450, None, "(63) 99999-0003", True, True, 3),
+    ("imovel", "Caseara", "Imóvel residencial urbano em Caseara", None, "Caseara", None, "Rural", "Residencial", None, None, None, 75000.00, 250, None, "(63) 99999-0004", True, True, 4),
+    ("veiculo", "Toyota Hilux SRX", "Pick-up Toyota Hilux SRX 4x4", None, "Palmas", None, None, None, 2019, "Diesel", "Automática", 145000.00, None, None, "(63) 99999-0005", True, True, 5),
+    ("veiculo", "Chevrolet Onix LT", "Hatch Chevrolet Onix LT", None, "Porto Nacional", None, None, None, 2018, "Flex", "Manual", 42500.00, None, None, "(63) 99999-0006", True, True, 6),
+    ("veiculo", "Jeep Renegade Sport", "SUV Jeep Renegade Sport 4x4", None, "Palmas", None, None, None, 2016, "Flex", "Automática", 56000.00, None, None, "(63) 99999-0007", True, True, 7),
+    ("veiculo", "Honda CG 160 Titan", "Motocicleta Honda CG 160 Titan", None, "Araguaína", None, None, None, 2020, "Flex", "Manual", 12000.00, None, None, "(63) 99999-0008", True, True, 8),
+]
+
 
 def seed():
     Base.metadata.create_all(bind=engine)
@@ -108,6 +120,19 @@ def seed():
                     image_url=image_url, title=title, description=description,
                     link=link, btn_label=btn_label, btn_class=btn_class,
                     order=order, active=active,
+                ))
+        db.commit()
+
+        # Criar itens de vendas diretas
+        for item_type, title, description, details, city, region, property_type, purpose, year, fuel, transmission, price, area_m2, image_url, phone, featured, active, order in SALE_ITEMS:
+            existing = db.query(SaleItem).filter(SaleItem.title == title, SaleItem.item_type == item_type).first()
+            if not existing:
+                db.add(SaleItem(
+                    item_type=item_type, title=title, description=description, details=details,
+                    city=city, region=region, property_type=property_type, purpose=purpose,
+                    year=year, fuel=fuel, transmission=transmission, price=price,
+                    area_m2=area_m2, image_url=image_url, phone=phone,
+                    featured=featured, active=active, order=order,
                 ))
         db.commit()
 

@@ -7,5 +7,6 @@ from app.models.info_category import InfoCategory
 from app.models.info_document import InfoDocument
 from app.models.site_setting import SiteSetting
 from app.models.carousel_slide import CarouselSlide
+from app.models.sale_item import SaleItem
 
-__all__ = ["User", "News", "CreditLine", "Category", "Permission", "UserPermission", "InfoCategory", "InfoDocument", "SiteSetting", "CarouselSlide"]
+__all__ = ["User", "News", "CreditLine", "Category", "Permission", "UserPermission", "InfoCategory", "InfoDocument", "SiteSetting", "CarouselSlide", "SaleItem"]
