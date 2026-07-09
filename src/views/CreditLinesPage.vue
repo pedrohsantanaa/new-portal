@@ -81,6 +81,7 @@ onMounted(fetchCreditLines)
 
 .credit-hero h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
+    color: white;
   margin-bottom: 12px;
 }
 

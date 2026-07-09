@@ -10,12 +10,8 @@
     <div class="container news-content">
       <!-- Filtros -->
       <div class="filters">
-        <button
-          v-for="cat in categories"
-          :key="cat"
-          :class="['filter-btn', { active: selectedCategory === cat }]"
-          @click="filterByCategory(cat)"
-        >
+        <button v-for="cat in categories" :key="cat" :class="['filter-btn', { active: selectedCategory === cat }]"
+          @click="filterByCategory(cat)">
           {{ cat }}
         </button>
       </div>
@@ -28,18 +24,9 @@
 
       <!-- Grid de Notícias -->
       <div v-else class="news-grid">
-        <article
-          v-for="item in newsList"
-          :key="item.id"
-          class="news-card"
-          @click="goToDetail(item.slug)"
-        >
+        <article v-for="item in newsList" :key="item.id" class="news-card" @click="goToDetail(item.slug)">
           <div class="image-wrapper">
-            <img
-              :src="(item.image_url || defaultImage) + cacheBust"
-              :alt="item.title"
-              @error="handleImageError"
-            />
+            <img :src="(item.image_url || defaultImage) + cacheBust" :alt="item.title" @error="handleImageError" />
             <span class="tag">{{ item.category }}</span>
           </div>
 
@@ -64,30 +51,18 @@
 
       <!-- Paginação -->
       <div v-if="totalPages > 1" class="pagination">
-        <button
-          class="page-btn"
-          :disabled="currentPage <= 1"
-          @click="goToPage(currentPage - 1)"
-        >
+        <button class="page-btn" :disabled="currentPage <= 1" @click="goToPage(currentPage - 1)">
           ← Anterior
         </button>
 
         <div class="page-numbers">
-          <button
-            v-for="page in visiblePages"
-            :key="page"
-            :class="['page-num', { active: page === currentPage }]"
-            @click="goToPage(page)"
-          >
+          <button v-for="page in visiblePages" :key="page" :class="['page-num', { active: page === currentPage }]"
+            @click="goToPage(page)">
             {{ page }}
           </button>
         </div>
 
-        <button
-          class="page-btn"
-          :disabled="currentPage >= totalPages"
-          @click="goToPage(currentPage + 1)"
-        >
+        <button class="page-btn" :disabled="currentPage >= totalPages" @click="goToPage(currentPage + 1)">
           Próxima →
         </button>
       </div>
@@ -199,6 +174,7 @@ onMounted(() => {
 
 .news-hero h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
+  color: white;
   margin-bottom: 12px;
 }
 

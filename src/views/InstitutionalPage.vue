@@ -148,11 +148,11 @@
             <button class="btn-bio" @click="openBio(director)">Ver biografia</button>
           </div>
         </div>
-        <div class="directors-footer">
+        <!-- <div class="directors-footer">
           <a href="#" class="link-all">Ver todos os perfis
             <ArrowRight :size="16" />
           </a>
-        </div>
+        </div> -->
       </section>
 
       <!-- Conselho de Administração -->

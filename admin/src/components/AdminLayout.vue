@@ -60,24 +60,19 @@
             <router-link to="/info-documents" class="nav-subitem" @click="sidebarOpen = false">Documentos</router-link>
           </div>
         </div>
-<!-- 
-        <router-link to="/menus" class="nav-item" @click="sidebarOpen = false">
-          <Menu :size="20" />
-          <span>Menus</span>
-        </router-link> -->
 
-        <!-- <div class="nav-group">
+        <div class="nav-group">
           <button class="nav-item nav-group-toggle" :class="{ active: isSettingsActive }" @click="settingsExpanded = !settingsExpanded">
             <Settings :size="20" />
             <span>Configurações</span>
             <ChevronDown :size="16" class="chevron" :class="{ rotated: settingsExpanded }" />
           </button>
           <div class="nav-submenu" v-show="settingsExpanded">
-            <router-link to="/settings/general" class="nav-subitem" @click="sidebarOpen = false">Geral</router-link>
+            <router-link to="/settings" class="nav-subitem" @click="sidebarOpen = false">Configurações do Site</router-link>
           </div>
-        </div> -->
-<!-- 
-        <router-link to="/reports" class="nav-item" @click="sidebarOpen = false">
+        </div>
+
+        <!-- <router-link to="/reports" class="nav-item" @click="sidebarOpen = false">
           <BarChart3 :size="20" />
           <span>Relatórios</span>
         </router-link> -->

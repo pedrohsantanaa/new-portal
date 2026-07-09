@@ -69,10 +69,10 @@
                 <nav class="nav-menu" :class="{ active: isMenuOpen }" aria-label="Menu principal">
                     <ul class="menu">
                         <li><router-link to="/" @click="closeMenu">Início</router-link></li>
-                        <li><a href="/#creditos" @click.prevent="navigateToHome('creditos')">Linhas de Crédito</a></li>
-                        <li><a href="/#noticias" @click.prevent="navigateToHome('noticias')">Notícias</a></li>
-                        <li><router-link to="/acesso-a-informacao" @click="closeMenu">Acesso a Informação</router-link></li>
-                        <li><router-link to="/institucional" @click="closeMenu">Institucional</router-link></li>
+                        <li v-if="isVisible('nav_creditos')"><a href="/#creditos" @click.prevent="navigateToHome('creditos')">Linhas de Crédito</a></li>
+                        <li v-if="isVisible('nav_noticias')"><a href="/#noticias" @click.prevent="navigateToHome('noticias')">Notícias</a></li>
+                        <li v-if="isVisible('nav_acesso')"><router-link to="/acesso-a-informacao" @click="closeMenu">Acesso a Informação</router-link></li>
+                        <li v-if="isVisible('nav_institucional')"><router-link to="/institucional" @click="closeMenu">Institucional</router-link></li>
 
                         <!-- Botão Mobile -->
                         <li class="mobile-btn">
@@ -113,10 +113,12 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Phone } from 'lucide-vue-next'
 import { useSettingsStore } from '../store/useSettingsStore'
+import { useSiteSettings } from '../composables/useSiteSettings'
 import SiteMapModal from './SiteMapModal.vue'
 
 const router = useRouter()
 const settings = useSettingsStore()
+const { isVisible } = useSiteSettings()
 const isMenuOpen = ref(false)
 const isAccessMenuOpen = ref(false)
 const isSiteMapOpen = ref(false)

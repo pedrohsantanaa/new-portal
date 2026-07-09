@@ -12,12 +12,8 @@
       <div class="search-section">
         <div class="search-bar">
           <Search :size="20" />
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Buscar documentos por título, palavra-chave ou assunto..."
-            @input="debouncedSearch"
-          />
+          <input v-model="searchQuery" type="text"
+            placeholder="Buscar documentos por título, palavra-chave ou assunto..." @input="debouncedSearch" />
           <button class="btn-search" @click="searchDocuments">
             <Search :size="16" /> Buscar
           </button>
@@ -26,13 +22,8 @@
 
       <!-- Categorias -->
       <div class="categories-grid">
-        <div
-          v-for="cat in categories"
-          :key="cat.id"
-          class="category-card"
-          :class="{ active: selectedCategory === cat.slug }"
-          @click="filterByCategory(cat.slug)"
-        >
+        <div v-for="cat in categories" :key="cat.id" class="category-card"
+          :class="{ active: selectedCategory === cat.slug }" @click="filterByCategory(cat.slug)">
           <div class="category-icon">
             <component :is="getIcon(cat.icon)" :size="28" />
           </div>
@@ -114,14 +105,11 @@
         <div v-if="totalPages > 1" class="pagination">
           <button class="page-btn" :disabled="currentPage <= 1" @click="goToPage(currentPage - 1)">← Anterior</button>
           <div class="page-numbers">
-            <button
-              v-for="page in visiblePages"
-              :key="page"
-              :class="['page-num', { active: page === currentPage }]"
-              @click="goToPage(page)"
-            >{{ page }}</button>
+            <button v-for="page in visiblePages" :key="page" :class="['page-num', { active: page === currentPage }]"
+              @click="goToPage(page)">{{ page }}</button>
           </div>
-          <button class="page-btn" :disabled="currentPage >= totalPages" @click="goToPage(currentPage + 1)">Próxima →</button>
+          <button class="page-btn" :disabled="currentPage >= totalPages" @click="goToPage(currentPage + 1)">Próxima
+            →</button>
         </div>
       </div>
 
@@ -134,12 +122,8 @@
           </h2>
         </div>
         <div class="year-buttons">
-          <button
-            v-for="year in years"
-            :key="year"
-            :class="['year-btn', { active: selectedYear === year }]"
-            @click="filterByYear(year)"
-          >{{ year }}</button>
+          <button v-for="year in years" :key="year" :class="['year-btn', { active: selectedYear === year }]"
+            @click="filterByYear(year)">{{ year }}</button>
         </div>
       </div>
 
@@ -153,7 +137,8 @@
           <p>Fale com a nossa equipe e solicite a informação desejada.</p>
         </div>
         <a href="#" class="btn-cta">
-          Solicitar informação <ArrowRight :size="16" />
+          Solicitar informação
+          <ArrowRight :size="16" />
         </a>
       </div>
     </div>
@@ -341,11 +326,14 @@ onMounted(() => {
   padding: 60px 0 40px;
   text-align: center;
 }
+
 .info-hero h1 {
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
+  color: white;
   margin: 0 0 8px;
 }
+
 .info-hero p {
   font-size: clamp(1rem, 2vw, 1.2rem);
   opacity: 0.85;
@@ -362,6 +350,7 @@ onMounted(() => {
 .search-section {
   margin-bottom: 40px;
 }
+
 .search-bar {
   display: flex;
   align-items: center;
@@ -374,9 +363,11 @@ onMounted(() => {
   margin: 0 auto;
   transition: border-color 0.2s;
 }
+
 .search-bar:focus-within {
   border-color: #083ea8;
 }
+
 .search-bar input {
   flex: 1;
   border: none;
@@ -385,6 +376,7 @@ onMounted(() => {
   color: #334155;
   background: transparent;
 }
+
 .btn-search {
   display: inline-flex;
   align-items: center;
@@ -399,6 +391,7 @@ onMounted(() => {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .btn-search:hover {
   background: #0a2d6a;
 }
@@ -410,6 +403,7 @@ onMounted(() => {
   gap: 16px;
   margin-bottom: 48px;
 }
+
 .category-card {
   display: flex;
   align-items: center;
@@ -421,14 +415,17 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.2s;
 }
+
 .category-card:hover {
   border-color: #083ea8;
   box-shadow: 0 4px 12px rgba(8, 62, 168, 0.1);
 }
+
 .category-card.active {
   border-color: #083ea8;
   background: #f0f5ff;
 }
+
 .category-icon {
   flex-shrink: 0;
   width: 48px;
@@ -440,22 +437,26 @@ onMounted(() => {
   border-radius: 10px;
   color: #083ea8;
 }
+
 .category-info {
   flex: 1;
   min-width: 0;
 }
+
 .category-info h3 {
   font-size: 14px;
   font-weight: 600;
   color: #1e293b;
   margin: 0 0 4px;
 }
+
 .category-info p {
   font-size: 12px;
   color: #64748b;
   margin: 0;
   line-height: 1.4;
 }
+
 .category-arrow {
   flex-shrink: 0;
   color: #cbd5e1;
@@ -467,12 +468,14 @@ onMounted(() => {
 .section-years {
   margin-bottom: 48px;
 }
+
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
+
 .section-header h2 {
   display: flex;
   align-items: center;
@@ -482,12 +485,14 @@ onMounted(() => {
   color: #1e293b;
   margin: 0;
 }
+
 .link-all {
   font-size: 14px;
   color: #083ea8;
   text-decoration: none;
   font-weight: 500;
 }
+
 .link-all:hover {
   text-decoration: underline;
 }
@@ -499,6 +504,7 @@ onMounted(() => {
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
+
 .doc-row {
   display: flex;
   align-items: center;
@@ -506,12 +512,15 @@ onMounted(() => {
   padding: 16px 20px;
   border-bottom: 1px solid #f1f5f9;
 }
+
 .doc-row:last-child {
   border-bottom: none;
 }
+
 .doc-row:hover {
   background: #f8fafc;
 }
+
 .doc-type-badge {
   flex-shrink: 0;
   padding: 4px 10px;
@@ -521,18 +530,22 @@ onMounted(() => {
   min-width: 48px;
   text-align: center;
 }
+
 .badge-pdf {
   background: #fef2f2;
   color: #dc2626;
 }
+
 .badge-xlsx {
   background: #dcfce7;
   color: #166534;
 }
+
 .badge-csv {
   background: #dbeafe;
   color: #1e40af;
 }
+
 .doc-title {
   flex: 1;
   font-size: 14px;
@@ -544,32 +557,38 @@ onMounted(() => {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .doc-title:hover {
   color: #083ea8;
 }
+
 .doc-category {
   flex-shrink: 0;
   font-size: 13px;
   color: #64748b;
   min-width: 140px;
 }
+
 .doc-date {
   flex-shrink: 0;
   font-size: 13px;
   color: #64748b;
   min-width: 90px;
 }
+
 .doc-size {
   flex-shrink: 0;
   font-size: 13px;
   color: #94a3b8;
   min-width: 70px;
 }
+
 .doc-actions {
   display: flex;
   gap: 8px;
   flex-shrink: 0;
 }
+
 .btn-action {
   display: inline-flex;
   align-items: center;
@@ -583,6 +602,7 @@ onMounted(() => {
   text-decoration: none;
   transition: all 0.2s;
 }
+
 .btn-action:hover {
   background: #f0f5ff;
   border-color: #083ea8;
@@ -594,6 +614,7 @@ onMounted(() => {
   flex-wrap: wrap;
   gap: 12px;
 }
+
 .year-btn {
   padding: 10px 24px;
   border: 2px solid #e2e8f0;
@@ -605,10 +626,12 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.2s;
 }
+
 .year-btn:hover {
   border-color: #083ea8;
   color: #083ea8;
 }
+
 .year-btn.active {
   background: #011a4f;
   border-color: #011a4f;
@@ -623,6 +646,7 @@ onMounted(() => {
   gap: 12px;
   margin-top: 24px;
 }
+
 .page-btn {
   padding: 8px 16px;
   border: 1px solid #e2e8f0;
@@ -632,17 +656,21 @@ onMounted(() => {
   font-size: 14px;
   cursor: pointer;
 }
+
 .page-btn:hover:not(:disabled) {
   background: #f8fafc;
 }
+
 .page-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .page-numbers {
   display: flex;
   gap: 4px;
 }
+
 .page-num {
   width: 36px;
   height: 36px;
@@ -656,6 +684,7 @@ onMounted(() => {
   font-size: 14px;
   cursor: pointer;
 }
+
 .page-num.active {
   background: #011a4f;
   border-color: #011a4f;
@@ -668,6 +697,7 @@ onMounted(() => {
   padding: 40px;
   color: #64748b;
 }
+
 .loading {
   text-align: center;
   padding: 40px;
@@ -685,6 +715,7 @@ onMounted(() => {
   border-radius: 12px;
   margin-top: 20px;
 }
+
 .cta-icon {
   flex-shrink: 0;
   width: 56px;
@@ -696,20 +727,24 @@ onMounted(() => {
   border-radius: 50%;
   color: #083ea8;
 }
+
 .cta-text {
   flex: 1;
 }
+
 .cta-text h3 {
   font-size: 16px;
   font-weight: 600;
   color: #1e293b;
   margin: 0 0 4px;
 }
+
 .cta-text p {
   font-size: 14px;
   color: #64748b;
   margin: 0;
 }
+
 .btn-cta {
   display: inline-flex;
   align-items: center;
@@ -726,6 +761,7 @@ onMounted(() => {
   transition: background 0.2s;
   flex-shrink: 0;
 }
+
 .btn-cta:hover {
   background: #c4940e;
 }
@@ -735,6 +771,7 @@ onMounted(() => {
   .categories-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
   .doc-category {
     display: none;
   }
@@ -744,13 +781,16 @@ onMounted(() => {
   .categories-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .doc-row {
     flex-wrap: wrap;
     gap: 8px;
   }
+
   .doc-size {
     display: none;
   }
+
   .cta-section {
     flex-direction: column;
     text-align: center;

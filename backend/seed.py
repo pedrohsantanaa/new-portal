@@ -9,6 +9,7 @@ from app.models.user import User
 from app.models.category import Category
 from app.models.permission import Permission
 from app.models.info_category import InfoCategory
+from app.models.site_setting import SiteSetting
 from app.utils.auth import hash_password
 
 PERMISSIONS = [
@@ -40,6 +41,21 @@ INFO_CATEGORIES = [
     ("Legislação", "legislacao", "Leis, decretos, portarias e normas aplicáveis.", "scale", 8),
 ]
 
+SITE_SETTINGS = [
+    ("home_hero", True, "Banner Principal (Hero)", "home", 1),
+    ("home_creditos", True, "Seção de Créditos", "home", 2),
+    ("home_noticias", True, "Seção de Notícias", "home", 3),
+    ("home_parceiros", True, "Seção de Parceiros", "home", 4),
+    ("page_noticias", True, "Página de Notícias", "pages", 1),
+    ("page_creditos", True, "Página de Linhas de Crédito", "pages", 2),
+    ("page_acesso", True, "Página de Acesso à Informação", "pages", 3),
+    ("page_institucional", True, "Página Institucional", "pages", 4),
+    ("nav_creditos", True, "Link \"Linhas de Crédito\" no Menu", "nav", 1),
+    ("nav_noticias", True, "Link \"Notícias\" no Menu", "nav", 2),
+    ("nav_acesso", True, "Link \"Acesso à Informação\" no Menu", "nav", 3),
+    ("nav_institucional", True, "Link \"Institucional\" no Menu", "nav", 4),
+]
+
 
 def seed():
     Base.metadata.create_all(bind=engine)
@@ -65,6 +81,13 @@ def seed():
             existing = db.query(InfoCategory).filter(InfoCategory.slug == slug).first()
             if not existing:
                 db.add(InfoCategory(name=name, slug=slug, description=description, icon=icon, sort_order=sort_order, created_at=now))
+        db.commit()
+
+        # Criar configurações do site
+        for key, value, label, group, order in SITE_SETTINGS:
+            existing = db.query(SiteSetting).filter(SiteSetting.key == key).first()
+            if not existing:
+                db.add(SiteSetting(key=key, value=value, label=label, group=group, order=order))
         db.commit()
 
         # Criar admin com todas as permissões
