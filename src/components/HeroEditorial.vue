@@ -23,56 +23,15 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import api from '@/services/api'
 
-const carouselCards = [
-    {
-
-        image: '/carroussel/b1.png',
-        link: '#',
-        btnLabel: 'Conheça Nossos Programas',
-        btnClass: 'btn-orange'
-    },
-    {
-    
-        image: '/carroussel/b2.png',
-        link: '#',
-        btnLabel: 'Ver Dashboard',
-        btnClass: 'btn-orange'
-    },
-    {
-    
-        image: '/carroussel/b3.png',
-        link: '#',
-        btnLabel: 'Localização',
-        btnClass: 'btn-orange'
-    },
-    {
-        image: '/carroussel/b8.png',
-        link: '#',
-        btnLabel: 'Renegociação de Dívidas',
-        btnClass: 'btn-orange'
-    },
-    {
-
-        image: '/carroussel/b5.png',
-        link: '#',
-        btnLabel: 'Compras Diretas',
-        btnClass: 'btn-orange'
-    },
-    {
-
-        image: '/carroussel/b6.png',
-        link: '#',
-        btnLabel: 'Saiba Mais',
-        btnClass: 'btn-orange'
-    }
-]
+const carouselCards = ref([])
 
 const currentSlide = ref(0)
 const itemsPerPage = ref(3)
 
 const totalPages = computed(() => {
-    const pages = Math.ceil(carouselCards.length / itemsPerPage.value)
+    const pages = Math.ceil(carouselCards.value.length / itemsPerPage.value)
     return pages > 0 ? pages : 1
 })
 
@@ -92,7 +51,6 @@ const updateItemsPerPage = () => {
     } else {
         itemsPerPage.value = 3
     }
-    // Reset position on resize to avoid alignment issues
     currentSlide.value = 0
 }
 
@@ -109,7 +67,24 @@ const startAutoplay = () => {
     }, 6000)
 }
 
+async function loadSlides() {
+    try {
+        const { data } = await api.get('/api/carousel-slides/public')
+        carouselCards.value = data.map(s => ({
+            image: s.image_url,
+            title: s.title,
+            description: s.description,
+            link: s.link || '#',
+            btnLabel: s.btn_label,
+            btnClass: s.btn_class,
+        }))
+    } catch {
+        carouselCards.value = []
+    }
+}
+
 onMounted(() => {
+    loadSlides()
     updateItemsPerPage()
     window.addEventListener('resize', updateItemsPerPage)
     startAutoplay()

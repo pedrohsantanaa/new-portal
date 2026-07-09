@@ -10,6 +10,7 @@ from app.models.category import Category
 from app.models.permission import Permission
 from app.models.info_category import InfoCategory
 from app.models.site_setting import SiteSetting
+from app.models.carousel_slide import CarouselSlide
 from app.utils.auth import hash_password
 
 PERMISSIONS = [
@@ -56,6 +57,15 @@ SITE_SETTINGS = [
     ("nav_institucional", True, "Link \"Institucional\" no Menu", "nav", 4),
 ]
 
+CAROUSEL_SLIDES = [
+    ("/carroussel/b1.png", None, None, "#", "Conheça Nossos Programas", "btn-orange", 1, True),
+    ("/carroussel/b2.png", None, None, "#", "Ver Dashboard", "btn-orange", 2, True),
+    ("/carroussel/b3.png", None, None, "#", "Localização", "btn-orange", 3, True),
+    ("/carroussel/b8.png", None, None, "#", "Renegociação de Dívidas", "btn-orange", 4, True),
+    ("/carroussel/b5.png", None, None, "#", "Compras Diretas", "btn-orange", 5, True),
+    ("/carroussel/b6.png", None, None, "#", "Saiba Mais", "btn-orange", 6, True),
+]
+
 
 def seed():
     Base.metadata.create_all(bind=engine)
@@ -88,6 +98,17 @@ def seed():
             existing = db.query(SiteSetting).filter(SiteSetting.key == key).first()
             if not existing:
                 db.add(SiteSetting(key=key, value=value, label=label, group=group, order=order))
+        db.commit()
+
+        # Criar slides do carrossel
+        for image_url, title, description, link, btn_label, btn_class, order, active in CAROUSEL_SLIDES:
+            existing = db.query(CarouselSlide).filter(CarouselSlide.image_url == image_url).first()
+            if not existing:
+                db.add(CarouselSlide(
+                    image_url=image_url, title=title, description=description,
+                    link=link, btn_label=btn_label, btn_class=btn_class,
+                    order=order, active=active,
+                ))
         db.commit()
 
         # Criar admin com todas as permissões

@@ -16,6 +16,8 @@ import InfoCategoryForm from '@/views/InfoCategoryForm.vue'
 import InfoDocumentList from '@/views/InfoDocumentList.vue'
 import InfoDocumentForm from '@/views/InfoDocumentForm.vue'
 import SiteSettings from '@/views/SiteSettings.vue'
+import CarouselList from '@/views/CarouselList.vue'
+import CarouselForm from '@/views/CarouselForm.vue'
 
 const routes = [
   { path: '/login', name: 'Login', component: Login, meta: { guest: true } },
@@ -44,6 +46,9 @@ const routes = [
       { path: 'info-documents/new', name: 'InfoDocumentNew', component: InfoDocumentForm, meta: { permission: 'info_access' } },
       { path: 'info-documents/:id/edit', name: 'InfoDocumentEdit', component: InfoDocumentForm, meta: { permission: 'info_access' } },
       { path: 'settings', name: 'SiteSettings', component: SiteSettings, meta: { permission: 'settings' } },
+      { path: 'carousel', name: 'CarouselList', component: CarouselList, meta: { permission: 'settings' } },
+      { path: 'carousel/new', name: 'CarouselNew', component: CarouselForm, meta: { permission: 'settings' } },
+      { path: 'carousel/:id/edit', name: 'CarouselEdit', component: CarouselForm, meta: { permission: 'settings' } },
     ],
   },
 ]

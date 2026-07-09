@@ -69,6 +69,7 @@
           </button>
           <div class="nav-submenu" v-show="settingsExpanded">
             <router-link to="/settings" class="nav-subitem" @click="sidebarOpen = false">Configurações do Site</router-link>
+            <router-link to="/carousel" class="nav-subitem" @click="sidebarOpen = false">Carousel Hero</router-link>
           </div>
         </div>
 
@@ -187,6 +188,10 @@ const breadcrumbs = computed(() => {
     else if (path.includes('/edit')) crumbs.push({ label: 'Editar documento' })
   } else if (path.startsWith('/settings')) {
     crumbs.push({ label: 'Configurações' })
+  } else if (path.startsWith('/carousel')) {
+    crumbs.push({ label: 'Carousel', to: '/carousel' })
+    if (path.includes('/new')) crumbs.push({ label: 'Novo slide' })
+    else if (path.includes('/edit')) crumbs.push({ label: 'Editar slide' })
   } else if (path.startsWith('/reports')) {
     crumbs.push({ label: 'Relatórios' })
   }
