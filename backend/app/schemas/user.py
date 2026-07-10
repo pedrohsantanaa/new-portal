@@ -55,6 +55,7 @@ class UserUpdate(BaseModel):
 class UserResponse(UserBase):
     id: int
     is_active: bool
+    two_factor_enabled: bool = False
     created_at: datetime
     permissions: list[PermissionResponse] = []
 

@@ -26,8 +26,9 @@
             <th>Nome</th>
             <th>E-mail</th>
             <th>Status</th>
-            <th>Permissões</th>
-            <th>Ações</th>
+            <th>2FA</th>
+            <th>Permissoes</th>
+            <th>Acoes</th>
           </tr>
         </thead>
         <tbody>
@@ -37,6 +38,12 @@
             <td>
               <span class="badge" :class="user.is_active ? 'badge-success' : 'badge-muted'">
                 {{ user.is_active ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+            <td>
+              <span class="badge" :class="user.two_factor_enabled ? 'badge-2fa' : 'badge-muted'">
+                <ShieldCheck v-if="user.two_factor_enabled" :size="12" />
+                {{ user.two_factor_enabled ? '2FA' : 'Sem' }}
               </span>
             </td>
             <td>
@@ -57,7 +64,7 @@
             </td>
           </tr>
           <tr v-if="users.length === 0">
-            <td colspan="5" class="empty-row">Nenhum usuário encontrado</td>
+            <td colspan="6" class="empty-row">Nenhum usuário encontrado</td>
           </tr>
         </tbody>
       </table>
@@ -81,7 +88,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { Plus, Search, Pencil, Trash2 } from 'lucide-vue-next'
+import { Plus, Search, Pencil, Trash2, ShieldCheck } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 import { canAccess } from '@/utils/permissions'
 import api from '@/services/api'
@@ -241,6 +248,13 @@ onMounted(loadUsers)
 .badge-success {
   background: #dcfce7;
   color: #166534;
+}
+.badge-2fa {
+  background: #eff6ff;
+  color: #1d4ed8;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 .badge-muted {
   background: #f1f5f9;
