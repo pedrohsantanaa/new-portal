@@ -91,7 +91,6 @@ async function loadSettings() {
     settings.value = data.map(s => ({ ...s }))
   } catch (err) {
     error.value = 'Erro ao carregar configurações'
-    console.error(err)
   } finally {
     loading.value = false
   }
@@ -111,7 +110,6 @@ async function handleSave() {
     setTimeout(() => { successMessage.value = '' }, 3000)
   } catch (err) {
     error.value = err.response?.data?.detail || 'Erro ao salvar configurações'
-    console.error(err)
   } finally {
     saving.value = false
   }

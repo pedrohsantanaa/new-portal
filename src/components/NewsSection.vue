@@ -73,7 +73,6 @@ async function fetchNews() {
     })
     newsList.value = data.items
   } catch (e) {
-    console.error('Erro ao carregar notícias:', e)
   } finally {
     loading.value = false
   }

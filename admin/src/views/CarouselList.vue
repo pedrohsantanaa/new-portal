@@ -89,7 +89,6 @@ async function loadSlides() {
     const { data } = await api.get('/api/carousel-slides/')
     slides.value = data.items
   } catch (err) {
-    console.error('Erro ao carregar slides:', err)
   } finally {
     loading.value = false
   }
@@ -109,7 +108,6 @@ async function handleDelete() {
     deleteTarget.value = null
     await loadSlides()
   } catch (err) {
-    console.error('Erro ao excluir slide:', err)
   } finally {
     deleting.value = false
   }

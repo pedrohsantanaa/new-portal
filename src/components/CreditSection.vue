@@ -80,7 +80,6 @@ async function loadCreditLines() {
     const { data } = await api.get('/api/credit-lines/?active_only=true&limit=50')
     creditLines.value = data.items
   } catch (e) {
-    console.error('Erro ao carregar linhas de crédito', e)
   }
 }
 

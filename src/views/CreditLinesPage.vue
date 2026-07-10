@@ -59,7 +59,6 @@ async function fetchCreditLines() {
     creditLines.value = data.items
   } catch (e) {
     error.value = 'Erro ao carregar linhas de crédito. Tente novamente.'
-    console.error(e)
   } finally {
     loading.value = false
   }

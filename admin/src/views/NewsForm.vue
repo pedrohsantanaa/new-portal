@@ -313,7 +313,6 @@ async function uploadImage(file) {
     form.value.image_url = data.url
     selectedFile.value = null
   } catch (error) {
-    console.error('Erro ao fazer upload da imagem:', error)
     uploadError.value = error.response?.data?.detail || 'Erro ao fazer upload da imagem.'
   } finally {
     uploadingImage.value = false
@@ -417,7 +416,6 @@ onMounted(async () => {
     const { data } = await api.get('/api/categories/')
     categories.value = data
   } catch (err) {
-    console.error('Erro ao carregar categorias:', err)
   }
 
   if (isEdit.value) {

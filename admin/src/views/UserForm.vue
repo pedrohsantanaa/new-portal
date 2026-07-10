@@ -97,7 +97,6 @@ onMounted(async () => {
     const { data: perms } = await api.get('/api/users/permissions')
     availablePermissions.value = perms
   } catch (err) {
-    console.error('Erro ao carregar permissões:', err)
   }
 
   if (isEdit.value) {
@@ -113,7 +112,6 @@ onMounted(async () => {
       }
     } catch (err) {
       error.value = 'Erro ao carregar usuário'
-      console.error(err)
     } finally {
       loading.value = false
     }
@@ -153,7 +151,6 @@ async function handleSave() {
     router.push('/users')
   } catch (err) {
     error.value = err.response?.data?.detail || 'Erro ao salvar usuário'
-    console.error(err)
   } finally {
     saving.value = false
   }

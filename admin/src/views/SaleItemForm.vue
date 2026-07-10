@@ -317,7 +317,6 @@ onMounted(async () => {
       }
     } catch (err) {
       error.value = 'Erro ao carregar item'
-      console.error(err)
     } finally {
       loading.value = false
     }
@@ -368,7 +367,6 @@ async function handleSave() {
     router.push('/sale-items')
   } catch (err) {
     error.value = err.response?.data?.detail || 'Erro ao salvar item'
-    console.error(err)
   } finally {
     saving.value = false
   }

@@ -1,0 +1,29 @@
+Remove console.error lines from Vue files.
+
+Frontend:
+1. CreditLinesPage.vue - line 62
+2. NewsPage.vue - line 119
+3. InfoAccessPage.vue - lines 222, 233, 242, 258
+4. CreditSection.vue - line 83
+5. NewsSection.vue - line 76
+
+Admin:
+6. CategoryList.vue - lines 105, 125
+7. NewsForm.vue - lines 316, 420
+8. Dashboard.vue - line 59
+9. NewsList.vue - lines 142, 174
+10. CreditLinesList.vue - line 58
+11. CarouselForm.vue - lines 184, 220
+12. InfoDocumentList.vue - lines 141, 156, 179
+13. InfoCategoryList.vue - lines 101, 121
+14. CarouselList.vue - lines 92, 112
+15. CategoryForm.vue - lines 98, 130
+16. InfoDocumentForm.vue - lines 200, 220, 265
+17. InfoCategoryForm.vue - lines 110, 142
+18. SaleItemForm.vue - lines 320, 371
+19. SaleItemList.vue - lines 135, 160
+20. SiteSettings.vue - lines 94, 114
+21. UserForm.vue - lines 100, 116, 156
+22. UserList.vue - lines 114, 134
+
+Total lines to remove: 40 (approx)

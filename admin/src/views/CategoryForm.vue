@@ -95,7 +95,6 @@ onMounted(async () => {
       }
     } catch (err) {
       error.value = 'Erro ao carregar categoria'
-      console.error(err)
     } finally {
       loading.value = false
     }
@@ -127,7 +126,6 @@ async function handleSave() {
     router.push('/categories')
   } catch (err) {
     error.value = err.response?.data?.detail || 'Erro ao salvar categoria'
-    console.error(err)
   } finally {
     saving.value = false
   }

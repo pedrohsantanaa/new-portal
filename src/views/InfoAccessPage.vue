@@ -219,7 +219,6 @@ async function loadCategories() {
     const { data } = await api.get('/api/info-categories/')
     categories.value = data.items
   } catch (err) {
-    console.error('Erro ao carregar categorias:', err)
   }
 }
 
@@ -230,7 +229,6 @@ async function loadHighlights() {
     })
     highlightDocs.value = data.items
   } catch (err) {
-    console.error('Erro ao carregar destaques:', err)
   }
 }
 
@@ -239,7 +237,6 @@ async function loadYears() {
     const { data } = await api.get('/api/info-documents/years')
     years.value = data.years
   } catch (err) {
-    console.error('Erro ao carregar anos:', err)
   }
 }
 
@@ -255,7 +252,6 @@ async function loadDocuments() {
     documents.value = data.items
     totalPages.value = data.pages
   } catch (err) {
-    console.error('Erro ao carregar documentos:', err)
   } finally {
     loadingDocs.value = false
   }

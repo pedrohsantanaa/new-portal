@@ -1,54 +1,50 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '@/views/Home.vue'
-import NewsPage from '@/views/NewsPage.vue'
-import NewsDetailPage from '@/views/NewsDetailPage.vue'
-import InfoAccessPage from '@/views/InfoAccessPage.vue'
-import CreditLinesPage from '@/views/CreditLinesPage.vue'
-import CreditLineDetailPage from '@/views/CreditLineDetailPage.vue'
-import InstitutionalPage from '@/views/InstitutionalPage.vue'
-import VendasDiretasPage from '@/views/VendasDiretasPage.vue'
-
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: () => import('@/views/Home.vue'),
   },
   {
     path: '/noticias',
     name: 'NewsPage',
-    component: NewsPage,
+    component: () => import('@/views/NewsPage.vue'),
   },
   {
     path: '/noticias/:slug',
     name: 'NewsDetail',
-    component: NewsDetailPage,
+    component: () => import('@/views/NewsDetailPage.vue'),
   },
   {
     path: '/acesso-a-informacao',
     name: 'InfoAccess',
-    component: InfoAccessPage,
+    component: () => import('@/views/InfoAccessPage.vue'),
   },
   {
     path: '/linhas-de-credito',
     name: 'CreditLines',
-    component: CreditLinesPage,
+    component: () => import('@/views/CreditLinesPage.vue'),
   },
   {
     path: '/linhas-de-credito/:slug',
     name: 'CreditLineDetail',
-    component: CreditLineDetailPage,
+    component: () => import('@/views/CreditLineDetailPage.vue'),
   },
   {
     path: '/institucional',
     name: 'Institutional',
-    component: InstitutionalPage,
+    component: () => import('@/views/InstitutionalPage.vue'),
   },
   {
     path: '/vendas-diretas',
     name: 'VendasDiretas',
-    component: VendasDiretasPage,
+    component: () => import('@/views/VendasDiretasPage.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/Home.vue'),
   },
 ]
 

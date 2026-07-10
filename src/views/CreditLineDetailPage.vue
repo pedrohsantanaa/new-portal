@@ -24,7 +24,7 @@
 
       <div class="container detail-content">
         <div v-if="creditLine.details" class="detail-section">
-          <div class="content-text" v-html="creditLine.details"></div>
+          <div class="content-text" v-html="sanitizedDetails"></div>
         </div>
 
         <div v-if="creditLine.documents && creditLine.documents.length" class="detail-section documents-section">
@@ -52,7 +52,7 @@
 
         <div v-if="creditLine.external_html" class="detail-section external-section">
           <h2>Solicitar Crédito</h2>
-          <div class="external-container" v-html="creditLine.external_html"></div>
+          <div class="external-container" v-html="sanitizedExternalHtml"></div>
         </div>
 
         <div class="detail-footer">
@@ -66,15 +66,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/services/api'
+import { sanitize } from '@/utils/sanitize'
 
 const route = useRoute()
 
 const creditLine = ref(null)
 const loading = ref(true)
 const error = ref('')
+
+const sanitizedDetails = computed(() => sanitize(creditLine.value?.details))
+const sanitizedExternalHtml = computed(() => sanitize(creditLine.value?.external_html))
 
 async function fetchCreditLine(slug) {
   loading.value = true

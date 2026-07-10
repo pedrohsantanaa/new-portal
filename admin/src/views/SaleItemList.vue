@@ -132,7 +132,6 @@ async function loadItems() {
     items.value = data.items
     totalPages.value = data.pages
   } catch (err) {
-    console.error('Erro ao carregar itens:', err)
   } finally {
     loading.value = false
   }
@@ -157,7 +156,6 @@ async function handleDelete() {
     deleteTarget.value = null
     await loadItems()
   } catch (err) {
-    console.error('Erro ao excluir item:', err)
   } finally {
     deleting.value = false
   }

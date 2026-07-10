@@ -138,7 +138,6 @@ async function loadDocuments() {
     documents.value = data.items
     totalPages.value = data.pages
   } catch (err) {
-    console.error('Erro ao carregar documentos:', err)
   } finally {
     loading.value = false
   }
@@ -153,7 +152,6 @@ async function loadFilters() {
     allCategories.value = catsRes.data.items
     years.value = yearsRes.data.years
   } catch (err) {
-    console.error('Erro ao carregar filtros:', err)
   }
 }
 
@@ -176,7 +174,6 @@ async function handleDelete() {
     deleteTarget.value = null
     await loadDocuments()
   } catch (err) {
-    console.error('Erro ao excluir documento:', err)
   } finally {
     deleting.value = false
   }

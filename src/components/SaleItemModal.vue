@@ -65,7 +65,7 @@
               <p>{{ item.description }}</p>
             </div>
 
-            <div v-if="item.details" class="modal-rich-content" v-html="item.details"></div>
+            <div v-if="item.details" class="modal-rich-content" v-html="sanitizedDetails"></div>
 
             <div class="modal-price">
               <span class="price-label">Valor à vista</span>
@@ -88,6 +88,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { Home, Car, MapPin, Phone } from 'lucide-vue-next'
+import { sanitize } from '@/utils/sanitize'
 
 const props = defineProps({
   isOpen: Boolean,
@@ -97,6 +98,7 @@ const props = defineProps({
 defineEmits(['close'])
 
 const selectedImage = ref('')
+const sanitizedDetails = computed(() => sanitize(props.item?.details))
 
 const parsedGallery = computed(() => {
   if (!props.item?.gallery) return []

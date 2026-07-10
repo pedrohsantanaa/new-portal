@@ -139,7 +139,6 @@ async function loadNews(page = 1) {
     totalPages.value = data.pages
     totalItems.value = data.total
   } catch (e) {
-    console.error('Erro ao carregar notícias:', e)
   } finally {
     loading.value = false
   }
@@ -171,7 +170,6 @@ onMounted(async () => {
     const { data } = await api.get('/api/categories/')
     categories.value = data
   } catch (err) {
-    console.error('Erro ao carregar categorias:', err)
   }
   loadNews(1)
 })

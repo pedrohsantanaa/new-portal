@@ -116,7 +116,6 @@ async function fetchNews() {
     totalPages.value = data.pages
   } catch (e) {
     error.value = 'Erro ao carregar notícias. Tente novamente.'
-    console.error(e)
   } finally {
     loading.value = false
   }

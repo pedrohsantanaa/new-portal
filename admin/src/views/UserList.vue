@@ -111,7 +111,6 @@ async function loadUsers() {
     const { data } = await api.get('/api/users/', { params })
     users.value = data
   } catch (err) {
-    console.error('Erro ao carregar usuários:', err)
   } finally {
     loading.value = false
   }
@@ -131,7 +130,6 @@ async function handleDelete() {
     deleteTarget.value = null
     await loadUsers()
   } catch (err) {
-    console.error('Erro ao excluir usuário:', err)
   } finally {
     deleting.value = false
   }

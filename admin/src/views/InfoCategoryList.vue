@@ -98,7 +98,6 @@ async function loadCategories() {
     const { data } = await api.get('/api/info-categories/all', { params })
     categories.value = data.items
   } catch (err) {
-    console.error('Erro ao carregar categorias:', err)
   } finally {
     loading.value = false
   }
@@ -118,7 +117,6 @@ async function handleDelete() {
     deleteTarget.value = null
     await loadCategories()
   } catch (err) {
-    console.error('Erro ao excluir categoria:', err)
   } finally {
     deleting.value = false
   }

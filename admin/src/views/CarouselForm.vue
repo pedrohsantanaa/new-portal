@@ -181,7 +181,6 @@ onMounted(async () => {
       }
     } catch (err) {
       error.value = 'Erro ao carregar slide'
-      console.error(err)
     } finally {
       loading.value = false
     }
@@ -217,7 +216,6 @@ async function handleSave() {
     router.push('/carousel')
   } catch (err) {
     error.value = err.response?.data?.detail || 'Erro ao salvar slide'
-    console.error(err)
   } finally {
     saving.value = false
   }

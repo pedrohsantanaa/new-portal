@@ -197,7 +197,6 @@ onMounted(async () => {
     const { data } = await api.get('/api/info-categories/all')
     categories.value = data.items
   } catch (err) {
-    console.error('Erro ao carregar categorias:', err)
   }
 
   if (isEdit.value) {
@@ -217,7 +216,6 @@ onMounted(async () => {
       }
     } catch (err) {
       error.value = 'Erro ao carregar documento'
-      console.error(err)
     } finally {
       loading.value = false
     }
@@ -262,7 +260,6 @@ async function handleSave() {
     router.push('/info-documents')
   } catch (err) {
     error.value = err.response?.data?.detail || 'Erro ao salvar documento'
-    console.error(err)
   } finally {
     saving.value = false
   }

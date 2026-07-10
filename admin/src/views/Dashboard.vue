@@ -56,7 +56,6 @@ onMounted(async () => {
     stats.value.drafts = allRes.data.total - pubRes.data.total
     stats.value.creditLines = creditRes.data.total
   } catch (e) {
-    console.error('Erro ao carregar stats', e)
   }
 })
 </script>

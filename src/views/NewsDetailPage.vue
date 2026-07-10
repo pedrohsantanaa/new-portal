@@ -77,6 +77,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
+import { sanitize } from '@/utils/sanitize'
 
 const route = useRoute()
 const router = useRouter()
@@ -91,7 +92,7 @@ const cacheBust = '?v=' + Date.now()
 
 const formattedContent = computed(() => {
   if (!news.value?.content) return ''
-  return news.value.content
+  return sanitize(news.value.content)
 })
 
 async function fetchNews(slug) {
