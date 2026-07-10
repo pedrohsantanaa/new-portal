@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: portal_db
+      POSTGRES_USER: portal
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-portal_secret_2025}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portal -d portal_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - portal
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+psycopg2://portal:${DB_PASSWORD:-portal_secret_2025}@db:5432/portal_db
+    volumes:
+      - uploads:/app/uploads
+    networks:
+      - portal
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html/frontend:ro
+      - ./admin/dist:/usr/share/nginx/html/admin:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - portal
+
+volumes:
+  pgdata:
+  uploads:
+
+networks:
+  portal:
+    driver: bridge

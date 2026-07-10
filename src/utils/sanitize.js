@@ -12,12 +12,14 @@ export function sanitize(html) {
       'a', 'img', 'figure', 'figcaption',
       'div', 'span', 'section', 'article', 'aside', 'header', 'footer',
       'sup', 'sub', 'abbr', 'cite', 'q',
+      'iframe',
     ],
     ALLOWED_ATTR: [
       'href', 'src', 'alt', 'title', 'width', 'height',
       'class', 'id', 'style', 'target', 'rel',
       'colspan', 'rowspan', 'scope', 'align', 'valign',
       'cellpadding', 'cellspacing', 'border',
+      'frameborder', 'allow', 'allowfullscreen', 'sandbox', 'loading',
     ],
     ALLOW_DATA_ATTR: false,
   })
