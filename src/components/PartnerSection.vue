@@ -245,4 +245,9 @@ const duplicatedPartners =
     width: 50px;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .partners-section {
+  background: var(--color-bg) !important;
+}
 </style>

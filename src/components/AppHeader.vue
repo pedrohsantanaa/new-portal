@@ -27,7 +27,7 @@
                                     <button @click="settings.increaseFontSize" aria-label="Aumentar fonte">A+</button>
                                 </div>
                             </div>
-                            <div class="panel-section">
+                            <!-- <div class="panel-section">
                                 <span id="theme-label">Tema</span>
                                 <div class="btn-group theme-btns" role="group" aria-labelledby="theme-label">
                                     <button :class="{ active: settings.theme === 'default' }"
@@ -37,7 +37,7 @@
                                         @click="settings.setTheme('alternative')" title="Tema Verde"
                                         :aria-pressed="settings.theme === 'alternative'">Verde</button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -346,7 +346,7 @@ onUnmounted(() => {
 
 /* Quando em alto contraste, tirar a transparência */
 :global(html.high-contrast) .navbar {
-    background: var(--color-bg);
+    background: var(--color-bg) !important;
 }
 
 .nav-content {

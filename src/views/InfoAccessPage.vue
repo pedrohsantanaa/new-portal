@@ -798,4 +798,33 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .info-hero {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .docs-table {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .btn-search {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .year-btn.active {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .page-num.active {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .btn-cta {
+  background: var(--color-secondary) !important;
+}
+:global(html.high-contrast) .badge-pdf {
+  background: rgba(255, 0, 0, 0.1) !important;
+}
+:global(html.high-contrast) .badge-xlsx {
+  background: rgba(0, 255, 0, 0.1) !important;
+}
+:global(html.high-contrast) .badge-csv {
+  background: rgba(0, 0, 255, 0.1) !important;
+}
 </style>

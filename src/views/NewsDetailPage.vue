@@ -424,4 +424,27 @@ watch(() => route.params.slug, (newSlug) => {
     grid-template-columns: 1fr;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .related-card {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .tag {
+  background: var(--color-accent) !important;
+}
+:global(html.high-contrast) .related-tag {
+  background: var(--color-bg-alt) !important;
+}
+:global(html.high-contrast) .btn-back:hover {
+  background: var(--color-accent) !important;
+}
+:global(html.high-contrast) .content-text :deep(blockquote) {
+  background: var(--color-bg-alt) !important;
+}
+:global(html.high-contrast) .content-text :deep(code) {
+  background: var(--color-bg-alt) !important;
+}
+:global(html.high-contrast) .content-text :deep(pre) {
+  background: #000000 !important;
+}
 </style>

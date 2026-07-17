@@ -132,5 +132,10 @@ const features = [
         font-size: 1.05rem;
     }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .feature-card {
+  background: var(--color-bg) !important;
+}
 </style>
 

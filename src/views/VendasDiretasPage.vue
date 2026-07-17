@@ -524,4 +524,30 @@ onMounted(() => {
   .trust-grid { grid-template-columns: 1fr; }
   .sale-card { flex: 0 0 260px; }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .vendas-hero {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .filters-section {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .trust-section {
+  background: var(--color-bg-alt) !important;
+}
+:global(html.high-contrast) .card-image {
+  background: var(--color-bg-alt) !important;
+}
+:global(html.high-contrast) .filter-tabs button.active {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .badge-urbano {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .badge-rural {
+  background: var(--color-green) !important;
+}
+:global(html.high-contrast) .btn-details:hover {
+  background: var(--color-primary) !important;
+}
 </style>

@@ -322,4 +322,9 @@ import { Instagram, Facebook } from 'lucide-vue-next'
     gap: 10px;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .footer {
+  background: var(--color-bg) !important;
+}
 </style>

@@ -19,7 +19,7 @@
               </ul>
             </div>
             
-            <div class="sitemap-column">
+            <!-- <div class="sitemap-column">
               <h3>Linhas de Crédito</h3>
               <ul>
                 <li><a href="#creditos" @click.prevent="navigate('creditos')">Microcrédito</a></li>
@@ -38,7 +38,7 @@
                 <li><a href="#" class="disabled-link" aria-disabled="true">Ouvidoria</a></li>
                 <li><a href="#" class="disabled-link" aria-disabled="true">Contato</a></li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>

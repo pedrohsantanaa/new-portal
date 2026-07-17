@@ -248,4 +248,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .finance-section {
+  background: var(--color-bg-alt) !important;
+}
+:global(html.high-contrast) .simulator-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+:global(html.high-contrast) .tip-card {
+  background: var(--color-bg) !important;
+}
 </style>

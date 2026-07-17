@@ -278,4 +278,9 @@ onMounted(fetchNews)
     font-size: 14px;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .news-section {
+  background: var(--color-bg) !important;
+}
 </style>

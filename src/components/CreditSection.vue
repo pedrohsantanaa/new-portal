@@ -327,4 +327,9 @@ onMounted(loadCreditLines)
     height: 42px;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .credit-section {
+  background: var(--color-bg) !important;
+}
 </style>

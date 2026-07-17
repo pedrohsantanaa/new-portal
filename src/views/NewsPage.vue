@@ -417,4 +417,18 @@ onMounted(() => {
     order: -1;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .news-hero {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .news-card {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .tag {
+  background: var(--color-accent) !important;
+}
+:global(html.high-contrast) .page-num.active {
+  background: var(--color-primary) !important;
+}
 </style>

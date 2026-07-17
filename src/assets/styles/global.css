@@ -40,13 +40,13 @@ html.high-contrast {
   --color-secondary: #ffff00;
   --color-accent: #ffff00;
   --color-bg: #000000;
-  --color-bg-alt: #1a1a1a;
+  --color-bg-alt: #000000;
   --color-text: #ffffff;
   --color-text-muted: #cccccc;
   --color-white: #ffffff;
   --color-green: #00ff00;
   --color-border: #ffff00;
-  --color-bg-card: #1a1a1a;
+  --color-bg-card: #000000;
 
   --shadow-sm: 0 4px 16px rgba(255, 255, 255, 0.05);
   --shadow-md: 0 8px 30px rgba(255, 255, 255, 0.08);

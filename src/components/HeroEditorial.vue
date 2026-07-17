@@ -229,6 +229,11 @@ onUnmounted(() => {
         font-size: 2rem;
     }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .slide-overlay {
+  background: #000000 !important;
+}
 </style>
 
 

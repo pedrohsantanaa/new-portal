@@ -998,4 +998,33 @@ const openBio = (director) => {
     grid-template-columns: 1fr;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .inst-hero {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .org-banner {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .number-card {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .info-card {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .mission-card {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .director-card {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .board-list {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .btn-about {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .btn-about:hover {
+  background: var(--color-accent) !important;
+}
 </style>

@@ -199,4 +199,15 @@ onMounted(fetchCreditLines)
     grid-template-columns: 1fr;
   }
 }
+
+/* ALTO CONTRASTE */
+:global(html.high-contrast) .credit-hero {
+  background: var(--color-primary) !important;
+}
+:global(html.high-contrast) .credit-card {
+  background: var(--color-bg) !important;
+}
+:global(html.high-contrast) .saiba-mais {
+  background: var(--color-secondary) !important;
+}
 </style>
